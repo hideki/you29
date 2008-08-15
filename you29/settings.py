@@ -9,10 +9,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'      # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'you29'        # Or path to database file if using sqlite3.
-DATABASE_USER = 'you29'        # Not used with sqlite3.
-DATABASE_PASSWORD = '290303'   # Not used with sqlite3.
+DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'you29'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'you29'             # Not used with sqlite3.
+DATABASE_PASSWORD = '290303'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -49,7 +49,7 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '3dupa-_r%_b7oqaw6!r-0kl4ltx!toko@&(y%+7y9z8nc6$znb'
+SECRET_KEY = 'h_@0ss!=ec@vj+ku=6#79*-8cs68my2(v3+xr%*(7(c79kuqe#'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -78,4 +78,6 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.admin',
+    'you29.bookmarks',
 )
