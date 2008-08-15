@@ -21,4 +21,4 @@ clean:
 	rm -rf */*/*.pyc
 	rm -f  MANIFEST
 	rm -rf dist
-	rm -rf build
+	sudo rm -rf build

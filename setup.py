@@ -6,6 +6,6 @@ setup(name='you29',
       author='Hideki Itakura',
       author_email='h.itakura@yahoo.com',
       url='http://www.you29.com/',
-      packages=['you29', 'you29.bookmarks'],
+      packages=['you29', 'you29.home', 'you29.bookmarks'],
      )
 
