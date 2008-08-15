@@ -12,7 +12,6 @@ Applications
 # Getting Started with Git
 # http://you29.unfuddle.com/repositories/19961/browse/head
 #
-
 Local Repository Creation
     $ mkdir /path/to/repository
     $ cd /path/to/repository
@@ -25,5 +24,8 @@ Add files to remove remote repository
 
 Push any locally made commits to remote repository
     $ git push unfuddle master
+
+Pull from remote repository
+    $ git pull unfuddle master
 
 

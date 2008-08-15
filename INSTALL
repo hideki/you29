@@ -1,0 +1,14 @@
+
+
+With mod_python
+FILE: /etc/apache2/sites-available/default
+ADD:
+...
+    <Location "/">
+        SetHandler python-program
+        PythonHandler django.core.handlers.modpython
+        SetEnv DJANGO_SETTINGS_MODULE you29.settings
+        PythonDebug On
+    </Location>
+...
+

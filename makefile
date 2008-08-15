@@ -19,3 +19,6 @@ clean:
 	rm -rf *.pyc
 	rm -rf */*.pyc
 	rm -rf */*/*.pyc
+	rm -f  MANIFEST
+	rm -rf dist
+	rm -rf build
