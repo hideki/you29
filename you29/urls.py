@@ -1,18 +1,29 @@
+import os.path
 from django.conf.urls.defaults import *
 from django.contrib import admin
-from home.views import main_page
+
+#For Media files
+site_media = os.path.join(
+    os.path.dirname(__file__), 'site_media'
+)
 
 # For Admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^you29/', include('you29.foo.urls')),
+    # site_media
+    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': site_media}),
 
-    # Uncomment the next line to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line for to enable the admin:
+    # admin page
     (r'^admin/(.*)', admin.site.root),
-    (r'^$', main_page),
+
+    # main
+    (r'^', include('you29.main.urls')),
+
+    # users
+    (r'^users/', include('you29.users.urls')),
+
+    # bookmarks
+    (r'^bookmarks/', include('you29.bookmarks.urls')),
 )

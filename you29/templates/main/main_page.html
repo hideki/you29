@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>you29</title>
+    <link rel="stylesheet" href="/site_media/yui/reset-fonts/reset-fonts.css" type="text/css">
+    <link rel="stylesheet" href="/site_media/styles.css" type="text/css">
+    <style>
+        a{ color: #1462C1; text-decoration: none;}
+        a:hover { text-decoration: underline; }
+        #container {position:relative&nbsp;width:100%;min-width:760px;padding:0;}
+        #content{margin:10px 15px; font-size:116%;}
+        #header{color: #696969;width:100%;overflow:hidden;border-bottom: 1px solid #c9d7f1; padding: 4px 0px;}
+        #footer{color: #696969; position:absolute;bottom:0;width:100%;overflow:hidden; border-top: 1px solid #c9d7f1;padding: 5px 0px;}
+        #content{margin-top:100px; margin-bottom: 100px;}
+
+        #app-menu{padding: 0px 5px;}
+        #user-menu{position:absolute;top:0;right:0; padding: 4px 5px;text-align:right;}
+    </style>
+  </head>
+  <body>
+    <!-- Container -->
+    <div id="container">
+      <!-- Header -->
+      <div id="header">
+        <!-- application menu -->
+        <div id="app-menu">
+            <a id="bookmarks" href="bookmarks">Bookmarks</a>
+        </div>
+        <!-- user menu -->
+        <div id="user-menu">
+          {% if user.is_authenticated %}
+            Signed in as <b>{{user.username}}</b>
+            |
+            <a id="logout" href="/users/logout">Sign Out</a>
+          {% else %}
+            <a id="register" href="/users/register">Join Now!</a>
+            |
+            <a id="login" href="/users/login">Sign In</a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- End of header -->
+
+      <!-- Content -->
+      <div id="content">
+        <center>
+          <img id="logo-img" src="/site_media/images/you29-logo.png"/>
+          <br/><br/>
+          <br/><br/>
+          <i style="color:#696969;">Applications:</i> <a id="app-label" href="/bookmarks"><b>Bookmarks</b></a>
+          <br><br>
+        </center>
+      </div>
+      <!-- End of content --> 
+
+
+      <!-- Footer -->
+      <div id="footer">
+        <center>Copyright &copy;2008 Hideki Itakura All Right Reserved.</center>
+      </div>
+      <!-- End of footer -->
+    </div>
+    <!-- End of Container -->
+  </body>
+</html>

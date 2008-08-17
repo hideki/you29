@@ -1,18 +1,27 @@
 # Django settings for you29 project.
+import os.path
+import logging
+
+logging.basicConfig(
+    level = logging.DEBUG,
+    format = '[%(asctime)s] %(levelname)s: %(message)s',
+    datefmt='%d/%b/%Y %H:%M:%S',
+)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
+    ('Hideki Itakura', 'hideki@you29.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'you29'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'you29'             # Not used with sqlite3.
-DATABASE_PASSWORD = '290303'         # Not used with sqlite3.
+DATABASE_ENGINE = 'mysql'      # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'you29'        # Or path to database file if using sqlite3.
+DATABASE_USER = 'you29'        # Not used with sqlite3.
+DATABASE_PASSWORD = '290303'   # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -71,6 +80,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(os.path.dirname(__file__), 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -79,5 +89,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'you29.tags',
     'you29.bookmarks',
+    'you29.main',
 )
