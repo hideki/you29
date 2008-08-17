@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Tag
+from you29.tags.models import Tag
 
 class TagAdmin(admin.ModelAdmin):
     pass

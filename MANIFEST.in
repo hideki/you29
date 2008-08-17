@@ -1,0 +1,7 @@
+include README
+include AUTHORS
+include INSTALL
+include LICENSE
+include MANIFEST.in
+recursive-include you29/site_media *
+recursive-include you29/templates *

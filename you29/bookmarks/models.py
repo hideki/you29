@@ -1,7 +1,7 @@
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from tags.models import Tag
+from you29.tags.models import Tag
 
 
 ###########################################################

@@ -89,7 +89,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'you29.tags',
+    'you29.accounts',
     'you29.bookmarks',
     'you29.main',
+    'you29.tags',
 )

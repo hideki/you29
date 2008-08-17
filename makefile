@@ -1,6 +1,9 @@
 # makefile for you29 project
 #
 
+install:
+	sudo python setup.py install
+
 # validate
 validate:
 	python ./you29/manage.py validate
@@ -19,6 +22,4 @@ clean:
 	rm -rf *.pyc
 	rm -rf */*.pyc
 	rm -rf */*/*.pyc
-	rm -f  MANIFEST
-	rm -rf dist
 	sudo rm -rf build
