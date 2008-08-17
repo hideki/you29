@@ -8,7 +8,7 @@
         html,body,div{border:0;margin:0;padding:0;}
         a{ color: #1462C1; text-decoration: none;}
         a:hover { text-decoration: underline; }
-        img{border:0;padding:0;margin:0;}
+        img{border:0;padding:2px 0px 0px 10px;margin:0;}
         #container {position:relative;width:100%;min-width:760px;padding:0;}
         #content{margin:10px 20px 10px 20px; font-size:100%;}
         #header{color: #696969;width:100%;overflow:hidden;border-bottom: 1px solid #c9d7f1; padding: 2px 0px 0px 0px;}
@@ -34,14 +34,15 @@
         </div>
         <!-- user menu -->
         <div id="user-menu">
-            <a id="home" href="/">you29 home</a> |
-            <a id="bookmarks-home" href="/bookmarks">bookmark home</a> |
+            <a id="home" href="/">Home</a> |
+            <a id="bookmarks-home" href="/bookmarks">Shared Bookmarks</a> |
           {% if user.is_authenticated %}
             Signed in as <b>{{user.username}}</b> |
-            <a id="logout" href="/users/logout">Sign Out</a>
+            <a id="save" href="/bookmarks/save">Save Bookmark</a> |
+            <a id="logout" href="/accounts/logout">Sign Out</a>
           {% else %}
-            <a id="register" href="/users/register">Join Now!</a> |
-            <a id="login" href="/users/login">Sign In</a>
+            <a id="register" href="/accounts/register">Join Now!</a> |
+            <a id="login" href="/accounts/login">Sign In</a>
           {% endif %}
         </div>
       </div>

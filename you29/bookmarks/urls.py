@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 
     # Bookmark management
     (r'^save/$', save_page),
+    (r'^delete/(\d+)/$', delete_page),
 )

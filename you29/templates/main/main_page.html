@@ -31,11 +31,11 @@
           {% if user.is_authenticated %}
             Signed in as <b>{{user.username}}</b>
             |
-            <a id="logout" href="/users/logout">Sign Out</a>
+            <a id="logout" href="/accounts/logout">Sign Out</a>
           {% else %}
-            <a id="register" href="/users/register">Join Now!</a>
+            <a id="register" href="/accounts/register">Join Now!</a>
             |
-            <a id="login" href="/users/login">Sign In</a>
+            <a id="login" href="/accounts/login">Sign In</a>
           {% endif %}
         </div>
       </div>

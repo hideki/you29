@@ -9,8 +9,11 @@ from models import Bookmark, Link, Tag
 
 def main_page(request):
     logging.debug("bookmarks.views.main_page()");
+    #bookmarks = Bookmark.objects.all()
+    bookmarks = Bookmark.objects.filter(share=True).order_by('-date')
     variables = RequestContext(request, {
-        'user': request.user
+        'user': request.user,
+        'bookmarks':bookmarks
     })
     return render_to_response('bookmarks/main_page.html', variables)
 
@@ -18,11 +21,28 @@ def user_page(request, username):
     logging.debug("bookmarks.views.user_page() username=%s" % (username));
     user = get_object_or_404(User, username=username)
     bookmarks = user.bookmark_set.order_by('-date')
+    show_edit   = False
+    show_delete = False
+    if(user.username == request.user.username):
+        show_edit = True
+        show_delete = True
     variables = RequestContext(request, {
+        'user': request.user,
         'username':username,
-        'bookmarks':bookmarks
+        'bookmarks':bookmarks,
+        'show_edit':show_edit,
+        'show_delete':show_delete
     })
     return render_to_response('bookmarks/user_page.html', variables)
+
+@login_required
+def delete_page(request, bookmark_id):
+    logging.debug("bookmarks.views.delete_page() bookmark_id=%s" % (bookmark_id));
+    bookmark = get_object_or_404(Bookmark, id=bookmark_id)
+    logging.debug("bookmarks.views.delete_page() bookmark=%s" % (bookmark));
+    if(bookmark.user.username == request.user.username):
+        bookmark.delete()
+    return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
 
 
 @login_required
@@ -66,13 +86,13 @@ def _bookmark_save(request, form):
     # Update bookmark notes
     bookmark.notes = form.cleaned_data['notes']
     # If the bookmark is being updated, clear old tag list.
-#    if not created:
-#        bookmark.tag_set.clear()
-#    # Create new tag list
-#    tag_names = form.cleaned_data['tags'].split()
-#    for tag_name in tag_names:
-#        tag, dummy = Tag.objects.get_or_create(name=tag_name)
-#        bookmark.tag_set.add(tag)
+    if not created:
+        bookmark.tag_set.clear()
+    # Create new tag list
+    tag_names = form.cleaned_data['tags'].split()
+    for tag_name in tag_names:
+        tag, dummy = Tag.objects.get_or_create(name=tag_name)
+        bookmark.tags.add(tag)
 #    # Share on the main page if requested.
 #    if form.cleaned_data['share']:
 #        shared_bookmark, created = SharedBookmark.objects.get_or_create(

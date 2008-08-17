@@ -6,12 +6,16 @@
         <span class="detail">
           - <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
           - {{bookmark.date|date:"d M Y"}}
-          - <a href="/bookmarks/edit?id={{bookmark.id}}" class="edit command">edit</a>
-          - <a href="/bookmarks/delete?id={{bookmark.id}}" class="remove command">remove</a>
+          {% if show_edit %}
+          - <a href="/bookmarks/edit/{{bookmark.id}}" class="edit command">edit</a>
+          {% endif %}
+          {% if show_delete %}
+          - <a href="/bookmarks/delete/{{bookmark.id}}" class="delete command">delete</a>
+          {% endif %}
         </span>
         {% if bookmark.tags.all %}
           <div class="tags">
-            [TAG]
+            Tags: 
             {% for tag in bookmark.tags.all %}
               <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a>
               {% if not forloop.last %}|{% endif%}

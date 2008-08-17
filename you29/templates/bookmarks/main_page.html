@@ -1,15 +1,66 @@
-{% extends "base.html" %}
-{% block title %}You29 Bookmarks{% endblock %}
-{% block external %}
-<style>
-  div#logo{
-    position:absolute;
-    top:200px;
-    width:98%;
-    overflow:hidden;
-  }
-</style>
-{% endblock %}
-{% block head %}You29 Bookmarks{% endblock %}
-{% block content %}
-{% endblock %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>you29.Bookmarks</title>
+    <link rel="stylesheet" href="/site_media/yui/reset-fonts/reset-fonts.css" type="text/css">
+    <style>
+        *{font-family:'Century Gothic', Georgia, Serif}
+        html,body,div{border:0;margin:0;padding:0;}
+        a{ color: #1462C1; text-decoration: none;}
+        a:hover { text-decoration: underline; }
+        img{border:0;padding:2px 0px 0px 10px;margin:0;}
+        #container {position:relative;width:100%;min-width:760px;padding:0;}
+        #content{margin:10px 20px 10px 20px; font-size:100%;}
+        #header{color: #696969;width:100%;overflow:hidden;border-bottom: 1px solid #c9d7f1; padding: 2px 0px 0px 0px;}
+        #footer{color: #696969; width:100%;overflow:hidden; border-top: 1px solid #c9d7f1;padding: 5px 0px;}
+        #user-menu{position:absolute;top:0;right:0; padding: 4px 5px;text-align:right;}
+        h1#title{font-size:174%;color:#191970;}
+        h2.title{font-size:138.5%;}
+        li.bookmark{border-top: 1px dashed #dcdcdc;padding: 5px 0px 5px 0px;}
+        span.detail{color:#696969;}
+        a.url{color:#006400;}
+        a.command{color:#6495ED;}
+        a.tag{color:#6495ED;}
+    </style>
+  </head>
+  <body>
+    <!-- Container -->
+    <div id="container">
+      <!-- Header -->
+      <div id="header">
+        <!-- branding -->
+        <div id="branding">
+          <img id="logo-img" src="/site_media/images/you29-bookmarks-logo.png"/>
+        </div>
+        <!-- user menu -->
+        <div id="user-menu">
+            <a id="home" href="/">Home</a> |
+          {% if user.is_authenticated %}
+            <a id="bookmarks-home" href="/bookmarks/user/{{user.username}}">Your Bookmarks</a> |
+            Signed in as <b>{{user.username}}</b> |
+            <a id="save" href="/bookmarks/save">Save Bookmark</a> |
+            <a id="logout" href="/accounts/logout">Sign Out</a>
+          {% else %}
+            <a id="register" href="/accounts/register">Join Now!</a> |
+            <a id="login" href="/accounts/login">Sign In</a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- End of header -->
+
+      <!-- Content -->
+      <div id="content">
+        <center><h1 id="title">Shared Bookmarks</h1></center>
+        {% include "bookmarks/bookmark_list.html"%}
+      </div>
+      <!-- End of content --> 
+
+      <!-- Footer -->
+      <div id="footer">
+        <center>Copyright &copy;2008 Hideki Itakura All Right Reserved.</center>
+      </div>
+      <!-- End of footer -->
+    </div>
+    <!-- End of Container -->
+  </body>
+</html>

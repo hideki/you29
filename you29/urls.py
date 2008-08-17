@@ -21,8 +21,8 @@ urlpatterns = patterns('',
     # main
     (r'^', include('you29.main.urls')),
 
-    # users
-    (r'^users/', include('you29.users.urls')),
+    # accounts
+    (r'^accounts/', include('you29.accounts.urls')),
 
     # bookmarks
     (r'^bookmarks/', include('you29.bookmarks.urls')),

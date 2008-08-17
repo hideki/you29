@@ -23,7 +23,7 @@ class Link(models.Model):
 class Bookmark(models.Model):
     """ A Bookmark. """
     title = models.CharField(max_length=256)
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
     date  = models.DateTimeField(default=datetime.datetime.now)
     share = models.BooleanField(default=True)
     user  = models.ForeignKey(User)
