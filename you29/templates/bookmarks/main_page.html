@@ -36,13 +36,13 @@
         <div id="user-menu">
             <a id="home" href="/">Home</a> |
           {% if user.is_authenticated %}
-            <a id="bookmarks-home" href="/bookmarks/user/{{user.username}}">Your Bookmarks</a> |
+            <a id="bookmarks-home" href="/bookmarks/user/{{user.username}}/">Your Bookmarks</a> |
             Signed in as <b>{{user.username}}</b> |
-            <a id="save" href="/bookmarks/save">Save Bookmark</a> |
-            <a id="logout" href="/accounts/logout">Sign Out</a>
+            <a id="save" href="/bookmarks/save/">Save Bookmark</a> |
+            <a id="logout" href="/accounts/logout/">Sign Out</a>
           {% else %}
-            <a id="register" href="/accounts/register">Join Now!</a> |
-            <a id="login" href="/accounts/login">Sign In</a>
+            <a id="register" href="/accounts/register/">Join Now!</a> |
+            <a id="login" href="/accounts/login/">Sign In</a>
           {% endif %}
         </div>
       </div>

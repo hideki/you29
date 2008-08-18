@@ -10,5 +10,25 @@ ADD:
         SetEnv DJANGO_SETTINGS_MODULE you29.settings
         PythonDebug On
     </Location>
+
+# This is Admin UI's media files
+    <Location "/media">
+        SetHandler None
+    </Location>
+
+# This is You29 UI's media files
+    <Location "/site_media">
+        SetHandler None
+    </Location>
+
+    <LocationMatch "\.(jpg|gif|png)$">
+        SetHandler None
+    </LocationMatch>
+
+
 ...
 
+
+Move to /var/www
+sudo ln -s /usr/lib/python2.5/site-packages/you29/site_media 
+sudo ln -s /usr/lib/python2.5/site-packages/django/contrib/admin/media 

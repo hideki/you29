@@ -7,10 +7,10 @@
           - <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
           - {{bookmark.date|date:"d M Y"}}
           {% if show_edit %}
-          - <a href="/bookmarks/edit/{{bookmark.id}}" class="edit command">edit</a>
+          - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">edit</a>
           {% endif %}
           {% if show_delete %}
-          - <a href="/bookmarks/delete/{{bookmark.id}}" class="delete command">delete</a>
+          - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">delete</a>
           {% endif %}
         </span>
         {% if bookmark.tags.all %}

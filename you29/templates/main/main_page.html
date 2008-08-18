@@ -3,7 +3,6 @@
   <head>
     <title>you29</title>
     <link rel="stylesheet" href="/site_media/yui/reset-fonts/reset-fonts.css" type="text/css">
-    <link rel="stylesheet" href="/site_media/styles.css" type="text/css">
     <style>
         a{ color: #1462C1; text-decoration: none;}
         a:hover { text-decoration: underline; }
@@ -24,18 +23,18 @@
       <div id="header">
         <!-- application menu -->
         <div id="app-menu">
-            <a id="bookmarks" href="bookmarks">Bookmarks</a>
+            <a id="bookmarks" href="/bookmarks/">Bookmarks</a>
         </div>
         <!-- user menu -->
         <div id="user-menu">
           {% if user.is_authenticated %}
             Signed in as <b>{{user.username}}</b>
             |
-            <a id="logout" href="/accounts/logout">Sign Out</a>
+            <a id="logout" href="/accounts/logout/">Sign Out</a>
           {% else %}
-            <a id="register" href="/accounts/register">Join Now!</a>
+            <a id="register" href="/accounts/register/">Join Now!</a>
             |
-            <a id="login" href="/accounts/login">Sign In</a>
+            <a id="login" href="/accounts/login/">Sign In</a>
           {% endif %}
         </div>
       </div>
@@ -47,7 +46,7 @@
           <img id="logo-img" src="/site_media/images/you29-logo.png"/>
           <br/><br/>
           <br/><br/>
-          <i style="color:#696969;">Applications:</i> <a id="app-label" href="/bookmarks"><b>Bookmarks</b></a>
+          <i style="color:#696969;">Applications:</i> <a id="app-label" href="/bookmarks/"><b>Bookmarks</b></a>
           <br><br>
         </center>
       </div>
