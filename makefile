@@ -1,8 +1,13 @@
 # makefile for you29 project
 #
 
+# install
 install:
 	sudo python setup.py install
+
+# uninstall
+uninstall:
+	sudo rm -rf /usr/lib/python2.5/site-packages/you29/
 
 # validate
 validate:

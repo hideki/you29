@@ -3,21 +3,25 @@
     {% for bookmark in bookmarks %}
       <li class="bookmark">
         <h2 class="title" style="display:inline;"><a href="{{bookmark.link.url}}" class="title">{{bookmark.title}}</a></h2>
-        <span class="detail">
-          - <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
+        {% if bookmark.link.sharedbookmark %}
+        <span class="count">&nbsp;{{bookmark.link.sharedbookmark.users.count}}&nbsp;user&nbsp;</span>
+        {% endif %}
+        <div class="detail">
+          <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
           - {{bookmark.date|date:"d M Y"}}
           {% if show_edit %}
-          - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">edit</a>
+            - <a href="/bookmarks/save/?url={{bookmark.link.url}}" class="edit command">edit</a>
           {% endif %}
           {% if show_delete %}
-          - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">delete</a>
+            - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">delete</a>
           {% endif %}
-        </span>
+        </div>
         {% if bookmark.tags.all %}
           <div class="tags">
             Tags: 
             {% for tag in bookmark.tags.all %}
-              <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a>
+              {#<a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a> #}
+              {{tag.name}}
               {% if not forloop.last %}|{% endif%}
             {% endfor %}
           </div>

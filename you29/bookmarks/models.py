@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from you29.tags.models import Tag
 
-
 ###########################################################
 # Models for Bookmarks
 ###########################################################
@@ -37,4 +36,16 @@ class Bookmark(models.Model):
         return '%s, %s' % (self.user.username, self.link.url)
 
     def get_absolute_url(self):
+        return self.link.url
+
+###########################################################
+# SharedBookmark Model
+###########################################################
+class SharedBookmark(models.Model):
+    """ A SharedBookmark. """
+    link  = models.OneToOneField(Link)
+    title = models.CharField(max_length=256)
+    date  = models.DateTimeField(default=datetime.datetime.now)
+    users = models.ManyToManyField(User)
+    def __unicode__(self):
         return self.link.url
