@@ -1,5 +1,7 @@
-import re
 from django import forms
+
+class NewBookmarkForm(forms.Form):
+    url = forms.URLField(label='URL')
 
 class BookmarkSaveForm(forms.Form):
     url   = forms.URLField(label='URL')

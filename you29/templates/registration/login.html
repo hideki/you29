@@ -10,6 +10,7 @@
     <p> <label for="id_password">Password:</label>{{form.password}}</p>
     <input type="hidden" name="next" value="/">
     <input type="submit" value="Login">
+    <input type="hidden" name="next" value="{{next}}" />
   </form>
 {% endblock %}
 
