@@ -16,13 +16,16 @@ def main_page(request):
 
 def user_page(request, username):
     logging.debug("bookmarks.views.user_page() username=%s" % (username));
+    logging.debug("bookmarks.views.user_page() request.user.username=%s" % (request.user.username));
     user = get_object_or_404(User, username=username)
-    bookmarks = user.bookmark_set.order_by('-date')
-    show_edit   = False
-    show_delete = False
     if(user.username == request.user.username):
+        bookmarks = user.bookmark_set.order_by('-date')
         show_edit = True
         show_delete = True
+    else:
+        bookmarks = user.bookmark_set.filter(share=True).order_by('-date')
+        show_edit   = False
+        show_delete = False
     variables = RequestContext(request, {
         'user': request.user,
         'username':username,

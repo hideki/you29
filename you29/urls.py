@@ -19,7 +19,8 @@ urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
 
     # main
-    (r'^', include('you29.main.urls')),
+    #(r'^', include('you29.main.urls')),
+    (r'^', include('you29.bookmarks.urls')),
 
     # accounts
     (r'^accounts/', include('you29.accounts.urls')),
