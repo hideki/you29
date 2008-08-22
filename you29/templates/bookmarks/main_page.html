@@ -53,18 +53,6 @@
       <div id="content">
         <center><h1 id="title">Shared Bookmarks</h1></center>
         {% include "bookmarks/bookmark_list.html"%}
-        <br/><br/>
-        <center>
-        <div>
-            Bookmark pages more easily. Drag this bookmarklet to the Links area of your browser:
-<a 
-style='background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px'
- href="javascript:window.open(
-    'http://{{http_host}}/bookmarks/add/?title='+escape(document.title)+'&url='+escape(location.href),
-    '_blank','width=550,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">
-you29&nbsp;Bookmark</a>
-        </div>
-        </center>
       </div>
       <!-- End of content --> 
 
