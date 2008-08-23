@@ -91,6 +91,5 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'you29.accounts',
     'you29.bookmarks',
-    'you29.main',
     'you29.tags',
 )
