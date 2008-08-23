@@ -13,7 +13,8 @@ from you29.tags.models import Tag
 ###########################################################
 class Link(models.Model):
     """ A Link. """
-    url = models.URLField(unique=True)
+    url   = models.URLField(unique=True)
+    title = models.CharField(max_length=256)
     def __unicode__(self):
         return self.url
 
@@ -46,17 +47,17 @@ class Bookmark(models.Model):
 ###########################################################
 # SharedBookmark Model
 ###########################################################
-class SharedBookmark(models.Model):
-    """ A SharedBookmark. """
-    link  = models.OneToOneField(Link)
-    title = models.CharField(max_length=256)
-    date  = models.DateTimeField(default=datetime.datetime.now)
-    users = models.ManyToManyField(User)
-    def __unicode__(self):
-        return self.link.url
-    def is_popular(self):
-        logging.debug("SharedBookmark.is_popular")
-        if self.users.count() >= 5:
-            return True
-        else:
-            return False
+#class SharedBookmark(models.Model):
+#    """ A SharedBookmark. """
+#    link  = models.OneToOneField(Link)
+#    title = models.CharField(max_length=256)
+##    date  = models.DateTimeField(default=datetime.datetime.now)
+#    users = models.ManyToManyField(User)
+#    def __unicode__(self):
+#        return self.link.url
+#    def is_popular(self):
+#        logging.debug("SharedBookmark.is_popular")
+#        if self.users.count() >= 5:
+#            return True
+#        else:
+#            return False
