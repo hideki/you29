@@ -12,8 +12,15 @@ from you29.libs.BeautifulSoup import BeautifulSoup
 
 def main_page(request):
     logging.debug("bookmarks.views.main_page()");
+    if request.user.is_authenticated():
+        return user_page(request, request.user.username)
+    else:
+        return public_page(request)
+
+def public_page(request):
+    logging.debug("bookmarks.views.public_page()");
     http_host = request.META['HTTP_HOST']
-    bookmarks = SharedBookmark.objects.order_by('-date')[:30]
+    bookmarks = SharedBookmark.objects.order_by('-date');
     variables = RequestContext(request, {
         'bookmarks':bookmarks,
         'http_host':http_host

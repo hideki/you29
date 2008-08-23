@@ -16,7 +16,8 @@
         #user-menu{position:absolute;top:0;right:0; padding: 4px 5px;text-align:right;}
         h1#title{font-size:174%;color:#191970;}
         h2.title{font-size:138.5%;}
-        .count{color:#FFFFFF;background:#4682B4; font-weight:bold;}
+        .count-popular{color:#FFFFFF;background:#4682B4; font-weight:bold;}
+        .count{color:#FFFFFF;background:#B0C4DE; font-weight:bold;}
         .bookmark{border-top: 1px dashed #dcdcdc;padding: 5px 0px 5px 0px;}
         .detail{color:#696969;}
         .url{color:#006400;}
@@ -35,8 +36,7 @@
         </div>
         <!-- user menu -->
         <div id="user-menu">
-            <a id="home" href="/">Home</a> |
-            <a id="bookmarks-home" href="/bookmarks/">Shared Bookmarks</a> |
+            <a id="bookmarks-home" href="/bookmarks/public/">Shared Bookmarks</a> |
           {% if user.is_authenticated %}
             Signed in as <b>{{user.username}}</b> |
             <a id="save" href="/bookmarks/new/">Save a new bookmark</a> |

@@ -3,7 +3,9 @@
 {% block head %}User Registration{% endblock %}
 {% block content %}
   <form method="post" action=".">
-    {{form.as_p}}
-    <input type="submit" value="register">
+    <table>
+      {{form.as_table}}
+    </table>
+    <p><input type="submit" value="register"></p>
   </form>
 {% endblock %}

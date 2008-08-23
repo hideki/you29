@@ -2,5 +2,10 @@
 {% block title %}Save Bookmark{% endblock %}
 {% block head %}Save Bookmark{% endblock %}
 {% block content %}
-{% include 'bookmarks/save_form.html' %}
+<form id="save-form" method="post" action="/bookmarks/save/">
+  <table>
+    {{form.as_table}}
+  </table>
+  <input type="submit" value="Save">
+</form>
 {% endblock %}

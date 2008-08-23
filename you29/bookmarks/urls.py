@@ -5,6 +5,7 @@ urlpatterns = patterns('',
     # Bookmark browsing
     (r'^$', main_page),
     (r'^user/(\w+)/$', user_page),
+    (r'^public/$', public_page),
 
     # Bookmark management
     (r'^new/$',          new_bookmark),

@@ -1,3 +1,4 @@
+import logging
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
@@ -38,6 +39,10 @@ class Bookmark(models.Model):
     def get_absolute_url(self):
         return self.link.url
 
+    def is_popular(self):
+        logging.debug("Bookmark.is_popular")
+        return self.link.sharedbookmark.is_popular()
+
 ###########################################################
 # SharedBookmark Model
 ###########################################################
@@ -49,3 +54,9 @@ class SharedBookmark(models.Model):
     users = models.ManyToManyField(User)
     def __unicode__(self):
         return self.link.url
+    def is_popular(self):
+        logging.debug("SharedBookmark.is_popular")
+        if self.users.count() >= 5:
+            return True
+        else:
+            return False

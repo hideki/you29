@@ -4,11 +4,15 @@
       <li class="bookmark">
         <h2 class="title" style="display:inline;"><a href="{{bookmark.link.url}}" class="title">{{bookmark.title}}</a></h2>
         {% if bookmark.link.sharedbookmark %}
-        <span class="count">&nbsp;{{bookmark.link.sharedbookmark.users.count}}&nbsp;user&nbsp;</span>
+            {% if bookmark.is_popular %}
+            <span class="count-popular">&nbsp;{{bookmark.link.sharedbookmark.users.count}}&nbsp;user&nbsp;</span>
+            {% else %}
+            <span class="count">&nbsp;{{bookmark.link.sharedbookmark.users.count}}&nbsp;user&nbsp;</span>
+            {% endif %}
         {% endif %}
         <div class="detail">
           <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
-          - {{bookmark.date|date:"d M Y"}}
+          - {{bookmark.date|date:"F j, Y"}}
           {% if show_edit %}
             - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">edit</a>
           {% endif %}
