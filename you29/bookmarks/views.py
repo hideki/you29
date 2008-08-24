@@ -106,7 +106,10 @@ def delete_bookmark(request, bookmark_id):
         return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
     bookmark = get_object_or_404(Bookmark, id=bookmark_id)
     if(bookmark.user.username == request.user.username):
+        link = bookmark.link;
         bookmark.delete();
+        if(link.bookmark_set.count() == 0):
+            link.delete();
     return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
 
 # Save Bookmark
