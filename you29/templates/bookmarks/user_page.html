@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title>{{username}}'s Bookmarks on You29</title>
+    <title>you29.Bookmarks: {{username}}'s Bookmarks</title>
     <link rel="stylesheet" href="/site_media/yui/reset-fonts/reset-fonts.css" type="text/css">
     <style>
         *{font-family:'Century Gothic', Georgia, Serif}
@@ -36,10 +36,10 @@
         </div>
         <!-- user menu -->
         <div id="user-menu">
-            <a id="bookmarks-home" href="/bookmarks/public/">Shared Bookmarks</a> |
+            <a id="bookmarks-home" href="/bookmarks/public/">Everyone's Bookmarks</a> |
           {% if user.is_authenticated %}
             Signed in as <b>{{user.username}}</b> |
-            <a id="save" href="/bookmarks/new/">Save a new bookmark</a> |
+            <a id="save" href="/bookmarks/new/">Save a New Bookmark</a> |
             <a id="logout" href="/accounts/logout/">Sign Out</a>
           {% else %}
             <a id="register" href="/accounts/register/">Join Now!</a> |

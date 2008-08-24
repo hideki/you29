@@ -7,7 +7,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from forms import *
-#from models import Bookmark, Link, SharedBookmark, Tag
 from models import Bookmark, Link, Tag
 from you29.libs.BeautifulSoup import BeautifulSoup
 
@@ -21,10 +20,8 @@ def main_page(request):
 def public_page(request):
     logging.debug("bookmarks.views.public_page()");
     http_host = request.META['HTTP_HOST']
-    #bookmarks = SharedBookmark.objects.order_by('-date');
     links = Link.objects.order_by('-id');
     variables = RequestContext(request, {
-        #'bookmarks':bookmarks,
         'links':links,
         'http_host':http_host
     })
@@ -55,7 +52,6 @@ def user_page(request, username):
 
 
 # New Bookmark
-#@login_required
 def new_bookmark(request):
     logging.debug("bookmarks.views.new_bookmark()");
     if not request.user.is_authenticated():
@@ -65,10 +61,8 @@ def new_bookmark(request):
     return render_to_response('bookmarks/new_page.html', variables)
 
 # Add Bookmark
-#@login_required
 def add_bookmark(request):
     logging.debug("bookmarks.views.add_bookmark()");
-    #logging.debug(request)
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
     if(request.GET.has_key('url') and request.GET.has_key('title')):
@@ -91,7 +85,6 @@ def add_bookmark(request):
     return render_to_response('bookmarks/save_page.html', variables)
 
 # Edit Bookmark
-#@login_required
 def edit_bookmark(request, bookmark_id):
     logging.debug("bookmarks.views.edit_bookmark() bookmark_id=%s" % (bookmark_id));
     if not request.user.is_authenticated():
@@ -107,18 +100,16 @@ def edit_bookmark(request, bookmark_id):
     return render_to_response('bookmarks/save_page.html', variables)
 
 # Delete Bookmark
-#@login_required
 def delete_bookmark(request, bookmark_id):
     logging.debug("bookmarks.views.delete_bookmark() bookmark_id=%s" % (bookmark_id));
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
     bookmark = get_object_or_404(Bookmark, id=bookmark_id)
     if(bookmark.user.username == request.user.username):
-        bookmark.delete()
+        bookmark.delete();
     return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
 
 # Save Bookmark
-#@login_required
 def save_bookmark(request):
     logging.debug("bookmarks.views.save_bookmark()");
     if not request.user.is_authenticated():
@@ -154,25 +145,6 @@ def _save_bookmark(request, form):
     for tag_name in tag_names:
         tag, dummy = Tag.objects.get_or_create(name=tag_name)
         bookmark.tags.add(tag)
-    # Share Bookmark
-#    if bookmark.share:
-#        shared_bookmark, created = SharedBookmark.objects.get_or_create(link=bookmark.link)
-#        if created:
-#            shared_bookmark.title = bookmark.title
-#        shared_bookmark.users.add(request.user)
-#        shared_bookmark.save()
-#    # Not Share Bookmark
-#    else:
-#        try:
-#            shared_bookmark = SharedBookmark.objects.get(link=bookmark.link)
-#            shared_bookmark.users.remove(request.user)
-#            logging.debug("%s" % (shared_bookmark.users.count()))
-#            if(shared_bookmark.users.count() == 0):
-#                shared_bookmark.delete()
-#            else:
-#                shared_bookmark.save()
-#        except ObjectDoesNotExist:
-#            pass;
     # Save bookmark to database
     bookmark.save()
     return bookmark;

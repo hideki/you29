@@ -3,12 +3,10 @@
     {% for bookmark in bookmarks %}
       <li class="bookmark">
         <h2 class="title" style="display:inline;"><a href="{{bookmark.link.url}}" class="title">{{bookmark.title}}</a></h2>
-        {% if bookmark.link.sharedbookmark %}
-            {% if bookmark.is_popular %}
-            <span class="count-popular">&nbsp;{{bookmark.link.sharedbookmark.users.count}}&nbsp;user&nbsp;</span>
-            {% else %}
-            <span class="count">&nbsp;{{bookmark.link.sharedbookmark.users.count}}&nbsp;user&nbsp;</span>
-            {% endif %}
+        {% if bookmark.is_popular %}
+          <span class="count-popular">&nbsp;{{bookmark.link.bookmark_set.count}}&nbsp;bookmarks&nbsp;</span>
+        {% else %}
+          <span class="count">&nbsp;{{bookmark.link.bookmark_set.count}}&nbsp;bookmarks&nbsp;</span>
         {% endif %}
         <div class="detail">
           <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
