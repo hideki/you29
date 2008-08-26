@@ -3,12 +3,14 @@ import os.path
 import logging
 
 logging.basicConfig(
-    level = logging.DEBUG,
+    #level = logging.DEBUG,
+    level = logging.WARNING,
     format = '[%(asctime)s] %(levelname)s: %(message)s',
     datefmt='%d/%b/%Y %H:%M:%S',
 )
 
-DEBUG = True
+#DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -31,7 +33,8 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 #TIME_ZONE = 'America/Chicago'
-TIME_ZONE = 'US/Pacific'
+#TIME_ZONE = 'US/Pacific'
+TIME_ZONE = 'PST'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html

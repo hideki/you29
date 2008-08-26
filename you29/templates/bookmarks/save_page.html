@@ -1,11 +1,36 @@
 {% extends "base.html" %}
 {% block title %}Save Bookmark{% endblock %}
 {% block head %}Save Bookmark{% endblock %}
+{% block external %}
+<style>
+#id_url{width:350px;}
+#id_title{width:350px;}
+#id_notes{width:350px;}
+#id_tags{width:350px;}
+#id_share{width:350px;}
+</style>
+{% endblock %}
+
 {% block content %}
 <form id="save-form" method="post" action="/bookmarks/save/">
   <table>
     {{form.as_table}}
   </table>
-  <input type="submit" value="Save">
+  <input id="next_button" type="submit" value="Save"/>
+  {% if popup %}
+    <input type="hidden" name="_popup" value="true"/>
+    <input id="cancel_button" type=submit name=btnC value="Cancel" onclick="window.close();">
+  {% else %}
+    <a id="cancel_button" href="/bookmarks/">Cancel</a>
+  {% endif %}
+  <a href="/bookmarks" target="_blank">See all bookmarks &raquo</a>
 </form>
+
+<script type="text/javascript">
+  YAHOO.util.Event.onDOMReady(function(){
+      new YAHOO.widget.Button("next_button");
+      new YAHOO.widget.Button("cancel_button");
+  });
+</script>
+
 {% endblock %}

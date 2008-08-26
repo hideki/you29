@@ -81,7 +81,11 @@ def add_bookmark(request):
             return new_bookmark(request)
     else:
         form = BookmarkSaveForm(initial={'share':True})
-    variables = RequestContext(request, {'form':form})
+
+    popup = False;
+    if(request.GET.has_key('_popup')):
+        popup = bool(request.GET['_popup']);
+    variables = RequestContext(request, {'form':form, 'popup':popup})
     return render_to_response('bookmarks/save_page.html', variables)
 
 # Edit Bookmark
@@ -121,7 +125,16 @@ def save_bookmark(request):
         form = BookmarkSaveForm(request.POST)
         if form.is_valid():
             bookmark = _save_bookmark(request, form)
-            return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
+            popup = False;
+            if(request.POST.has_key('_popup')):
+                logging.debug("popup=%s" % request.POST['_popup']);
+                popup = bool(request.POST['_popup']);
+                logging.debug("popup=%d" % popup);
+            logging.debug("bookmarks.views.save_bookmark() popup=%s" % popup);
+            if(popup):
+                return render_to_response('bookmarks/close_page.html')
+            else:
+                return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
     variables = RequestContext(request, {'form':form})
     return render_to_response('bookmarks/save_page.html', variables)
 
