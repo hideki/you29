@@ -10,7 +10,11 @@
         a:hover { text-decoration: underline; }
         img{border:0;padding:2px 0px 0px 10px;margin:0;}
         #container {position:relative;width:100%;min-width:760px;padding:0;}
-        #content{margin:10px 20px 10px 20px; font-size:100%;}
+        #content{margin:10px 5px 10px 20px; font-size:100%;float:left;width:80%;}
+        #nav{float:right;width:15%;}
+        .tag-clouds{margin:5px;}
+        .tag-clouds h2{font-size:116%;font-weight:bold;color:#191970; background:#B0C4DE; text-align:center;}
+        .tag-clouds ul li{font-size:108%; border-bottom:1px solid #dcdcdc; padding 3px 3px 3px 3px;}
         #header{color: #696969;width:100%;overflow:hidden;border-bottom: 1px solid #c9d7f1; padding: 2px 0px 0px 0px;}
         #footer{color: #696969; width:100%;overflow:hidden; border-top: 1px solid #c9d7f1;padding: 5px 0px;}
         #user-menu{position:absolute;top:0;right:0; padding: 4px 5px;text-align:right;}
@@ -49,12 +53,25 @@
       </div>
       <!-- End of header -->
 
-      <!-- Content -->
+      <!-- content -->
       <div id="content">
         <center><h1 id="title">Everyone's Bookmarks</h1></center>
         {% include "bookmarks/link_list.html"%}
       </div>
       <!-- End of content --> 
+
+      <!-- nav -->
+      <div id="nav">
+        <div class="tag-clouds">
+          <h2 class="">Popular Tags</h2>
+            <ul>
+              {% for tag in tags %}
+                <li>{{tag.name}}  ({{tag.count}})</li>
+             {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <!-- End of nav --> 
 
       <!-- Footer -->
       <div id="footer">

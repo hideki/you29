@@ -21,8 +21,10 @@ def public_page(request):
     logging.debug("bookmarks.views.public_page()");
     http_host = request.META['HTTP_HOST']
     links = Link.objects.order_by('-id');
+    tags  = Link.objects.tag_clouds()[:50];
     variables = RequestContext(request, {
         'links':links,
+        'tags':tags,
         'http_host':http_host
     })
     return render_to_response('bookmarks/main_page.html', variables)
@@ -32,6 +34,7 @@ def user_page(request, username):
     logging.debug("bookmarks.views.user_page() request.user.username=%s" % (request.user.username));
     user = get_object_or_404(User, username=username)
     http_host = request.META['HTTP_HOST']
+    tags = Bookmark.objects.tag_clouds(username);
     if(user.username == request.user.username):
         bookmarks = user.bookmark_set.order_by('-date')
         show_edit = True
@@ -44,6 +47,7 @@ def user_page(request, username):
         'user': request.user,
         'username':username,
         'bookmarks':bookmarks,
+        'tags':tags,
         'show_edit':show_edit,
         'show_delete':show_delete,
         'http_host':http_host

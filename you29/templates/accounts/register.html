@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}User Registration{% endblock %}
+{% block head %}User Registration{% endblock %}
+{% block content %}
+  <form method="post" action=".">
+    <table>
+      {{form.as_table}}
+    </table>
+    <p><input type="submit" value="register"></p>
+  </form>
+{% endblock %}

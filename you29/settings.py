@@ -3,14 +3,14 @@ import os.path
 import logging
 
 logging.basicConfig(
-    #level = logging.DEBUG,
-    level = logging.WARNING,
+    level = logging.DEBUG,
+    #level = logging.WARNING,
     format = '[%(asctime)s] %(levelname)s: %(message)s',
     datefmt='%d/%b/%Y %H:%M:%S',
 )
 
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -78,6 +78,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'you29.urls'
+
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

@@ -7,9 +7,9 @@ class RegistrationForm(forms.Form):
     username  = forms.CharField(label='Username', max_length=30)
     email     = forms.EmailField(label='Email')
     password1 = forms.CharField(label='Password',
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(render_value=False))
     password2 = forms.CharField(label='Retype Password',
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(render_value=False))
 
     def clean_password2(self):
         if 'password1' in self.cleaned_data:
@@ -38,3 +38,10 @@ class RegistrationForm(forms.Form):
         except ObjectDoesNotExist:
             return email
         raise forms.ValidationError('Email is already used.')
+
+    def save(self):
+        user = User.objects.create_user(
+            username = self.cleaned_data['username'],
+            password = self.cleaned_data['password1'],
+            email    = self.cleaned_data['email'])
+        return user;
