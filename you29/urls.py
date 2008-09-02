@@ -26,4 +26,7 @@ urlpatterns = patterns('',
 
     # bookmarks
     (r'^bookmarks/', include('you29.bookmarks.urls')),
+
+    # search
+    (r'^search/', include('you29.search.urls')),
 )

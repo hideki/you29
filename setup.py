@@ -4,9 +4,6 @@ Based entirely on Django's own ``setup.py``.
 import os
 from distutils.core import setup
 from distutils.command.install import INSTALL_SCHEMES
-#from distutils.command.install_data import install_data
-
-#cmdclasses = {'install_data':install_data}
 
 def fullsplit(path, result=None):
     """
@@ -46,13 +43,11 @@ for dirpath, dirnames, filenames in os.walk(you29_dir):
         data_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
 
 setup(name='you29',
-    version='0.01',
+    version='0.02',
     description='You29 Web Application Package',
     author='Hideki Itakura',
     author_email='h.itakura@yahoo.com',
     url='http://www.you29.com/',
     packages = packages,
-    #cmdclass = cmdclasses,
     data_files = data_files,
 )
-

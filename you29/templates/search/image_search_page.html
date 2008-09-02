@@ -1,0 +1,89 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+  <title>you29.ImageSearch: {{query}}</title>
+  <link rel="stylesheet" href="/site_media/yui/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+  <style>
+  *{font-family: Verdana, Georgia, arial, sans-serif;}
+  html,body,div{padding:0;margin:0; border:0;}
+  #hd{
+    color:#FFFFFF;
+    background-color:#282828;
+    padding:10px 10px 10px 10px;
+  }
+
+  #title{
+    font-size:150%;
+    display:inline;
+  }
+  #query-form{
+    display:inline;
+  }
+  #query-text{
+    width:300px;
+  }
+  #query-info{
+    font-size:108%;
+    display:inline;
+  }
+
+  /* Thumbnail */
+  div.thumb {
+    margin: 3px;
+    border: 1px solid #A0ACC0;
+    height: auto;
+    float:left;
+    text-align:center;
+    background-color: #eee;
+    width:180px;
+    height:180px;
+    overflow:hidden;
+  }
+  .thumb img{
+    display: inline;
+    margin: 5px;
+    border: 1px solid #A0ACC0;
+    height:110px;
+  }
+  .thumb a:hover img {
+    border: 1px solid #000000;
+  }
+  .image-title{
+    text-align:center;
+    font-weight:normal;
+    margin:0 3px 3px 3px;
+  }
+  </style>
+</head>
+<body>
+<!-- #doc3 = 100% -->
+<div id="main">
+
+  <div id="hd">
+    <h1 id="title" >you29.ImageSearch</h1>
+    &nbsp;
+    &nbsp;
+    <form method="GET" action="/search" id="query-form">
+      <input type="text" name="query" id="query-text" value="{{query}}"/>
+      <input type="submit" value="Search Images"/>
+    </form>
+    &nbsp;
+    &nbsp;
+    <div id="query-info">{{response.start}} - {{response.count}} of about {{response.totalhits}} for {{query}}</div>
+  </div>
+
+  <div id="bd">
+    {% for image in response.resultset_images %}
+      <div class="thumb">
+        <a href="{{image.url}}"><img src="{{image.thumbnail_url}}"/></a>
+        <div class="image-title">
+          {{image.title}}<br/>
+          {{image.width}}x{{image.height}} - {{image.size}}k - {{image.format}}
+        </div> 
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</body>
+</html>
+

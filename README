@@ -7,6 +7,11 @@ Project Name
 
 Applications
     bookmarks
+    search
+
+Support Applications
+    accounts
+    tags
 
 #
 # Getting Started with Git
