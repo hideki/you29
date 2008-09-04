@@ -47,7 +47,6 @@ class Link(models.Model):
     def __unicode__(self):
         return self.url
     def is_popular(self):
-        logging.debug("Link.is_popular()")
         if(self.bookmark_set.count() > 5):
             return True;
         else:

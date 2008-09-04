@@ -43,7 +43,7 @@ for dirpath, dirnames, filenames in os.walk(you29_dir):
         data_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
 
 setup(name='you29',
-    version='0.02',
+    version='0.03',
     description='You29 Web Application Package',
     author='Hideki Itakura',
     author_email='h.itakura@yahoo.com',

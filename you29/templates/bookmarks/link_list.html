@@ -2,8 +2,8 @@
   <ul class="bookmarks">
     {% for link in links %}
       <li class="bookmark">
-        <h2 class="title" style="display:inline;"><a href="{{link.url}}" class="title">{{link.title}}</a></h2>
-        <span class="count">&nbsp;{{link.bookmark_set.count}}&nbsp;bookmarks&nbsp;</span>
+        <a href="{{link.url}}" class="title"><h2 class="title" style="display:inline;">{{link.title}}</h2></a>
+        <span class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">&nbsp;{{link.bookmark_set.count}}&nbsp;users&nbsp;</span>
         <div class="detail">
           <a href="{{link.url}}" class="url">{{link.url}}</a>
         </div>

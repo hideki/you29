@@ -1,0 +1,35 @@
+/* common */
+*{font-family:Verdana, Georgia, arial, sans-serif;}
+html,body,div{border:0;margin:0;padding:0;}
+a{ color: #1462C1; text-decoration: none;}
+a:hover { text-decoration: underline; }
+img{border:0;padding:2px 0px 0px 10px;margin:0;}
+
+/* layout */
+#container {position:relative;width:100%;min-width:760px;padding:0;}
+#header{color: #696969;width:100%;overflow:hidden;border-bottom: 1px solid #c9d7f1; padding: 2px 0px 0px 0px;}
+#footer{color: #696969; width:100%;overflow:hidden; border-top: 1px solid #c9d7f1;padding: 5px 0px;}
+#content{margin:10px 20px 10px 20px; font-size:100%;float:left;width:80%;}
+#nav{float:right;width:15%;}
+
+/* header */
+#user-menu{position:absolute;top:0;right:0; padding: 4px 5px;text-align:right;}
+
+/*tag-clouds*/
+.tag-clouds{margin:5px;}
+.tag-clouds h2{font-size:108%;font-weight:bold;color:#191970; background:#B0C4DE; text-align:center;}
+.tag-clouds ul li{font-size:100%; border-bottom:1px solid #dcdcdc; padding 3px 3px 3px 3px;}
+
+
+/* content */
+h1#title{font-size:161.6%;color:#191970;}
+
+/* bookmark */
+h2.title{font-size:123.1%;}
+.count-popular{color:#FFFFFF;background:#4682B4; font-weight:bold;}
+.count{color:#FFFFFF;background:#B0C4DE; font-weight:bold;}
+.bookmark{border-top: 1px dashed #dcdcdc;padding: 5px 0px 5px 0px;}
+.detail{color:#696969;}
+.url{color:#006400;}
+.command{color:#6495ED;}
+.tag{color:#6495ED;}

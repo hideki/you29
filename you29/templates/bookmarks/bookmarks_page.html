@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>
+      you29.Bookmarks:
+      {% ifequal page_type 'public' %}
+        Everyone's Shared Bookmarks
+      {% else %}
+        {% if is_owner %}{{username}}'s Bookmarks{% else %}{{username}}'s Shared Bookmarks{% endif %}
+      {% endifequal %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts/reset-fonts.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/css/bookmarks.css">
+  </head>
+  <body>
+    <!-- Container -->
+    <div id="container">
+      <!-- Header -->
+      <div id="header">
+        <!-- branding -->
+        <div id="branding">
+          <img id="logo-img" src="/site_media/images/you29-bookmarks-logo.png"/>
+        </div>
+        {% include "bookmarks/user_menu.html" %}
+      </div>
+      <!-- End of header -->
+
+      <!-- Content -->
+      <div id="content">
+        <center>
+          <h1 id="title">
+            {% ifequal page_type 'public' %}
+              Everyone's Shared Bookmarks
+            {% else %}
+              {% if is_owner %}{{username}}'s Bookmarks{% else %}{{username}}'s Shared Bookmarks{% endif %}
+            {% endifequal %}
+          </h1>
+        </center>
+        <!-- bookmark list -->
+        {% ifequal page_type 'public' %}
+          {% include "bookmarks/link_list.html"%}
+        {% else %}
+          {% include "bookmarks/bookmark_list.html"%}
+        {% endifequal %}
+        <!-- end of bookmark list -->
+        <br/><br/>
+        <!-- bookmarklet -->
+        <center>{% include "bookmarks/bookmarklet.html" %}</center>
+        <!-- end of bookmarklet -->
+      </div>
+      <!-- end of content --> 
+
+      <!-- nav -->
+      <div id="nav">{% include "bookmarks/tag_clouds.html" %}</div>
+      <!-- end of nav --> 
+
+      <!-- footer -->
+      <div id="footer">{%include "bookmarks/footer.html"%}</div>
+      <!-- end of footer -->
+    </div>
+    <!-- end of container -->
+  </body>
+</html>

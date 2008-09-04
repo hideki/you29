@@ -1,0 +1,15 @@
+<!-- user menu -->
+<div id="user-menu">
+  {% ifnotequal page_type 'public' %}
+    <a id="bookmarks-home" href="/bookmarks/public/">Everyone's</a> |
+  {% endifnotequal %}
+  {% if user.is_authenticated %}
+    Signed in as <a href="/bookmarks/user/{{user.username}}/"><b>{{user.username}}</b></a> |
+    <a id="save" href="/bookmarks/new/">Save a New Bookmark</a> |
+    <a id="logout" href="/accounts/logout/">Sign Out</a>
+  {% else %}
+    <a id="register" href="/accounts/register/">Join Now!</a> |
+    <a id="login" href="/accounts/login/?next=/">Sign In</a>
+  {% endif %}
+</div>
+<!-- end of user menu -->

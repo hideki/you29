@@ -1,0 +1,10 @@
+{% if tags %}
+<div class="tag-clouds">
+  <h2 class="">Popular Tags</h2>
+    <ul>
+      {% for tag in tags %}
+        <li>{{tag.name}} ({{tag.count}})</li>
+     {% endfor %}
+  </ul>
+</div>
+{% endif %}

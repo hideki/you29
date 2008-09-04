@@ -21,29 +21,35 @@ def public_page(request):
     logging.debug("bookmarks.views.public_page()");
     http_host = request.META['HTTP_HOST']
     links = Link.objects.order_by('-id');
-    tags  = Link.objects.tag_clouds()[:50];
+    tags  = Link.objects.tag_clouds()[:30];
     variables = RequestContext(request, {
+        'page_type':'public',
         'links':links,
         'tags':tags,
         'http_host':http_host
     })
-    return render_to_response('bookmarks/main_page.html', variables)
+    return render_to_response('bookmarks/bookmarks_page.html', variables)
 
 def user_page(request, username):
     logging.debug("bookmarks.views.user_page() username=%s" % (username));
-    logging.debug("bookmarks.views.user_page() request.user.username=%s" % (request.user.username));
+    logging.debug("bookmarks.views.user_page() request.user.username=%s" %
+      (request.user.username));
     user = get_object_or_404(User, username=username)
     http_host = request.META['HTTP_HOST']
     tags = Bookmark.objects.tag_clouds(username);
     if(user.username == request.user.username):
+        is_owner = True;    
         bookmarks = user.bookmark_set.order_by('-date')
         show_edit = True
         show_delete = True
     else:
+        is_owner = False;    
         bookmarks = user.bookmark_set.filter(share=True).order_by('-date')
         show_edit   = False
         show_delete = False
     variables = RequestContext(request, {
+        'page_type':'user',
+        'is_owner': is_owner,
         'user': request.user,
         'username':username,
         'bookmarks':bookmarks,
@@ -52,7 +58,7 @@ def user_page(request, username):
         'show_delete':show_delete,
         'http_host':http_host
     })
-    return render_to_response('bookmarks/user_page.html', variables)
+    return render_to_response('bookmarks/bookmarks_page.html', variables)
 
 
 # New Bookmark
@@ -82,7 +88,7 @@ def add_bookmark(request):
             title = soup.head.title.contents[0].strip()
             form  = BookmarkSaveForm({'url':url, 'title':title, 'share':True})
         except IOError:
-            return new_bookmark(request)
+            form  = BookmarkSaveForm({'url':url, 'title':url, 'share':True})
     else:
         form = BookmarkSaveForm(initial={'share':True})
 
