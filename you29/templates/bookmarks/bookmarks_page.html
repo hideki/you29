@@ -1,12 +1,13 @@
+{% load i18n %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
     <title>
-      you29.Bookmarks:
+      {% trans "you29.Bookmarks:" %}
       {% ifequal page_type 'public' %}
-        Everyone's Shared Bookmarks
+        {% trans "Everyone's Shared Bookmarks" %}
       {% else %}
-        {% if is_owner %}{{username}}'s Bookmarks{% else %}{{username}}'s Shared Bookmarks{% endif %}
+        {% if is_owner %}{{username}}{% trans "'s Bookmarks"%}{% else %}{{username}}{% trans "'s Shared Bookmarks" %}{% endif %}
       {% endifequal %}
     </title>
     <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts/reset-fonts.css">
@@ -30,9 +31,9 @@
         <center>
           <h1 id="title">
             {% ifequal page_type 'public' %}
-              Everyone's Shared Bookmarks
+              {% trans "Everyone's Shared Bookmarks" %}
             {% else %}
-              {% if is_owner %}{{username}}'s Bookmarks{% else %}{{username}}'s Shared Bookmarks{% endif %}
+              {% if is_owner %}{{username}}{% trans "'s Bookmarks"%}{% else %}{{username}}{% trans "'s Shared Bookmarks" %}{% endif %}
             {% endifequal %}
           </h1>
         </center>

@@ -1,22 +1,23 @@
+{% load i18n %}
 {% if bookmarks %}
   <ul class="bookmarks">
     {% for bookmark in bookmarks %}
       <li class="bookmark">
         <h2 class="title" style="display:inline;"><a href="{{bookmark.link.url}}" class="title">{{bookmark.title}}</a></h2>
-        <span class="{% if bookmark.is_popular %}count-popular{%else%}count{%endif%}">&nbsp;{{bookmark.link.bookmark_set.count}}&nbsp;users&nbsp;</span>
+        <span class="{% if bookmark.is_popular %}count-popular{%else%}count{%endif%}">&nbsp;{{bookmark.link.bookmark_set.count}}&nbsp;{% trans "users" %}&nbsp;</span>
         <div class="detail">
           <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
           - {{bookmark.date|date:"F j, Y"}}
           {% if show_edit %}
-            - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">edit</a>
+            - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">{% trans "edit" %}</a>
           {% endif %}
           {% if show_delete %}
-            - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">delete</a>
+            - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">{% trans "delete" %}</a>
           {% endif %}
         </div>
         {% if bookmark.tags.all %}
           <div class="tags">
-            Tags: 
+            {% trans "Tags:" %} 
             {% for tag in bookmark.tags.all %}
               {#<a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a> #}
               {{tag.name}}
@@ -30,5 +31,5 @@
       </li>
     {% endfor %} 
 {% else %}
-  <p>No bookmarks found.</p>
+  <p>{% trans "No bookmarks found." %}</p>
 {% endif %}

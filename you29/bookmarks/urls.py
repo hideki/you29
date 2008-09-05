@@ -13,4 +13,7 @@ urlpatterns = patterns('',
     (r'^edit/(\d+)/$',   edit_bookmark),
     (r'^delete/(\d+)/$', delete_bookmark),
     (r'^save/$',         save_bookmark),
+
+    # localization
+    (r'^i18n/$',         i18n_config),
 )

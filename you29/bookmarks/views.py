@@ -9,9 +9,17 @@ from django.template import RequestContext
 from forms import *
 from models import Bookmark, Link, Tag
 from you29.libs.BeautifulSoup import BeautifulSoup
+from you29.settings import LANGUAGES
+
+def i18n_config(request):
+    variables = RequestContext(request, {
+        'LANGUAGES':LANGUAGES,
+    });
+    return render_to_response('bookmarks/i18n_page.html', variables)
 
 def main_page(request):
     logging.debug("bookmarks.views.main_page()");
+    logging.debug("lang_code: %s" % request.LANGUAGE_CODE);
     if request.user.is_authenticated():
         return user_page(request, request.user.username)
     else:

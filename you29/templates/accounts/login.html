@@ -1,19 +1,20 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Login on You29{% endblock %}
-{% block head %}Login{% endblock %}
+{% block title %}{% trans "Login on You29" %}{% endblock %}
+{% block head %}{% trans "Login" %}{% endblock %}
 
 {% block content %}
 
   {% if form.has_errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    <p>{% trans "Your username and password didn't match. Please try again." %}</p>
   {% endif %}
 
   <form method="post" action=".">
     <table>
       {{form.as_table}}
     </table>
-    <p><input type="submit" value="Login"></p>
+    <p><input type="submit" value="{% trans "Login" %}"></p>
     <input type="hidden" name="next" value="{{next}}" />
   </form>
 

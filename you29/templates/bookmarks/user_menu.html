@@ -1,15 +1,18 @@
+{% load i18n %}
 <!-- user menu -->
 <div id="user-menu">
   {% ifnotequal page_type 'public' %}
-    <a id="bookmarks-home" href="/bookmarks/public/">Everyone's</a> |
+    <a id="bookmarks-home" href="/bookmarks/public/">{% trans "Everyone's" %}</a> |
   {% endifnotequal %}
   {% if user.is_authenticated %}
     Signed in as <a href="/bookmarks/user/{{user.username}}/"><b>{{user.username}}</b></a> |
-    <a id="save" href="/bookmarks/new/">Save a New Bookmark</a> |
-    <a id="logout" href="/accounts/logout/">Sign Out</a>
+    <a id="save" href="/bookmarks/new/">{% trans "Save Bookmark" %}</a> |
+    <a id="i18n" href="/bookmarks/i18n/">{% trans "Language" %}</a> |
+    <a id="logout" href="/accounts/logout/">{% trans "Sign Out" %}</a>
   {% else %}
-    <a id="register" href="/accounts/register/">Join Now!</a> |
-    <a id="login" href="/accounts/login/?next=/">Sign In</a>
+    <a id="i18n" href="/bookmarks/i18n/">{% trans "Language" %}</a> |
+    <a id="register" href="/accounts/register/">{% trans "Join Now!" %}</a> |
+    <a id="login" href="/accounts/login/?next=/">{% trans "Sign In" %}</a>
   {% endif %}
 </div>
 <!-- end of user menu -->

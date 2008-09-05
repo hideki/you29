@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Save Bookmark{% endblock %}
-{% block head %}Save Bookmark{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Save Bookmark" %}{% endblock %}
+{% block head %}{% trans "Save Bookmark" %}{% endblock %}
 {% block external %}
 <style>
 #id_url{width:350px;}
@@ -21,9 +22,9 @@
     <input type="hidden" name="_popup" value="true"/>
     <input id="cancel_button" type=submit name=btnC value="Cancel" onclick="window.close();">
   {% else %}
-    <a id="cancel_button" href="/bookmarks/">Cancel</a>
+    <a id="cancel_button" href="/bookmarks/">{% trans "Cancel" %}</a>
   {% endif %}
-  <a href="/bookmarks" target="_blank">See all bookmarks &raquo</a>
+  <a href="/bookmarks" target="_blank">{% trans "See all bookmarks &raquo" %}</a>
 </form>
 
 <script type="text/javascript">

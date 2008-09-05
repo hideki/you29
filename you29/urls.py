@@ -18,6 +18,9 @@ urlpatterns = patterns('',
     # admin page
     (r'^admin/(.*)', admin.site.root),
 
+    # i18n
+    (r'^i18n/', include('django.conf.urls.i18n')),
+
     # main
     (r'^', include('you29.bookmarks.urls')),
 

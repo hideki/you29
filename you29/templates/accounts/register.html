@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% block title %}User Registration{% endblock %}
-{% block head %}User Registration{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "User Registration" %}{% endblock %}
+{% block head %}{% trans "User Registration" %}{% endblock %}
 {% block content %}
   <form method="post" action=".">
     <table>
       {{form.as_table}}
     </table>
-    <p><input type="submit" value="register"></p>
+    <p><input type="submit" value="{% trans "Register" %}"></p>
   </form>
 {% endblock %}
