@@ -4,7 +4,7 @@
     {% for bookmark in bookmarks %}
       <li class="bookmark">
         <h2 class="title" style="display:inline;"><a href="{{bookmark.link.url}}" class="title">{{bookmark.title}}</a></h2>
-        <span class="{% if bookmark.is_popular %}count-popular{%else%}count{%endif%}">&nbsp;{{bookmark.link.bookmark_set.count}}&nbsp;{% trans "users" %}&nbsp;</span>
+        <span class="{% if bookmark.is_popular %}count-popular{%else%}count{%endif%}">{{bookmark.link.bookmark_set.count}}&nbsp;{% trans "users" %}</span>
         <div class="detail">
           <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
           - {{bookmark.date|date:"F j, Y"}}

@@ -4,7 +4,7 @@
     {% for link in links %}
       <li class="bookmark">
         <a href="{{link.url}}" class="title"><h2 class="title" style="display:inline;">{{link.title}}</h2></a>
-        <span class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">&nbsp;{{link.bookmark_set.count}}&nbsp;{% trans "users" %}&nbsp;</span>
+        <span class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">{{link.bookmark_set.count}}&nbsp;{% trans "users" %}</span>
         <div class="detail">
           <a href="{{link.url}}" class="url">{{link.url}}</a>
         </div>

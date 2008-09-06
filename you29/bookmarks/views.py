@@ -1,5 +1,6 @@
 import logging
-from urllib import urlopen
+#from urllib import urlopen, urlencode
+import urllib
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -8,12 +9,11 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from forms import *
 from models import Bookmark, Link, Tag
-from you29.libs.BeautifulSoup import BeautifulSoup
-from you29.settings import LANGUAGES
+from django.conf import settings
 
 def i18n_config(request):
     variables = RequestContext(request, {
-        'LANGUAGES':LANGUAGES,
+        'LANGUAGES':settings.LANGUAGES,
     });
     return render_to_response('bookmarks/i18n_page.html', variables)
 
@@ -68,35 +68,17 @@ def user_page(request, username):
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
 
-
-# New Bookmark
-def new_bookmark(request):
-    logging.debug("bookmarks.views.new_bookmark()");
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
-    form = NewBookmarkForm()
-    variables = RequestContext(request, {'form':form})
-    return render_to_response('bookmarks/new_page.html', variables)
-
 # Add Bookmark
 def add_bookmark(request):
     logging.debug("bookmarks.views.add_bookmark()");
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
+        url = request.path + '?' + request.META['QUERY_STRING'];
+        url = urllib.quote(url);
+        return HttpResponseRedirect('/accounts/login/?next=%s' % url)
     if(request.GET.has_key('url') and request.GET.has_key('title')):
         url   = request.GET['url']
         title = request.GET['title']
         form  = BookmarkSaveForm({'url':url,'title':title, 'share':True})
-    elif(request.POST.has_key('url')):
-        url = request.POST['url']
-        if(not url.startswith("http")):
-            url = "http://" + url
-        try:
-            soup=BeautifulSoup(urlopen(url))
-            title = soup.head.title.contents[0].strip()
-            form  = BookmarkSaveForm({'url':url, 'title':title, 'share':True})
-        except IOError:
-            form  = BookmarkSaveForm({'url':url, 'title':url, 'share':True})
     else:
         form = BookmarkSaveForm(initial={'share':True})
 

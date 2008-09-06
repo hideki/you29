@@ -13,7 +13,7 @@ img{border:0;padding:2px 0px 0px 10px;margin:0;}
 #nav{float:right;width:15%;}
 
 /* header */
-#user-menu{position:absolute;top:0;right:0; padding: 4px 5px;text-align:right;}
+#user-menu{position:absolute;top:0;right:0; padding: 4px 5px;text-align:right;font-size:93%;}
 
 /*tag-clouds*/
 .tag-clouds{margin:5px;}
@@ -22,12 +22,12 @@ img{border:0;padding:2px 0px 0px 10px;margin:0;}
 
 
 /* content */
-h1#title{font-size:161.6%;color:#191970;}
+h1#title{font-size:138.5%;color:#191970;}
 
 /* bookmark */
-h2.title{font-size:123.1%;}
-.count-popular{color:#FFFFFF;background:#4682B4; font-weight:bold;}
-.count{color:#FFFFFF;background:#B0C4DE; font-weight:bold;}
+h2.title{font-size:116%;}
+.count-popular{color:#FFFFFF;background:#4682B4;}
+.count{color:#FFFFFF;background:#B0C4DE;}
 .bookmark{border-top: 1px dashed #dcdcdc;padding: 5px 0px 5px 0px;}
 .detail{color:#696969;}
 .url{color:#006400;}
