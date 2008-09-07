@@ -18,6 +18,25 @@ class CustomTag():
 # Manager for Link Model
 ###########################################################
 class LinkManager(models.Manager):
+    def shared_links(self, limit=30):
+        query = """
+            SELECT l.id, l.url, l.title, sum(b.share) as user_count
+            FROM bookmarks_bookmark b, bookmarks_link l
+            where b.link_id = l.id
+            group by l.id
+            having user_count > 0
+            order by l.id desc
+            limit %d
+            """ % (limit);
+        cursor = connection.cursor()
+        cursor.execute(query);
+        shared_links = [];
+        for row in cursor.fetchall():
+            link = self.model(id=row[0], url=row[1], title=row[2])
+            link.user_count = row[3];
+            shared_links.append(link);
+        return shared_links;
+    
     def tag_clouds(self):
         query = """
             SELECT t.id, t.name, count(t.name) AS tag_count
@@ -47,10 +66,13 @@ class Link(models.Model):
     def __unicode__(self):
         return self.url
     def is_popular(self):
-        if(self.bookmark_set.count() > 5):
+        if(self.user_count() > 5):
             return True;
         else:
             return False;
+
+    def user_count(self):
+        return self.bookmark_set.filter(share=True).count();
 
 ###########################################################
 # Manager for Bookmark Model

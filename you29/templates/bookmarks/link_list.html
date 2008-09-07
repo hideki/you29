@@ -1,13 +1,29 @@
 {% load i18n %}
+{% load common_filters %}
 {% if links %}
   <ul class="bookmarks">
     {% for link in links %}
       <li class="bookmark">
         <a href="{{link.url}}" class="title"><h2 class="title" style="display:inline;">{{link.title}}</h2></a>
-        <span class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">{{link.bookmark_set.count}}&nbsp;{% trans "users" %}</span>
+        <span class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</span>
         <div class="detail">
           <a href="{{link.url}}" class="url">{{link.url}}</a>
         </div>
+        <div class="tags">
+        </div>
+        {% for b in link.bookmark_set.all %}
+          <div class="notes" style="margin-left:5px;">
+            {% if b.share %}
+              {% if b.notes %}
+                <div style="margin-bottom:2px;padding:3px 3px 3px 3px;border-top:solid 1px #ECEFF5;">
+                    <a href="/bookmarks/user/{{b.user.username}}">{{b.user.username}}</a>
+                    &nbsp;({{b.date|date:"m.d.Y"}})
+                    &nbsp;{{b.notes|truncate_chars:100}}
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endfor %}
       </li>
     {% endfor %} 
   </li>

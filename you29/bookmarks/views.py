@@ -28,7 +28,9 @@ def main_page(request):
 def public_page(request):
     logging.debug("bookmarks.views.public_page()");
     http_host = request.META['HTTP_HOST']
-    links = Link.objects.order_by('-id')[:30];
+    #links = Link.objects.order_by('-id')[:30];
+    #links = Link.objects.shared_links()[:30];
+    links = Link.objects.shared_links(30);
     tags  = Link.objects.tag_clouds()[:30];
     variables = RequestContext(request, {
         'page_type':'public',
