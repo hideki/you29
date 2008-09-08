@@ -13,6 +13,10 @@ uninstall:
 validate:
 	python ./you29/manage.py validate
 
+# shell
+shell:
+	python ./you29/manage.py shell
+
 # syncdb
 syncdb:
 	python ./you29/manage.py syncdb
@@ -27,4 +31,5 @@ clean:
 	rm -rf *.pyc
 	rm -rf */*.pyc
 	rm -rf */*/*.pyc
+	rm -rf */*/*/*.pyc
 	sudo rm -rf build

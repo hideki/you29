@@ -17,16 +17,18 @@
         </div>
         {% if bookmark.tags.all %}
           <div class="tags">
-            {% trans "Tags:" %} 
+          {% trans "Tags:" %} 
             {% for tag in bookmark.tags.all %}
-              {#<a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a> #}
-              {{tag.name}}
+              <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a> 
               {% if not forloop.last %}|{% endif%}
             {% endfor %}
           </div>
         {% endif %}
         {% if bookmark.notes %}
-        <div class="notes">{{bookmark.notes}}</div>
+          <div class="notes">
+            {% trans "Notes:" %}
+            {{bookmark.notes}}
+          </div>
         {% endif %}
       </li>
     {% endfor %} 

@@ -31,9 +31,13 @@
         <center>
           <h1 id="title">
             {% ifequal page_type 'public' %}
+              <a href="/bookmarks/public/">
               {% trans "Everyone's Shared Bookmarks" %}
+              </a>
             {% else %}
+              <a href="/bookmarks/user/{{username}}/">
               {% if is_owner %}{{username}}{% trans "'s Bookmarks"%}{% else %}{{username}}{% trans "'s Shared Bookmarks" %}{% endif %}
+              </a>
             {% endifequal %}
           </h1>
         </center>
