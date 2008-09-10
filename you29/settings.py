@@ -9,8 +9,8 @@ logging.basicConfig(
     datefmt='%d/%b/%Y %H:%M:%S',
 )
 
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
