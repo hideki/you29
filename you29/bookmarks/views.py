@@ -102,8 +102,8 @@ def user_tag_page(request, username, tags):
         is_owner    = False;    
         show_edit   = False
         show_delete = False
-    logging.debug("bookmarks.views.user_tag_page() is_owner=%s" % (is_owner));
     tags = Bookmark.objects.tag_clouds(username, is_owner);
+    tag_browse = True;
     variables = RequestContext(request, {
         'page_type':'user',
         'is_owner': is_owner,
@@ -113,7 +113,8 @@ def user_tag_page(request, username, tags):
         'tags':tags,
         'show_edit':show_edit,
         'show_delete':show_delete,
-        'http_host':http_host
+        'http_host':http_host,
+        'tag_browse':tag_browse
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
 
