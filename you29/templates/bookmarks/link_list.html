@@ -9,13 +9,15 @@
         <div class="detail">
           <a href="{{link.url}}" class="url">{{link.url}}</a>
         </div>
-        <div class="tags">
-          {% trans "Tags:" %} 
-          {% for tag in link.get_tags %}
-            <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>
-            {% if not forloop.last %}|{% endif%}
-          {% endfor %}
-        </div>
+        {% if link.get_tags %}
+          <div class="tags">
+            {% trans "Tags:" %} 
+            {% for tag in link.get_tags %}
+              <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>
+              {% if not forloop.last %}|{% endif%}
+            {% endfor %}
+          </div>
+        {% endif %}
         {% for b in link.bookmark_set.all %}
           <div class="notes" style="margin-left:20px;">
             {% if b.share %}

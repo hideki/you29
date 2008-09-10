@@ -4,6 +4,7 @@ from django.db import models, connection
 from django.contrib.auth.models import User
 from you29.tags.models import Tag
 
+
 ###########################################################
 # Models for Bookmarks
 ###########################################################
@@ -18,35 +19,27 @@ class CustomTag():
 # Manager for Link Model
 ###########################################################
 class LinkManager(models.Manager):
-    def shared_links(self, limit, *tags):
-        q_tags = "";
+    def shared_links(self, limit, tags=None):
+        join_tags = "";
+        where_tags = "";
+        tag_count = 0;
         for tag in tags:
-            q_tags = " AND t.name='%s' " % (tag)
-            logging.debug(q_tags);        
+            if len(tag) > 0:
+                where_tags = where_tags + " AND T%d.name LIKE '%s' " % (tag_count, tag);
+                join_tags = join_tags + " INNER JOIN bookmarks_bookmark_tags BT%d ON (B.id = BT%d.bookmark_id) " % (tag_count, tag_count);
+                join_tags = join_tags + " INNER JOIN tags_tag T%d ON (BT%d.tag_id = T%d.id) " % (tag_count, tag_count, tag_count);
+                tag_count += 1;
         query = """
-            SELECT
-                l.id, l.url, l.title, sum(b.share) as user_count
-            FROM
-                bookmarks_link l, bookmarks_bookmark b,
-                bookmarks_bookmark_tags b_t, tags_tag t
-            WHERE
-                l.id = b.link_id AND b.id = b_t.bookmark_id AND
-                b_t.tag_id = t.id
-                %s
-            GROUP BY l.id
+            SELECT L.id, L.url, L.title, SUM(B.share) AS user_count
+            FROM bookmarks_link L, bookmarks_bookmark B 
+            %s
+            WHERE L.id = B.link_id
+            %s
+            GROUP BY L.id
             HAVING user_count > 0
-            ORDER BY b.date DESC
+            ORDER BY B.date DESC
             LIMIT %d
-            """ % (q_tags, limit);
-#        query = """
-#            SELECT l.id, l.url, l.title, sum(b.share) as user_count
-#            FROM bookmarks_bookmark b, bookmarks_link l
-#            where b.link_id = l.id
-#            group by l.id
-#            having user_count > 0
-#            order by l.id desc
-#            LIMIT %d
-#            """ % (limit);
+            """ % (join_tags, where_tags, limit);
         logging.debug(query);
         cursor = connection.cursor()
         cursor.execute(query);
@@ -133,7 +126,7 @@ class BookmarkManager(models.Manager):
                 and b.share = true
                 and u.username=%s
                 GROUP BY t.name
-                ORDER BY tag_count desc""";
+                ORDER BY tag_count DESC""";
         else:
             query = """
                 SELECT t.id, t.name, count(t.name) AS tag_count
@@ -144,7 +137,7 @@ class BookmarkManager(models.Manager):
                 and b.id = b_t.bookmark_id 
                 and u.username=%s
                 GROUP BY t.name
-                ORDER BY tag_count desc""";
+                ORDER BY tag_count DESC""";
         cursor = connection.cursor()
         cursor.execute(query, [username]);
         tag_clouds = [];

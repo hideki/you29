@@ -1,21 +1,18 @@
 import logging
-#from urllib import urlopen, urlencode
 import urllib
-from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from forms import *
+from forms import BookmarkSaveForm
 from models import Bookmark, Link, Tag
-from django.conf import settings
 
 def i18n_config(request):
-    variables = RequestContext(request, {
-        'LANGUAGES':settings.LANGUAGES,
-    });
+    variables = RequestContext(request, { 'LANGUAGES':settings.LANGUAGES, });
     return render_to_response('bookmarks/i18n_page.html', variables)
 
 def main_page(request):
@@ -29,7 +26,7 @@ def main_page(request):
 def public_page(request):
     logging.debug("bookmarks.views.public_page()");
     http_host = request.META['HTTP_HOST']
-    links = Link.objects.shared_links(30);
+    links = Link.objects.shared_links(30, []);
     tags  = Link.objects.tag_clouds(30);
     variables = RequestContext(request, {
         'page_type':'public',
@@ -39,10 +36,10 @@ def public_page(request):
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
 
-def public_tag_page(request, tag):
-    logging.debug("bookmarks.views.public_tag_page() tag=%s" % (tag));
+def public_tag_page(request, tags):
+    logging.debug("bookmarks.views.public_tag_page() tags=%s" % (tags));
     http_host = request.META['HTTP_HOST'];
-    links = Link.objects.shared_links(30, tag);
+    links = Link.objects.shared_links(30, tags.split('/'));
     tags  = Link.objects.tag_clouds(30);
     variables = RequestContext(request, {
         'page_type':'public',
@@ -59,13 +56,13 @@ def user_page(request, username):
     user = get_object_or_404(User, username=username)
     http_host = request.META['HTTP_HOST']
     if(user.username == request.user.username):
+        bookmarks = Bookmark.objects.filter(user=user).order_by('-date');
         is_owner = True;    
-        bookmarks = user.bookmark_set.order_by('-date')
         show_edit = True
         show_delete = True
     else:
+        bookmarks = Bookmark.objects.filter(user=user).filter(share=True).order_by('-date');
         is_owner = False;    
-        bookmarks = user.bookmark_set.filter(share=True).order_by('-date')
         show_edit   = False
         show_delete = False
     tags = Bookmark.objects.tag_clouds(username, is_owner);
@@ -82,20 +79,27 @@ def user_page(request, username):
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
 
-def user_tag_page(request, username, tag):
-    logging.debug("bookmarks.views.user_tag_page() username=%s tag=%s" % (username, tag));
+def user_tag_page(request, username, tags):
+    logging.debug("bookmarks.views.user_tag_page() username=%s tags=%s" % (username, tags));
     logging.debug("bookmarks.views.user_tag_page() request.user.username=%s" % (request.user.username));
     user = get_object_or_404(User, username=username)
     http_host = request.META['HTTP_HOST']
     if(user.username == request.user.username):
-        is_owner = True;    
-        #bookmarks = user.bookmark_set.order_by('-date')
-        bookmarks = user.bookmark_set.filter(Q(tags__name=tag)).order_by('-date')
-        show_edit = True
+        bookmarks = Bookmark.objects.filter(user=user);
+        for tag in tags.split('/'):
+            if len(tag) > 0:
+                bookmarks = bookmarks.filter(Q(**{'tags__name__iexact':tag}));
+        bookmarks = bookmarks.order_by('-date');
+        is_owner    = True;    
+        show_edit   = True
         show_delete = True
     else:
-        is_owner = False;    
-        bookmarks = user.bookmark_set.filter(Q(tags__name=tag) & Q(share=True)).order_by('-date')
+        bookmarks = Bookmark.objects.filter(user=user).filter(share=True);
+        for tag in tags.split('/'):
+            if len(tag) > 0:
+                bookmarks = bookmarks.filter(Q(**{'tags__name__iexact':tag}));
+        bookmarks = bookmarks.order_by('-date');
+        is_owner    = False;    
         show_edit   = False
         show_delete = False
     logging.debug("bookmarks.views.user_tag_page() is_owner=%s" % (is_owner));
@@ -112,6 +116,7 @@ def user_tag_page(request, username, tag):
         'http_host':http_host
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
+
 # Add Bookmark
 def add_bookmark(request):
     logging.debug("bookmarks.views.add_bookmark()");
@@ -125,7 +130,6 @@ def add_bookmark(request):
         form  = BookmarkSaveForm({'url':url,'title':title, 'share':True})
     else:
         form = BookmarkSaveForm(initial={'share':True})
-
     popup = False;
     if(request.GET.has_key('_popup')):
         popup = bool(request.GET['_popup']);
