@@ -145,6 +145,48 @@ class BookmarkManager(models.Manager):
             tag = CustomTag(row[0], row[1], row[2])
             tag_clouds.append(tag);
         return tag_clouds;
+
+    def associated_tags(self, **kwargs): 
+        #logging.debug("associated_tags");
+        #for key in kwargs:
+        #    logging.debug("  kwarg, %s: %s" % (key, kwargs[key]));
+    
+        ids = kwargs['ids'];
+        if len(ids) == 0:
+            return [];
+
+        tags = kwargs['tags'];
+
+        in_ids = "";
+        for id in ids:
+            if len(in_ids) == 0:
+                in_ids = str(id);
+            else:
+                in_ids = in_ids + ", " +str(id);
+        where_tags = "";
+        for tag in tags:
+            if len(tag) > 0:
+                where_tags = where_tags + " AND T.name NOT LIKE '%s' " % ( tag);
+
+        query = """
+            SELECT T.id, T.name, count(T.name) AS tag_count
+            FROM tags_tag T, bookmarks_bookmark_tags BT, bookmarks_bookmark B
+            WHERE T.id = BT.tag_id AND B.id = BT.bookmark_id 
+            AND B.id in (%s)
+            %s
+            GROUP BY T.name
+            ORDER BY tag_count DESC
+            """ %(in_ids, where_tags);
+        logging.debug(query);
+        cursor = connection.cursor()
+        cursor.execute(query);
+        associated_tags = [];
+        for row in cursor.fetchall():
+            tag = CustomTag(row[0], row[1], row[2])
+            associated_tags.append(tag);
+        return associated_tags;
+
+
 ###########################################################
 # Bookmark Model
 ###########################################################

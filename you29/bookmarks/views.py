@@ -82,11 +82,14 @@ def user_page(request, username):
 def user_tag_page(request, username, tags):
     logging.debug("bookmarks.views.user_tag_page() username=%s tags=%s" % (username, tags));
     logging.debug("bookmarks.views.user_tag_page() request.user.username=%s" % (request.user.username));
+
+    tag_array = tags.split('/');
+
     user = get_object_or_404(User, username=username)
     http_host = request.META['HTTP_HOST']
     if(user.username == request.user.username):
         bookmarks = Bookmark.objects.filter(user=user);
-        for tag in tags.split('/'):
+        for tag in tag_array:
             if len(tag) > 0:
                 bookmarks = bookmarks.filter(Q(**{'tags__name__iexact':tag}));
         bookmarks = bookmarks.order_by('-date');
@@ -95,14 +98,18 @@ def user_tag_page(request, username, tags):
         show_delete = True
     else:
         bookmarks = Bookmark.objects.filter(user=user).filter(share=True);
-        for tag in tags.split('/'):
+        for tag in tag_array:
             if len(tag) > 0:
                 bookmarks = bookmarks.filter(Q(**{'tags__name__iexact':tag}));
         bookmarks = bookmarks.order_by('-date');
         is_owner    = False;    
         show_edit   = False
         show_delete = False
-    tags = Bookmark.objects.tag_clouds(username, is_owner);
+    #tags = Bookmark.objects.tag_clouds(username, is_owner);
+    ids = [];
+    for bookmark in bookmarks:
+        ids.append(bookmark.id);
+    tags = Bookmark.objects.associated_tags(username=username, is_owner=is_owner, tags=tag_array, ids=ids);
     tag_browse = True;
     variables = RequestContext(request, {
         'page_type':'user',
