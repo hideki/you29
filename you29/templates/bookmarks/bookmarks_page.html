@@ -11,37 +11,46 @@
       {% endifequal %}
     </title>
     <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
-    <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts/reset-fonts.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts-grids/reset-fonts-grids.css">
     <link rel="stylesheet" type="text/css" href="/site_media/css/bookmarks.css">
   </head>
+
   <body>
-    <!-- Container -->
-    <div id="container">
-      <!-- Header -->
-      <div id="header">
+    <!-- #doc = 750px; #doc2 = 950px; #doc3 = 100%; #doc4 = 974px -->
+    <!-- .yui-t1 = left  160px; .yui-t2 = left  180px; .yui-t3 = left  300px; -->
+    <!-- .yui-t4 = right 180px; .yui-t5 = right 240px; .yui-t6 = right 300px; -->
+
+    <!-- container #doc3 = 100%; .yui-t1 = left 160px;  -->
+    <div id="doc4" class="yui-t2">
+      <!-- header div#hd -->
+      <div id="hd">
         <!-- branding -->
         <div id="branding">
           <img id="logo-img" src="/site_media/images/you29-bookmarks-logo.png"/>
         </div>
         {% include "bookmarks/user_menu.html" %}
+        <h1 id="title">
+          {% ifequal page_type 'public' %}
+            <a href="/bookmarks/public/">{% trans "Everyone's Shared Bookmarks" %}</a>
+          {% else %}
+            <a href="/bookmarks/user/{{username}}/">
+              {% if is_owner %}
+                {{username}}{% trans "'s Bookmarks"%}
+              {% else %}
+                {{username}}{% trans "'s Shared Bookmarks" %}
+              {% endif %}
+            </a>
+          {% endifequal %}
+        </h1>
       </div>
-      <!-- End of header -->
+      <!-- end of header div#hd -->
 
-      <!-- Content -->
-      <div id="content">
-        <center>
-          <h1 id="title">
-            {% ifequal page_type 'public' %}
-              <a href="/bookmarks/public/">
-              {% trans "Everyone's Shared Bookmarks" %}
-              </a>
-            {% else %}
-              <a href="/bookmarks/user/{{username}}/">
-              {% if is_owner %}{{username}}{% trans "'s Bookmarks"%}{% else %}{{username}}{% trans "'s Shared Bookmarks" %}{% endif %}
-              </a>
-            {% endifequal %}
-          </h1>
-        </center>
+      <!-- content div#bd -->
+      <div id="bd">
+        <!-- div.yui-main -->
+        <div id="yui-main">
+          <div class="yui-b main-content">
+
         <!-- bookmark list -->
         {% ifequal page_type 'public' %}
           {% include "bookmarks/link_list.html"%}
@@ -53,18 +62,25 @@
         <!-- bookmarklet -->
         <center>{% include "bookmarks/bookmarklet.html" %}</center>
         <!-- end of bookmarklet -->
-      </div>
-      <!-- end of content --> 
 
-      <!-- nav -->
-      <div id="nav">
-        {% include "bookmarks/tag_clouds.html" %}
-      </div>
-      <!-- end of nav --> 
+          </div>
+        </div>
+        <!-- end of div.yui-main -->
 
-      <!-- footer -->
-      <div id="footer">{%include "bookmarks/footer.html"%}</div>
-      <!-- end of footer -->
+        <!-- nav div.yui-b -->
+        <div id="nav" class="yui-b">
+          {% include "bookmarks/tag_clouds.html" %}
+        </div>
+        <!-- end of div.yui-b -->
+      </div>
+      <!-- end of content div#bd --> 
+
+      <!-- footer div#ft footer -->
+      <div id="ft">
+        <br/>
+        {%include "bookmarks/footer.html"%}
+      </div>
+      <!-- end of footer div#ft -->
     </div>
     <!-- end of container -->
   </body>

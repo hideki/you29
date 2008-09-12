@@ -1,21 +1,22 @@
 {% load i18n %}
-{% if tags %}
+{# if tags #}
 <div class="tag-clouds">
   <h2 class="">{% trans "Popular Tags" %}</h2>
     <ul>
       {% for tag in tags %}
         <li>
+          <img class="tag-image" src="/site_media/images/tag.jpg"/>
           {% ifequal page_type 'public' %}
-            <a href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>
+            <a href="/bookmarks/public/{{tag.name}}/">{{tag.name}}  ({{tag.count}})</a>
           {% else %}
             {% if tag_browse %}
-              <a href="{{tag.name}}/">+{{tag.name}}</a>
+              <a href="{{tag.name}}/">+{{tag.name}}  ({{tag.count}})</a>
             {% else %}
-              <a href="/bookmarks/user/{{username}}/{{tag.name}}/">{{tag.name}}</a>
+              <a href="/bookmarks/user/{{username}}/{{tag.name}}/">{{tag.name}}  ({{tag.count}})</a>
             {% endif %}
           {% endifequal %}
         </li>
      {% endfor %}
   </ul>
 </div>
-{% endif %}
+{# endif #}
