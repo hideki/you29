@@ -3,9 +3,11 @@
   <ul class="bookmarks">
     {% for bookmark in bookmarks %}
       <li class="bookmark">
-        <h2 class="title" style="display:inline;"><a href="{{bookmark.link.url}}" class="title">{{bookmark.title}}</a></h2>
+        <h2 class="title" style="display:inline;">
+          <a href="{{bookmark.link.url}}" class="title">{{bookmark.title}}</a>
+        </h2>
         {% if bookmark.link.user_count %}
-        <span class="{% if bookmark.is_popular %}count-popular{%else%}count{%endif%}">{{bookmark.link.user_count}}&nbsp;{% trans "users" %}</span>
+          <span class="{% if bookmark.is_popular %}count-popular{%else%}count{%endif%}">{{bookmark.link.user_count}}&nbsp;{% trans "users" %}</span>
         {% endif %}
         <div class="detail">
           <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
@@ -19,7 +21,8 @@
         </div>
         {% if bookmark.tags.all %}
           <div class="tags">
-          {% trans "Tags:" %} 
+            {# trans "Tags:" #} 
+            <img class="tag-image" src="/site_media/images/tag.jpg"/>
             {% for tag in bookmark.tags.all %}
               <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a> 
               {% if not forloop.last %}|{% endif%}
@@ -28,7 +31,8 @@
         {% endif %}
         {% if bookmark.notes %}
           <div class="notes">
-            {% trans "Notes:" %}
+            {# trans "Notes:" #}
+            <img class="note-image" src="/site_media/images/note.png"/>
             {{bookmark.notes}}
           </div>
         {% endif %}

@@ -26,7 +26,7 @@ html, body {
 
 /* div#hd */
 #logo-img {
-    padding: 2px 0px 0px 10px;
+    padding: 5px 0px 0px 10px;
 }
 
 #user-menu {
@@ -44,7 +44,6 @@ html, body {
 
 h1#title {
     font-weight: bold;
-    //font-size: 138.5%;
     font-size: 146.5%;
     text-align: center;
 }
@@ -70,10 +69,13 @@ h1#title a{
 }
 .tag-clouds ul li {
     font-size: 100%;
-    //border-bottom: 1px solid #dcdcdc;
     padding 3px 3px 3px 3px;
 }
 .tag-image {
+    position: relative;
+    top:4px;
+}
+.note-image {
     position: relative;
     top:4px;
 }
@@ -87,13 +89,13 @@ h2.title{
     background-color:#4682B4;
 }
 .count { 
-    #color:#FFFFFF;
     color:#A9A9A9;
     background-color: #e5ecf9;
 }
 .bookmark { 
-    border-top: 1px dashed #dcdcdc;
-    padding: 5px 0px 5px 0px;
+    border-bottom: 1px dashed #dcdcdc;
+    padding: 8px 0px 8px 0px;
+    margin-right: 12px;
 }
 .detail { 
     color:#696969;

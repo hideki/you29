@@ -11,7 +11,8 @@
         </div>
         {% if link.get_tags %}
           <div class="tags">
-            {% trans "Tags:" %} 
+            {# trans "Tags:" #} 
+            <img class="tag-image" src="/site_media/images/tag.jpg"/>
             {% for tag in link.get_tags %}
               <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>
               {% if not forloop.last %}|{% endif%}
@@ -19,10 +20,11 @@
           </div>
         {% endif %}
         {% for b in link.bookmark_set.all %}
-          <div class="notes" style="margin-left:20px;">
+          <div class="notes">
             {% if b.share %}
               {% if b.notes %}
-                <div style="margin-bottom:2px;padding:3px 3px 3px 3px;border-top:solid 1px #ECEFF5;">
+                <div class="note">
+                    <img class="note-image" src="/site_media/images/note.png"/>
                     <a href="/bookmarks/user/{{b.user.username}}">{{b.user.username}}</a>
                     &nbsp;({{b.date|date:"m.d.Y"}})
                     &nbsp;{{b.notes|truncate_chars:100}}
