@@ -51,6 +51,13 @@ h1#title a{
     color: #FFFFFF;
 }
 
+h2#page-title {
+    font-size: 131%;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
 /** nav */
 #nav{
     border-right: 1px solid #dcdcdc;
@@ -71,11 +78,7 @@ h1#title a{
     font-size: 100%;
     padding 3px 3px 3px 3px;
 }
-.tag-image {
-    position: relative;
-    top:4px;
-}
-.note-image {
+.tag-image, .note-image {
     position: relative;
     top:4px;
 }
@@ -106,6 +109,26 @@ h2.title{
 .command { 
     color:#6495ED;
 }
+.tags, .notes {
+    margin-left: 20px;
+}
 .tag { 
     color:#6495ED;
 }
+
+.errorlist{
+    color: #FF0000;
+}
+
+form#save-form table td {
+    padding-bottom: 10px;
+}
+form#save-form table th {
+    vertical-align: top;
+    text-align: right;
+}
+#id_title, #id_url, #id_notes, #id_tags{
+    width:450px;
+}
+
+

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Save Bookmark" %}{% endblock %}
+{% block head %}{% trans "Save Bookmark" %}{% endblock %}
+{% block external %}
+<style>
+#id_url{width:350px;}
+#id_title{width:350px;}
+#id_notes{width:350px;}
+#id_tags{width:350px;}
+#id_share{}
+</style>
+{% endblock %}
+
+{% block content %}
+<form id="save-form" method="post" action="/bookmarks/save/">
+  <table>
+    {{form.as_table}}
+  </table>
+  <input id="next_button" type="submit" value="Save"/>
+  <input type="hidden" name="_popup" value="true"/>
+  <input id="cancel_button" type=submit name=btnC value="Cancel" onclick="window.close();return false;">
+  <a href="/bookmarks" target="_blank">{% trans "See all bookmarks &raquo" %}</a>
+</form>
+{% endblock %}

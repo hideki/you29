@@ -131,18 +131,27 @@ def add_bookmark(request):
     if not request.user.is_authenticated():
         url = request.path + '?' + request.META['QUERY_STRING'];
         url = urllib.quote(url);
-        return HttpResponseRedirect('/accounts/login/?next=%s' % url)
+        return HttpResponseRedirect('/accounts/login/?next=%s' % url);
     if(request.GET.has_key('url') and request.GET.has_key('title')):
-        url   = request.GET['url']
-        title = request.GET['title']
-        form  = BookmarkSaveForm({'url':url,'title':title, 'share':True})
+        url   = request.GET['url'];
+        title = request.GET['title'];
+        form  = BookmarkSaveForm({'url':url,'title':title, 'share':True});
     else:
-        form = BookmarkSaveForm(initial={'share':True})
+        form = BookmarkSaveForm(initial={'share':True});
     popup = False;
     if(request.GET.has_key('_popup')):
         popup = bool(request.GET['_popup']);
-    variables = RequestContext(request, {'form':form, 'popup':popup})
-    return render_to_response('bookmarks/save_page.html', variables)
+    tags = Bookmark.objects.tag_clouds(request.user.username, True);
+    variables = RequestContext(request, {
+        'user': request.user,
+        'username':request.user.username,
+        'form':form,
+        'tags':tags
+        });
+    if popup:
+        return render_to_response('bookmarks/popup_save_page.html', variables);
+    else:
+        return render_to_response('bookmarks/save_page.html', variables);
 
 # Edit Bookmark
 def edit_bookmark(request, bookmark_id):
@@ -177,22 +186,31 @@ def save_bookmark(request):
     logging.debug("bookmarks.views.save_bookmark()");
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
+    popup = False;
     if request.method == 'POST':
+        if(request.POST.has_key('_popup')):
+            popup = bool(request.POST['_popup']);
         form = BookmarkSaveForm(request.POST)
         if form.is_valid():
             bookmark = _save_bookmark(request, form)
-            popup = False;
-            if(request.POST.has_key('_popup')):
-                logging.debug("popup=%s" % request.POST['_popup']);
-                popup = bool(request.POST['_popup']);
-                logging.debug("popup=%d" % popup);
-            logging.debug("bookmarks.views.save_bookmark() popup=%s" % popup);
             if(popup):
                 return render_to_response('bookmarks/close_page.html')
             else:
                 return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
-    variables = RequestContext(request, {'form':form})
-    return render_to_response('bookmarks/save_page.html', variables)
+    else:
+        if(request.GET.has_key('_popup')):
+            popup = bool(request.GET['_popup']);
+    tags = Bookmark.objects.tag_clouds(request.user.username, True);
+    variables = RequestContext(request, {
+        'user': request.user,
+        'username':request.user.username,
+        'form':form,
+        'tags':tags
+        });
+    if(popup):
+        return render_to_response('bookmarks/popup_save_page.html', variables)
+    else:
+        return render_to_response('bookmarks/save_page.html', variables)
 
 def _save_bookmark(request, form):
     logging.debug("bookmarks.views._save_bookmark()");
