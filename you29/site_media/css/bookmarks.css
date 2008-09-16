@@ -1,9 +1,9 @@
 /* common */
 * {
-  font-family: Georgia, Verdana, Arial, sans-serif;
+  font-family: Geneva, Tahoma, Verdana Arial, Helvetica, sans-serif;
 }
 a{
-    color: #1462C1;
+    color: #0A396F;
     text-decoration: none;
 }
 a:hover {
@@ -14,7 +14,7 @@ html, body {
     background-color: #e5ecf9;
 }
 
-#doc4 {
+.doc {
     background-color: #ffffff;
 }
 
@@ -53,14 +53,33 @@ h1#title a{
 
 h2#page-title {
     font-size: 131%;
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-bottom: 5px;
+    font-weight:bold;
+    margin: 10px 10px 10px 10px;
+    padding: 2px 2px 2px 2px;
+    border-bottom: 1px dashed #dcdcdc;
+}
+
+form#save-form{
+    margin: 10px 10px 10px 10px;
+    padding: 2px 2px 2px 2px;
+}
+
+input#next_button, input#cancel_button {
+    width:100px;
+}
+input#next_button {
+    font-weight:bold;
 }
 
 /** nav */
 #nav{
-    border-right: 1px solid #dcdcdc;
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+    border: 1px solid #dcdcdc;
+}
+
+.main-content{
+    padding: 2px 2px 2px 4px;
 }
 
 /*tag-clouds*/
@@ -113,7 +132,7 @@ h2.title{
     margin-left: 20px;
 }
 .tag { 
-    color:#6495ED;
+//    color:#6495ED;
 }
 
 .errorlist{
