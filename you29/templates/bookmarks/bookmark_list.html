@@ -38,6 +38,25 @@
         {% endif %}
       </li>
     {% endfor %} 
+  </ul>
+  {% if has_other_pages %}
+    <div class="paginator">
+      {% if has_previous %}
+        <a href="?page={{previous_page_number}}">&lt; {% trans "Previous" %}</a>
+      {% endif %}
+      {% for n in pages %}
+        {% ifequal n page %}
+          <span class=page>{{n}}</span>
+        {% else %}
+          <a class="page" href="?page={{n}}">{{n}}</a>
+        {% endifequal %}
+      {% endfor %}
+      {% if has_next %}
+        <a href="?page={{next_page_number}}">{% trans "Next" %} &gt;</a>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="total-bookmarks">{{total}} {% trans "Bookmarks" %}</div>
 {% else %}
   <p>{% trans "No bookmarks found." %}</p>
 {% endif %}

@@ -1,6 +1,6 @@
 /* common */
 * {
-  font-family: Geneva, Tahoma, Verdana Arial, Helvetica, sans-serif;
+    font-family: Geneva, Tahoma, Verdana Arial, Helvetica, sans-serif;
 }
 a{
     color: #0A396F;
@@ -101,6 +101,24 @@ input#next_button {
     top:4px;
 }
 
+.paginator {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size:108%;
+    text-align:center;
+}
+span.page {
+    padding: 3.6px 6px 3.6px 6px;
+}
+a.page {
+    border: 1px solid #999999;
+    padding: 3.6px 6px 3.6px 6px;
+}
+.total-bookmarks {
+    font-size: 108%;
+    text-align:center;
+    color: #3d3d3d;
+}
 /* bookmark */
 h2.title{
     font-size:116%;
@@ -147,5 +165,4 @@ form#save-form table th {
 #id_title, #id_url, #id_notes, #id_tags{
     width:450px;
 }
-
 

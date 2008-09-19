@@ -4,12 +4,15 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from forms import BookmarkSaveForm
 from models import Bookmark, Link, Tag
+
+ITEMS_PER_PAGE = 25;
 
 def i18n_config(request):
     variables = RequestContext(request, { 'LANGUAGES':settings.LANGUAGES, });
@@ -66,16 +69,32 @@ def user_page(request, username):
         show_edit   = False
         show_delete = False
     tags = Bookmark.objects.tag_clouds(username, is_owner);
+    paginator = Paginator(bookmarks, ITEMS_PER_PAGE);
+    page = 1;
+    if request.GET.has_key('page'):
+        page = int(request.GET['page']);
+    try:
+        p = paginator.page(page);
+    except:
+        raise Http404;
     variables = RequestContext(request, {
         'page_type':'user',
         'is_owner': is_owner,
         'user': request.user,
         'username':username,
-        'bookmarks':bookmarks,
+        'bookmarks':p.object_list,
+        'total':len(bookmarks),
         'tags':tags,
         'show_edit':show_edit,
         'show_delete':show_delete,
-        'http_host':http_host
+        'http_host':http_host,
+        'has_other_pages': p.has_other_pages(),
+        'has_next': p.has_next(),
+        'has_previous': p.has_previous(),
+        'page': p.number,
+        'pages': range(1, p.paginator.num_pages + 1),
+        'next_page_number': p.next_page_number(),
+        'previous_page_number': p.previous_page_number()
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
 
@@ -111,17 +130,36 @@ def user_tag_page(request, username, tags):
         ids.append(bookmark.id);
     tags = Bookmark.objects.associated_tags(username=username, is_owner=is_owner, tags=tag_array, ids=ids);
     tag_browse = True;
+
+    paginator = Paginator(bookmarks, ITEMS_PER_PAGE);
+    page = 1;
+    if request.GET.has_key('page'):
+        page = int(request.GET['page']);
+    try:
+        p = paginator.page(page);
+    except:
+        raise Http404;
+
     variables = RequestContext(request, {
         'page_type':'user',
         'is_owner': is_owner,
         'user': request.user,
         'username':username,
-        'bookmarks':bookmarks,
+        #'bookmarks':bookmarks,
+        'bookmarks':p.object_list,
+        'total':len(bookmarks),
         'tags':tags,
         'show_edit':show_edit,
         'show_delete':show_delete,
         'http_host':http_host,
-        'tag_browse':tag_browse
+        'tag_browse':tag_browse,
+        'has_other_pages': p.has_other_pages(),
+        'has_next': p.has_next(),
+        'has_previous': p.has_previous(),
+        'page': p.number,
+        'pages': range(1, p.paginator.num_pages + 1),
+        'next_page_number': p.next_page_number(),
+        'previous_page_number': p.previous_page_number()
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
 
