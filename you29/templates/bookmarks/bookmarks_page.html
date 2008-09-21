@@ -51,8 +51,6 @@
         <!-- div.yui-main -->
         <div id="yui-main">
           <div class="yui-b main-content">
-            <!-- title -->
-            <h2 id="page-title">{% trans "Recent bookmarks" %}</h2>
             <!-- bookmark list -->
             {% ifequal page_type 'public' %}
                 {% include "bookmarks/link_list.html"%}

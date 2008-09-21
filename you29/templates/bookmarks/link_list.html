@@ -1,5 +1,7 @@
 {% load i18n %}
 {% load common_filters %}
+<!-- title -->
+<h2 id="page-title">{% trans "Recent bookmarks" %}</h2>
 {% if links %}
   <ul class="bookmarks">
     {% for link in links %}

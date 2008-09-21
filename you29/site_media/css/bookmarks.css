@@ -70,6 +70,16 @@ input#next_button {
     font-weight:bold;
 }
 
+/** sort-menu */
+#sort-menu {
+    text-align: right;
+    font-size: 116%;
+    margin: 10px 5px 0px 5px;
+    border-bottom: 1px solid #dcdcdc;
+}
+#sort-menu span, #sort-menu a {
+    font-weight: bold;
+}
 /** nav */
 #nav{
     margin: 3px 3px 3px 3px;

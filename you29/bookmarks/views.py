@@ -54,17 +54,21 @@ def public_tag_page(request, tags):
 
 def user_page(request, username):
     logging.debug("bookmarks.views.user_page() username=%s" % (username));
-    logging.debug("bookmarks.views.user_page() request.user.username=%s" %
-      (request.user.username));
-    user = get_object_or_404(User, username=username)
+    logging.debug("bookmarks.views.user_page() request.user.username=%s" % (request.user.username));
     http_host = request.META['HTTP_HOST']
+    user = get_object_or_404(User, username=username)
+    sortedby = "-date";
+    if request.GET.has_key('sortedby'):
+        sortedby=request.GET['sortedby'];
     if(user.username == request.user.username):
-        bookmarks = Bookmark.objects.filter(user=user).order_by('-date');
+        #bookmarks = Bookmark.objects.filter(user=user).order_by('-date');
+        bookmarks = Bookmark.objects.filter(user=user).order_by(sortedby);
         is_owner = True;    
         show_edit = True
         show_delete = True
     else:
-        bookmarks = Bookmark.objects.filter(user=user).filter(share=True).order_by('-date');
+        #bookmarks = Bookmark.objects.filter(user=user).filter(share=True).order_by('-date');
+        bookmarks = Bookmark.objects.filter(user=user).filter(share=True).order_by(sortedby);
         is_owner = False;    
         show_edit   = False
         show_delete = False
@@ -78,6 +82,7 @@ def user_page(request, username):
     except:
         raise Http404;
     variables = RequestContext(request, {
+        'sortedby':sortedby,
         'page_type':'user',
         'is_owner': is_owner,
         'user': request.user,
