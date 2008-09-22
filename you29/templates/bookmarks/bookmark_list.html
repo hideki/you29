@@ -1,13 +1,26 @@
 {% load i18n %}
 
-<div id="sort-menu">
-  {% trans "Sort by" %}
-  {% ifequal sortedby '-date' %}
-    <span>{% trans "date" %}</span> | <a href="?sortedby=title">{% trans "title" %}</a>
-  {% endifequal %}
-  {% ifequal sortedby 'title' %}
-    <a href="?sortedby=-date">{% trans "date" %}</a> | <span>{% trans "title" %}</span>
-  {% endifequal %}
+<div id="content-head">
+  <div id="position-navigator">
+    <a href="/bookmarks/user/{{username}}/">{{username}}{% trans "'s bookmarks" %}</a>
+    {% for tag_dict in tag_nav %}
+      >>
+      {% if not forloop.last %}
+        <a href="{{tag_dict.url}}">{{tag_dict.name}}</a>
+      {% else %}
+        {{tag_dict.name}}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div id="sort-menu">
+    {% trans "Sort by" %}
+    {% ifequal sortedby '-date' %}
+      <span>{% trans "date" %}</span> | <a href="?sortedby=title">{% trans "title" %}</a>
+    {% endifequal %}
+    {% ifequal sortedby 'title' %}
+      <a href="?sortedby=-date">{% trans "date" %}</a> | <span>{% trans "title" %}</span>
+    {% endifequal %}
+  </div>
 </div>
 
 {% if bookmarks %}

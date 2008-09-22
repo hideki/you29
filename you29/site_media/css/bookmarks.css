@@ -70,16 +70,58 @@ input#next_button {
     font-weight:bold;
 }
 
+
+/** content-head */
+#content-head{
+    position: relative;
+    height: 35px;
+    border-bottom: 1px solid #dcdcdc;
+    color: #0A396F;
+    font-size: 116%;
+    margin: 1px 0px 1px 0px;
+}
+/** position-navigator */
+#position-navigator{
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+}
+/** sort-menu */
+#sort-menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#sort-menu span, #sort-menu a {
+    font-weight: bold;
+}
+
+/** nav */
+#nav{
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+    border: 1px solid #dcdcdc;
+}
+
+.main-content{
+    padding: 2px 2px 2px 4px;
+}
+/** position-navigator */
+#position-navigator{
+    font-size: 116%;
+    margin: 10px 5px 0px 5px;
+}
 /** sort-menu */
 #sort-menu {
     text-align: right;
     font-size: 116%;
     margin: 10px 5px 0px 5px;
-    border-bottom: 1px solid #dcdcdc;
 }
 #sort-menu span, #sort-menu a {
     font-weight: bold;
 }
+
 /** nav */
 #nav{
     margin: 3px 3px 3px 3px;

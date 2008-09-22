@@ -109,6 +109,10 @@ def user_tag_page(request, username, tags):
 
     tag_array = tags.split('/');
 
+    sortedby = "-date";
+    if request.GET.has_key('sortedby'):
+        sortedby=request.GET['sortedby'];
+
     user = get_object_or_404(User, username=username)
     http_host = request.META['HTTP_HOST']
     if(user.username == request.user.username):
@@ -116,7 +120,7 @@ def user_tag_page(request, username, tags):
         for tag in tag_array:
             if len(tag) > 0:
                 bookmarks = bookmarks.filter(Q(**{'tags__name__iexact':tag}));
-        bookmarks = bookmarks.order_by('-date');
+        bookmarks = bookmarks.order_by(sortedby);
         is_owner    = True;    
         show_edit   = True
         show_delete = True
@@ -125,7 +129,7 @@ def user_tag_page(request, username, tags):
         for tag in tag_array:
             if len(tag) > 0:
                 bookmarks = bookmarks.filter(Q(**{'tags__name__iexact':tag}));
-        bookmarks = bookmarks.order_by('-date');
+        bookmarks = bookmarks.order_by(sortedby);
         is_owner    = False;    
         show_edit   = False
         show_delete = False
@@ -145,7 +149,14 @@ def user_tag_page(request, username, tags):
     except:
         raise Http404;
 
+    tag_nav = [];
+    url = "/bookmarks/user/" + username + "/";
+    for tag in tag_array:
+        url += tag + "/";
+        tag_dict = {'name': tag, 'url': url};
+        tag_nav.append(tag_dict);
     variables = RequestContext(request, {
+        'sortedby':sortedby,
         'page_type':'user',
         'is_owner': is_owner,
         'user': request.user,
@@ -154,6 +165,7 @@ def user_tag_page(request, username, tags):
         'bookmarks':p.object_list,
         'total':len(bookmarks),
         'tags':tags,
+        'tag_nav':tag_nav,
         'show_edit':show_edit,
         'show_delete':show_delete,
         'http_host':http_host,
