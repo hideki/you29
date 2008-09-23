@@ -22,9 +22,11 @@ def main_page(request):
     logging.debug("bookmarks.views.main_page()");
     logging.debug("lang_code: %s" % request.LANGUAGE_CODE);
     if request.user.is_authenticated():
-        return user_page(request, request.user.username)
+        #return user_page(request, request.user.username)
+        return HttpResponseRedirect('/bookmarks/user/%s/' % request.user.username)
     else:
-        return public_page(request)
+        return HttpResponseRedirect('/bookmarks/public/')
+        #return public_page(request)
 
 def public_page(request):
     logging.debug("bookmarks.views.public_page()");
@@ -42,12 +44,21 @@ def public_page(request):
 def public_tag_page(request, tags):
     logging.debug("bookmarks.views.public_tag_page() tags=%s" % (tags));
     http_host = request.META['HTTP_HOST'];
-    links = Link.objects.shared_links(30, tags.split('/'));
+    tag_array = tags.split('/');
+    links = Link.objects.shared_links(30, tag_array);
     tags  = Link.objects.tag_clouds(30);
+    tag_nav = [];
+    url = "/bookmarks/public/";
+    for tag in tag_array:
+        if(len(tag) > 0):
+            url += tag + "/";
+            tag_dict = {'name': tag, 'url': url};
+            tag_nav.append(tag_dict);
     variables = RequestContext(request, {
         'page_type':'public',
         'links':links,
         'tags':tags,
+        'tag_nav':tag_nav,
         'http_host':http_host
     })
     return render_to_response('bookmarks/bookmarks_page.html', variables)
@@ -57,9 +68,9 @@ def user_page(request, username):
     logging.debug("bookmarks.views.user_page() request.user.username=%s" % (request.user.username));
     http_host = request.META['HTTP_HOST']
     user = get_object_or_404(User, username=username)
-    sortedby = "-date";
     if request.GET.has_key('sortedby'):
-        sortedby=request.GET['sortedby'];
+        request.session['sortedby'] = request.GET['sortedby'];
+    sortedby = request.session.get('sortedby', "-date");
     if(user.username == request.user.username):
         #bookmarks = Bookmark.objects.filter(user=user).order_by('-date');
         bookmarks = Bookmark.objects.filter(user=user).order_by(sortedby);
@@ -109,9 +120,9 @@ def user_tag_page(request, username, tags):
 
     tag_array = tags.split('/');
 
-    sortedby = "-date";
     if request.GET.has_key('sortedby'):
-        sortedby=request.GET['sortedby'];
+        request.session['sortedby'] = request.GET['sortedby'];
+    sortedby = request.session.get('sortedby', "-date");
 
     user = get_object_or_404(User, username=username)
     http_host = request.META['HTTP_HOST']
@@ -161,7 +172,6 @@ def user_tag_page(request, username, tags):
         'is_owner': is_owner,
         'user': request.user,
         'username':username,
-        #'bookmarks':bookmarks,
         'bookmarks':p.object_list,
         'total':len(bookmarks),
         'tags':tags,

@@ -38,7 +38,11 @@
         <div id="yui-main">
           <div class="yui-b main-content">
             <!-- title -->
-            <h2 id="page-title">{% trans "Save a new bookmark" %}</h2>
+            <div id="content-head">
+                <div id="position-navigator">
+                    <span>{% trans "Save a new bookmark" %}</span>
+                </div>
+            </div>
             <!--bookmark save form -->
             <form id="save-form" method="post" action="/bookmarks/save/">
               <table>

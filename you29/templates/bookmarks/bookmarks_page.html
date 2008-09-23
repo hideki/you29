@@ -36,9 +36,9 @@
           {% else %}
             <a href="/bookmarks/user/{{username}}/">
               {% if is_owner %}
-                {{username}}{% trans "'s Bookmarks"%}
+                {{username}}{% trans "'s Bookmarks"%} ({{total}})
               {% else %}
-                {{username}}{% trans "'s Shared Bookmarks" %}
+                {{username}}{% trans "'s Shared Bookmarks" %} ({{total}})
               {% endif %}
             </a>
           {% endifequal %}

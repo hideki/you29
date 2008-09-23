@@ -1,7 +1,19 @@
 {% load i18n %}
 {% load common_filters %}
 <!-- title -->
-<h2 id="page-title">{% trans "Recent bookmarks" %}</h2>
+<div id="content-head">
+  <div id="position-navigator">
+    <a href="/bookmarks/public/">{% trans "Recent bookmarks" %}</a>
+    {% for tag_dict in tag_nav %}
+      >>
+      {% if not forloop.last %}
+        <a href="{{tag_dict.url}}">{{tag_dict.name}}</a>
+      {% else %}
+        <span>{{tag_dict.name}}</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
 {% if links %}
   <ul class="bookmarks">
     {% for link in links %}

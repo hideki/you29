@@ -50,13 +50,14 @@ h1#title {
 h1#title a{
     color: #FFFFFF;
 }
-
+/*
 h2#page-title {
     font-size: 131%;
     font-weight:bold;
     margin: 10px 5px 0px 5px;
     border-bottom: 1px solid #dcdcdc;
 }
+*/
 
 form#save-form{
     margin: 10px 10px 10px 10px;
@@ -72,29 +73,38 @@ input#next_button {
 
 
 /** content-head */
-#content-head{
+div#content-head{
     position: relative;
     height: 35px;
     border-bottom: 1px solid #dcdcdc;
     color: #0A396F;
-    font-size: 116%;
-    margin: 1px 0px 1px 0px;
+    margin: 1px 5px 1px 0px;
 }
 /** position-navigator */
-#position-navigator{
+div#position-navigator{
     position: absolute;
     left: 0;
     top: 0;
+}
+div#position-navigator a {
+    font-size: 123.1%;
+    font-weight: bold;
+}
+div#position-navigator span {
+    font-size: 123.1%;
     font-weight: bold;
 }
 /** sort-menu */
-#sort-menu {
+div#sort-menu {
     position: absolute;
     right: 0;
     top: 0;
 }
-#sort-menu span, #sort-menu a {
-    font-weight: bold;
+div#sort-menu span {
+   font-weight: bold;
+}
+div#sort-menu a {
+   font-weight: normal;
 }
 
 /** nav */
