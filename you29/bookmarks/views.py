@@ -103,7 +103,7 @@ def user_page(request, username):
         is_owner = False;    
         show_edit   = False
         show_delete = False
-    tags = Bookmark.objects.tag_clouds(username, is_owner);
+    tags = Bookmark.objects.tag_clouds(username, is_owner)[:30];
     paginator = Paginator(bookmarks, ITEMS_PER_PAGE);
     page = 1;
     if request.GET.has_key('page'):
@@ -168,7 +168,7 @@ def user_tag_page(request, username, tags):
     ids = [];
     for bookmark in bookmarks:
         ids.append(bookmark.id);
-    tags = Bookmark.objects.associated_tags(username=username, is_owner=is_owner, tags=tag_array, ids=ids);
+    tags = Bookmark.objects.associated_tags(username=username, is_owner=is_owner, tags=tag_array, ids=ids)[:30];
     tag_browse = True;
 
     paginator = Paginator(bookmarks, ITEMS_PER_PAGE);
