@@ -65,9 +65,11 @@ input#next_button {
 
 /** link-info */
 div#link-info{
-    background-color: #e5ecf9;
-    margin: 5px 5px;
+    //background-color: #e5ecf9;
+    margin: 5px 5px 1px 0px;
     padding: 5px 5px 5px 5px;
+    border-top: 1px solid #4169e1;
+    border-bottom: 1px solid #4169e1;
 }
 div#link-info label.link-label{
     display: block;
