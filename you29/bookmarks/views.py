@@ -28,6 +28,26 @@ def main_page(request):
         return HttpResponseRedirect('/bookmarks/public/')
         #return public_page(request)
 
+def link_page(request, link_id):
+    logging.debug("bookmarks.views.link_page() link_id=%s" % (link_id));
+    http_host = request.META['HTTP_HOST']
+    link      = Link.objects.get(id__exact=link_id);
+    bookmarks = Bookmark.objects.filter(link=link).filter(share=True).order_by('-date');
+    tags      = Link.objects.tag_clouds(30);
+    #logging.debug(link);
+    #logging.debug("bookmarks=%d" % len(bookmarks))
+    #for b in bookmarks:
+    #    logging.debug("bookmarks=%s" % b)
+    variables = RequestContext(request, {
+        'page_type':'link',
+        'count': len(bookmarks),
+        'link':link,
+        'bookmarks':bookmarks,
+        'tags':tags,
+        'http_host':http_host
+    });
+    return render_to_response('bookmarks/bookmarks_page.html', variables)
+
 def public_page(request):
     logging.debug("bookmarks.views.public_page()");
     http_host = request.META['HTTP_HOST']

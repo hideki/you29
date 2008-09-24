@@ -6,8 +6,12 @@
       {% trans "you29.Bookmarks:" %}
       {% ifequal page_type 'public' %}
         {% trans "Everyone's Shared Bookmarks" %}
-      {% else %}
+      {% endifequal %}
+      {% ifequal page_type 'user' %}
         {% if is_owner %}{{username}}{% trans "'s Bookmarks"%}{% else %}{{username}}{% trans "'s Shared Bookmarks" %}{% endif %}
+      {% endifequal %}
+      {% ifequal page_type 'link' %}
+        {% trans "Everyone's bookmarks for" %} "{{link.title}}"
       {% endifequal %}
     </title>
     <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
@@ -33,13 +37,19 @@
         <h1 id="title">
           {% ifequal page_type 'public' %}
             <a href="/bookmarks/public/">{% trans "Everyone's Shared Bookmarks" %}</a>
-          {% else %}
+          {% endifequal %}
+          {% ifequal page_type 'user' %}
             <a href="/bookmarks/user/{{username}}/">
               {% if is_owner %}
                 {{username}}{% trans "'s Bookmarks"%} ({{total}})
               {% else %}
                 {{username}}{% trans "'s Shared Bookmarks" %} ({{total}})
               {% endif %}
+            </a>
+          {% endifequal %}
+          {% ifequal page_type 'link' %}
+            <a href="/bookmarks/link/{{link.id}}/">
+            {% trans "Everyone's bookmarks for " %}"{{link.title}}"
             </a>
           {% endifequal %}
         </h1>
@@ -53,9 +63,13 @@
           <div class="yui-b main-content">
             <!-- bookmark list -->
             {% ifequal page_type 'public' %}
-                {% include "bookmarks/link_list.html"%}
-            {% else %}
-                {% include "bookmarks/bookmark_list.html"%}
+                {% include "bookmarks/public_link_list.html"%}
+            {% endifequal %}
+            {% ifequal page_type 'user' %}
+                {% include "bookmarks/user_bookmark_list.html"%}
+            {% endifequal %}
+            {% ifequal page_type 'link' %}
+                {% include "bookmarks/link_bookmark_list.html"%}
             {% endifequal %}
             <!-- end of bookmark list -->
 

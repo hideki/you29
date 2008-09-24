@@ -8,7 +8,11 @@
           <img class="tag-image" src="/site_media/images/tag.jpg"/>
           {% ifequal page_type 'public' %}
             <a href="/bookmarks/public/{{tag.name}}/">{{tag.name}}  ({{tag.count}})</a>
-          {% else %}
+          {% endifequal %}
+          {% ifequal page_type 'link' %}
+            <a href="/bookmarks/public/{{tag.name}}/">{{tag.name}}  ({{tag.count}})</a>
+          {% endifequal %}
+          {% ifequal page_type 'user' %}
             {% if tag_browse %}
               <a href="{{tag.name}}/">+{{tag.name}}  ({{tag.count}})</a>
             {% else %}

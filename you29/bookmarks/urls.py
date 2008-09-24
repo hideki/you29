@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     (r'^public/(.+)$', public_tag_page),
     (r'^user/(\w+)/$', user_page),
     (r'^user/(\w+)/(.+)/$', user_tag_page),
+    (r'^link/(\d+)/$', link_page),
 
     # Bookmark management
     #(r'^new/$',          new_bookmark),

@@ -50,14 +50,6 @@ h1#title {
 h1#title a{
     color: #FFFFFF;
 }
-/*
-h2#page-title {
-    font-size: 131%;
-    font-weight:bold;
-    margin: 10px 5px 0px 5px;
-    border-bottom: 1px solid #dcdcdc;
-}
-*/
 
 form#save-form{
     margin: 10px 10px 10px 10px;
@@ -71,6 +63,28 @@ input#next_button {
     font-weight:bold;
 }
 
+/** link-info */
+div#link-info{
+    background-color: #e5ecf9;
+    margin: 5px 5px;
+    padding: 5px 5px 5px 5px;
+}
+div#link-info label.link-label{
+    display: block;
+}
+div#link-info a{
+    display: block;
+}
+div#link-info a.link-title{
+    font-size: 123.1%;
+    font-weight: bold;
+    padding-left:10px;
+    padding-top:3px;
+}
+div#link-info a.link-url{
+    color:#006400;
+    padding-left:10px;
+}
 
 /** content-head */
 div#content-head{
@@ -185,14 +199,29 @@ a.page {
 h2.title{
     font-size:116%;
 }
-.count-popular {
+a.count-popular {
     color:#FFFFFF;
     background-color:#4682B4;
+    padding: 1px 2px 1px 2px;
 }
-.count { 
+a.count-popular:hover {
+    text-decoration: underline;
+    color: #ffffff;
+    background-color: #4169e1;
+    padding: 1px 2px 1px 2px;
+}
+a.count { 
     color:#A9A9A9;
     background-color: #e5ecf9;
+    padding: 1px 2px 1px 2px;
 }
+a.count:hover {
+    text-decoration: underline;
+    color: #ffffff;
+    background-color: #4169e1;
+    padding: 1px 2px 1px 2px;
+}
+
 .bookmark { 
     border-bottom: 1px dashed #dcdcdc;
     padding: 5px 5px 5px 5px;
@@ -211,6 +240,30 @@ h2.title{
     margin-left: 20px;
 }
 .tag { 
+    padding: 1px 2px 1px 2px;
+}
+a.tag:hover {
+    text-decoration: underline;
+    color: #ffffff;
+    background-color: #4169e1;
+}
+
+a.user{
+    background-color: #e5ecf9;
+    padding: 1px 2px 1px 2px;
+}
+a.user:hover {
+    text-decoration: underline;
+    color: #ffffff;
+    background-color: #4169e1;
+}
+a.note-user {
+    padding: 1px 2px 1px 2px;
+}
+a.note-user:hover {
+    text-decoration: underline;
+    color: #ffffff;
+    background-color: #4169e1;
 }
 
 .errorlist{

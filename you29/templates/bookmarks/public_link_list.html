@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load common_filters %}
+<!-- title -->
+<div id="content-head">
+  <div id="position-navigator">
+    <a href="/bookmarks/public/">{% trans "Recent bookmarks" %}</a>
+    {% for tag_dict in tag_nav %}
+      >>
+      {% if not forloop.last %}
+        <a href="{{tag_dict.url}}">{{tag_dict.name}}</a>
+      {% else %}
+        <span>{{tag_dict.name}}</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% if links %}
+  <ul class="bookmarks">
+    {% for link in links %}
+      <li class="bookmark">
+        <a href="{{link.url}}" class="title" target="_blank"><h2 class="title" style="display:inline;">{{link.title}}</h2></a>
+        <a href="/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
+        <div class="detail">
+          <a href="{{link.url}}" class="url">{{link.url}}</a>
+        </div>
+        {% if link.get_tags %}
+          <div class="tags">
+            {# trans "Tags:" #} 
+            <img class="tag-image" src="/site_media/images/tag.jpg"/>
+            {% for tag in link.get_tags %}
+              <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>
+              {% if not forloop.last %}|{% endif%}
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% for b in link.bookmark_set.all %}
+          <div class="notes">
+            {% if b.share %}
+              {% if b.notes %}
+                <div class="note">
+                    <img class="note-image" src="/site_media/images/note.png"/>
+                    <a href="/bookmarks/user/{{b.user.username}}" class="note-user">{{b.user.username}}</a>
+                    &nbsp;({{b.date|date:"m.d.Y"}})
+                    &nbsp;{{b.notes|truncate_chars:100}}
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </li>
+    {% endfor %} 
+  </li>
+{% endif %}

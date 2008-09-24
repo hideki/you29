@@ -1,0 +1,39 @@
+{% load i18n %}
+
+<div id="link-info">
+    <label class="link-label">{% trans "Everyone's bookmarks for:"%}</label>
+    <a href="{{link.url}}" class="link-title">{{link.title}}</a>
+    <a href="{{link.url}}" class="link-url">{{link.url}}</a>
+</div>
+
+<div id="content-head">
+  <div id="position-navigator">
+    <a href="/bookmarks/link/{{link.id}}/">{% trans "Everyone's bookmarks for this web page" %}</a>
+  </div>
+</div>
+
+<ul class="bookmarks">
+  {% for bookmark in bookmarks %}
+    <li class="bookmark">
+      <span class="date">{{bookmark.date|date:"F j, Y"}}</span>
+      <a href="/bookmarks/user/{{bookmark.user.username}}/" class="user">{{bookmark.user.username}}</a>
+      {% if bookmark.tags.all %}
+        <span class="tags">
+          {# trans "Tags:" #} 
+          <img class="tag-image" src="/site_media/images/tag.jpg"/>
+          {% for tag in bookmark.tags.all %}
+            <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a> 
+            {% if not forloop.last %}|{% endif%}
+          {% endfor %}
+        </span>
+      {% endif %}
+      {% if bookmark.notes %}
+        <div class="notes">
+          {# trans "Notes:" #}
+          <img class="note-image" src="/site_media/images/note.png"/>
+          {{bookmark.notes}}
+        </div>
+      {% endif %}
+    </li>
+  {% endfor %} 
+</ul>
