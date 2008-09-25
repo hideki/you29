@@ -29,7 +29,7 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 
 
 #Default e-mail address to use for various automated correspondence from the site manager(s).
-DEFAULT_FROM_EMAIL = 'mail@mail.you29.com'
+DEFAULT_FROM_EMAIL = 'webmaster@you29.com'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

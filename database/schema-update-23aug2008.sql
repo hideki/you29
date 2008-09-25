@@ -1,7 +1,6 @@
 --
 -- Delete all records in django_admin_log
---
-delete django_admin_log;
+delete from django_admin_log;
 
 --
 -- Add title column into bookmarks_link table
