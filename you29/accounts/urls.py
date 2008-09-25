@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
-from views import logout_page, register_page
+from views import register_page
 
 urlpatterns = patterns('',
     (r'^register/$',                register_page),
