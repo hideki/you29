@@ -32,4 +32,5 @@ clean:
 	rm -rf */*.pyc
 	rm -rf */*/*.pyc
 	rm -rf */*/*/*.pyc
+	rm -rf */*.eml
 	sudo rm -rf build

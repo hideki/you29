@@ -14,8 +14,10 @@
     <table>
       {{form.as_table}}
     </table>
-    <p><input type="submit" value="{% trans "Login" %}"></p>
     <input type="hidden" name="next" value="{{next}}" />
+    <a href="/accounts/password_reset/">{% trans "Forgot your password?"%}</a><br/>
+    <input type="submit" value="{% trans "Login" %}"/>
+    <input type=button onclick="javascript:history.back()" value="{% trans "Cancel"%}"/>
   </form>
 
 {% endblock %}

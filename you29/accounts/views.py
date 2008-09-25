@@ -6,11 +6,6 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from forms import RegistrationForm
 
-def logout_page(request):
-    logging.debug("accounts.views.logout_page()")
-    logout(request)
-    return HttpResponseRedirect('/')
-
 def register_page(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
