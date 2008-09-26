@@ -27,6 +27,9 @@ urlpatterns = patterns('',
     # accounts
     (r'^accounts/', include('you29.accounts.urls')),
 
+    # accounts
+    (r'^contact/', include('you29.contact.urls')),
+
     # bookmarks
     (r'^bookmarks/', include('you29.bookmarks.urls')),
 
