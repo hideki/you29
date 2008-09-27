@@ -227,7 +227,10 @@ a.count:hover {
 .bookmark { 
     border-bottom: 1px dashed #dcdcdc;
     padding: 5px 5px 5px 5px;
-    margin:  0px 5px 0px 5px;
+    margin:  0px 7px 0px 7px;
+}
+.bookmark .title {
+    font-weight: bold;
 }
 .detail { 
     color:#696969;
@@ -238,19 +241,17 @@ a.count:hover {
 .command { 
     color:#6495ED;
 }
-.tags, .notes {
-    margin-left: 20px;
-}
 .tag { 
-    padding: 1px 2px 1px 2px;
+    padding: 1px 1px 1px 1px;
+    text-decoration: underline;
 }
 a.tag:hover {
-    text-decoration: underline;
     color: #ffffff;
     background-color: #4169e1;
 }
 
 a.user{
+    font-weight:bold;
     background-color: #e5ecf9;
     padding: 1px 2px 1px 2px;
 }
@@ -259,13 +260,29 @@ a.user:hover {
     color: #ffffff;
     background-color: #4169e1;
 }
+.note{
+    margin: 4px 3px 3px 3px;
+    border-top: 1px solid #f3f3f3;
+    padding: 2px 2px 2px 2px;
+}
+.note-public{
+    margin: 1px 0px 1px 20px;
+}
+.note-head{
+}
 a.note-user {
     padding: 1px 2px 1px 2px;
+    font-weight:bold;
 }
 a.note-user:hover {
     text-decoration: underline;
     color: #ffffff;
     background-color: #4169e1;
+}
+.note-more{
+    text-decoration: underline;
+}
+.note-text{
 }
 
 .errorlist{

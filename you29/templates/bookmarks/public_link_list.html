@@ -23,30 +23,29 @@
         <div class="detail">
           <a href="{{link.url}}" class="url">{{link.url}}</a>
         </div>
+        {% for b in link.bookmark_set.all %}
+          {% if b.notes %}
+            {% if b.share %}
+              <div class="note-public">
+                  <a href="/bookmarks/user/{{b.user.username}}" class="note-user">{{b.user.username}}</a>
+                  <span style="color:#3c3c3c">wrote a note:</span>
+                  <span class="note-text">{{b.notes|truncate_chars:100}}</span>
+                  <a class="note-more" href="/bookmarks/link{{link.id}}/">More...</a>
+                  -
+                  <span>{{b.date|date:"M d Y"}}</span>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
         {% if link.get_tags %}
           <div class="tags">
             {# trans "Tags:" #} 
             <img class="tag-image" src="/site_media/images/tag.jpg"/>
             {% for tag in link.get_tags %}
-              <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>
-              {% if not forloop.last %}|{% endif%}
+              <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
             {% endfor %}
           </div>
         {% endif %}
-        {% for b in link.bookmark_set.all %}
-          <div class="notes">
-            {% if b.share %}
-              {% if b.notes %}
-                <div class="note">
-                    <img class="note-image" src="/site_media/images/note.png"/>
-                    <a href="/bookmarks/user/{{b.user.username}}" class="note-user">{{b.user.username}}</a>
-                    &nbsp;({{b.date|date:"m.d.Y"}})
-                    &nbsp;{{b.notes|truncate_chars:100}}
-                </div>
-              {% endif %}
-            {% endif %}
-          </div>
-        {% endfor %}
       </li>
     {% endfor %} 
   </li>

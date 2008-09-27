@@ -35,7 +35,17 @@
         {% endif %}
         <div class="detail">
           <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
-          - {{bookmark.date|date:"F j, Y"}}
+          - {{bookmark.date|date:"M d Y"}}
+          {% if bookmark.tags.all %}
+            -
+            <span class="tags">
+            {# trans "Tags:" #} 
+            <img class="tag-image" src="/site_media/images/tag.jpg"/>
+            {% for tag in bookmark.tags.all %}
+              <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
+            {% endfor %}
+            </span>
+          {% endif %}
           {% if show_edit %}
             - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">{% trans "edit" %}</a>
           {% endif %}
@@ -43,21 +53,9 @@
             - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">{% trans "delete" %}</a>
           {% endif %}
         </div>
-        {% if bookmark.tags.all %}
-          <div class="tags">
-            {# trans "Tags:" #} 
-            <img class="tag-image" src="/site_media/images/tag.jpg"/>
-            {% for tag in bookmark.tags.all %}
-              <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a> 
-              {% if not forloop.last %}|{% endif%}
-            {% endfor %}
-          </div>
-        {% endif %}
         {% if bookmark.notes %}
-          <div class="notes">
-            {# trans "Notes:" #}
-            <img class="note-image" src="/site_media/images/note.png"/>
-            {{bookmark.notes}}
+          <div class="note">
+            {{bookmark.notes|linebreaksbr}}
           </div>
         {% endif %}
       </li>
