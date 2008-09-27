@@ -227,7 +227,7 @@ a.count:hover {
 .bookmark { 
     border-bottom: 1px dashed #dcdcdc;
     padding: 5px 5px 5px 5px;
-    margin:  0px 7px 0px 7px;
+    margin:  2px 7px 2px 7px;
 }
 .bookmark .title {
     font-weight: bold;
@@ -251,31 +251,30 @@ a.tag:hover {
 }
 
 a.user{
+    text-decoration: underline;
     font-weight:bold;
-    background-color: #e5ecf9;
     padding: 1px 2px 1px 2px;
 }
 a.user:hover {
-    text-decoration: underline;
     color: #ffffff;
     background-color: #4169e1;
 }
 .note{
-    margin: 4px 3px 3px 3px;
+    margin: 5px 10px 5px 10px;
     border-top: 1px solid #f3f3f3;
-    padding: 2px 2px 2px 2px;
+    padding: 2px 0px 2px 0px;
 }
-.note-public{
+.note-public, .tags-public{
     margin: 1px 0px 1px 20px;
 }
 .note-head{
 }
 a.note-user {
+    text-decoration: underline;
     padding: 1px 2px 1px 2px;
     font-weight:bold;
 }
 a.note-user:hover {
-    text-decoration: underline;
     color: #ffffff;
     background-color: #4169e1;
 }

@@ -39,7 +39,6 @@
           {% if bookmark.tags.all %}
             -
             <span class="tags">
-            {# trans "Tags:" #} 
             <img class="tag-image" src="/site_media/images/tag.jpg"/>
             {% for tag in bookmark.tags.all %}
               <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}

@@ -22,12 +22,21 @@
         <a href="/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
         <div class="detail">
           <a href="{{link.url}}" class="url">{{link.url}}</a>
+        {% if link.get_tags %}
+          -
+          <span class="tags">
+            <img class="tag-image" src="/site_media/images/tag.jpg"/>
+            {% for tag in link.get_tags %}
+              <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
+            {% endfor %}
+          </span>
+        {% endif %}
         </div>
         {% for b in link.bookmark_set.all %}
           {% if b.notes %}
             {% if b.share %}
               <div class="note-public">
-                  <a href="/bookmarks/user/{{b.user.username}}" class="note-user">{{b.user.username}}</a>
+                  <a href="/bookmarks/user/{{b.user.username}}" class="user">{{b.user.username}}</a>
                   <span style="color:#3c3c3c">wrote a note:</span>
                   <span class="note-text">{{b.notes|truncate_chars:100}}</span>
                   <a class="note-more" href="/bookmarks/link/{{link.id}}/">More...</a>
@@ -37,15 +46,6 @@
             {% endif %}
           {% endif %}
         {% endfor %}
-        {% if link.get_tags %}
-          <div class="tags">
-            {# trans "Tags:" #} 
-            <img class="tag-image" src="/site_media/images/tag.jpg"/>
-            {% for tag in link.get_tags %}
-              <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
-            {% endfor %}
-          </div>
-        {% endif %}
       </li>
     {% endfor %} 
   </li>

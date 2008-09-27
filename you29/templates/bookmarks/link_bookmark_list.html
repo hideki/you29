@@ -16,7 +16,7 @@
   {% for bookmark in bookmarks %}
     <li class="bookmark">
       <a href="/bookmarks/user/{{bookmark.user.username}}/" class="user">{{bookmark.user.username}}</a>
-      -
+      bookmarked this page
       <span class="date">{{bookmark.date|date:"M d Y"}}</span>
       {% if bookmark.tags.all %}
         -
