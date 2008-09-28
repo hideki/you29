@@ -6,12 +6,6 @@
     <a href="{{link.url}}" class="link-url">{{link.url}}</a>
 </div>
 
-<div id="content-head">
-  <div id="position-navigator">
-    <a href="/bookmarks/link/{{link.id}}/">{% trans "Everyone's bookmarks for this web page" %}</a>
-  </div>
-</div>
-
 <ul class="bookmarks">
   {% for bookmark in bookmarks %}
     <li class="bookmark">

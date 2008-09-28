@@ -116,12 +116,14 @@ html, body {
 #link-info{
     margin: 5px 5px 1px 0px;
     padding: 5px 5px 5px 5px;
-    border-top: 1px solid #4169e1;
-    border-bottom: 1px solid #4169e1;
+    //border-top: 1px solid #4169e1;
+    //border-bottom: 1px solid #4169e1;
+    border-bottom: 1px solid #dcdcdc;
     background-color: #FAFAFA;
 }
 #link-info .link-label{
     display: block;
+    font-weight: bold;
 }
 #link-info .link-title{
     display: block;
@@ -144,6 +146,7 @@ html, body {
     border-bottom: 1px solid #dcdcdc;
     color: #0A396F;
     margin: 1px 5px 1px 0px;
+    background-color: #FAFAFA;
 }
 /* end of content-head */
 
@@ -211,8 +214,8 @@ a.page {
 /* bookmark */
 .bookmark { 
     border-bottom: 1px dashed #C0C0C0;
-    padding: 5px 5px 7px 5px;
-    margin:  2px 7px 5px 7px;
+    padding: 5px 5px 5px 5px;
+    margin:  7px 7px 7px 7px;
 }
 /* end of bookmark */
 
@@ -293,9 +296,9 @@ a.user:hover {
 
 /* note */
 .note{
-    margin: 5px 10px 5px 10px;
+    margin: 10px 10px 5px 10px;
     border: 1px solid #f3f3f3;
-    padding: 5px 5px 5px 5px;
+    padding: 10px 10px 10px 10px;
     background-color:#FAFAFA;
 }
 
