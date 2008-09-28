@@ -18,8 +18,10 @@
   <ul class="bookmarks">
     {% for link in links %}
       <li class="bookmark">
-        <a href="{{link.url}}" class="title" target="_blank"><h2 class="title" style="display:inline;">{{link.title}}</h2></a>
-        <a href="/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}count-popular{%else%}count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
+        <div class="bookmark-head">
+          <a href="{{link.url}}" class="bookmark-title" target="_blank">{{link.title}}</a>
+          <a href="/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}bookmark-count-popular{%else%}bookmark-count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
+        </div>
         <div class="detail">
           <a href="{{link.url}}" class="url">{{link.url}}</a>
         {% if link.get_tags %}
@@ -35,7 +37,7 @@
         {% for b in link.bookmark_set.all %}
           {% if b.notes %}
             {% if b.share %}
-              <div class="note-public">
+              <div class="note">
                   <a href="/bookmarks/user/{{b.user.username}}" class="user">{{b.user.username}}</a>
                   <span style="color:#3c3c3c">wrote a note:</span>
                   <span class="note-text">{{b.notes|truncate_chars:100}}</span>

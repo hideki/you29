@@ -226,12 +226,12 @@ def add_bookmark(request):
     popup = False;
     if(request.GET.has_key('_popup')):
         popup = bool(request.GET['_popup']);
-    tags = Bookmark.objects.tag_clouds(request.user.username, True);
+    #tags = Bookmark.objects.tag_clouds(request.user.username, True);
     variables = RequestContext(request, {
         'user': request.user,
         'username':request.user.username,
-        'form':form,
-        'tags':tags
+        #'tags':tags
+        'form':form
         });
     if popup:
         return render_to_response('bookmarks/popup_save_page.html', variables);
