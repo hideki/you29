@@ -16,6 +16,7 @@
     </title>
     <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
     <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts-grids/reset-fonts-grids.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/css/common.css">
     <link rel="stylesheet" type="text/css" href="/site_media/css/bookmarks.css">
   </head>
   <body>
@@ -34,12 +35,12 @@
           </a>
         </div>
         {% include "bookmarks/user_menu.html" %}
-        <div id="title">
+        <h1 id="title">
           {% ifequal page_type 'public' %}
             <a href="/bookmarks/public/">{% trans "Everyone's Shared Bookmarks" %}</a>
           {% endifequal %}
           {% ifequal page_type 'user' %}
-            <a  href="/bookmarks/user/{{username}}/">
+            <a href="/bookmarks/user/{{username}}/">
               {% if is_owner %}
                 {{username}}{% trans "'s Bookmarks"%} ({{total}})
               {% else %}
@@ -52,7 +53,7 @@
             {% trans "Everyone's bookmarks for " %}"{{link.title}}"
             </a>
           {% endifequal %}
-        </div>
+        </h1>
       </div>
       <!-- end of header div#hd -->
 
@@ -93,8 +94,7 @@
 
       <!-- footer div#ft footer -->
       <div id="ft">
-        <br/>
-        {%include "bookmarks/footer.html"%}
+        {%include "footer.html"%}
       </div>
       <!-- end of footer div#ft -->
     </div>

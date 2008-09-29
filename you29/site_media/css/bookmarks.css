@@ -1,4 +1,5 @@
 /* common */
+/*
 * {
     font-family: Geneva, Tahoma, Verdana Arial, Helvetica, sans-serif;
 }
@@ -15,9 +16,11 @@ a:hover {
 html, body {
     background-color: #e5ecf9;
 }
+*/
 /* end of common */
 
 /* layout */
+/*
 .doc {
     background-color: #ffffff;
 }
@@ -33,6 +36,7 @@ html, body {
 
 #ft {
 }
+*/
 /* end of layout */
 
 /********************************
@@ -40,12 +44,15 @@ html, body {
  *******************************/
 
 /* logo-img */
+/*
 #logo-img {
     padding: 5px 0px 0px 10px;
 }
+*/
 /* end fo logo-img */
 
 /* user-menu */
+/*
 #user-menu {
     position: absolute;
     top:   0;
@@ -58,9 +65,11 @@ html, body {
 #user-menu a {
     color: #FFFFFF;
 }
+*/
 /* end of user-menu */
 
 /* title */
+/*
 #title {
     font-weight: bold;
     font-size: 146.5%;
@@ -69,6 +78,7 @@ html, body {
 #title a{
     color: #FFFFFF;
 }
+*/
 /* end of title */
 
 

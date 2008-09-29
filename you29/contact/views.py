@@ -12,5 +12,7 @@ def contact(request):
             return render_to_response('contact/contact_sent.html', {});
     else:        
         form = ContactForm(); # An unbound form
+        if request.user.is_authenticated():
+            form = ContactForm(initial={'name':request.user.username,'email':request.user.email}); # An unbound form
     return render_to_response('contact/contact.html', {'form':form},
             context_instance=RequestContext(request));

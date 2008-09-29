@@ -1,0 +1,8 @@
+{% load i18n %}
+<!-- user menu -->
+<div id="user-menu">
+  {% if user.is_authenticated %}
+    Signed in as <span class="username">{{user.username}}</span>
+  {% endif %}
+</div>
+<!-- end of user menu -->

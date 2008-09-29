@@ -1,0 +1,107 @@
+/* common */
+* {
+    font-family: Geneva, Tahoma, Verdana Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: #0A396F;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+html, body {
+    background-color: #e5ecf9;
+}
+/* end of common */
+
+/* layout */
+.doc {
+    //background-color: #ffffff;
+}
+
+#hd {
+    position: relative;
+    background-color: #0A396F;
+    padding-bottom: 5px;
+}
+
+#bd {
+    background-color: #ffffff;
+    padding-bottom: 20px;
+}
+
+#ft {
+    padding-top: 20px;
+}
+/* end of layout */
+
+/********************************
+ * div#hd 
+ *******************************/
+
+/* logo-img */
+#logo-img {
+    padding: 5px 0px 0px 10px;
+}
+/* end fo logo-img */
+
+/* user-menu */
+#user-menu {
+    position: absolute;
+    top:   0;
+    right: 0;
+    padding: 4px 5px;
+    text-align: right;
+    font-size: 100%;
+    color: #FFFFFF;
+}
+#user-menu a {
+    color: #FFFFFF;
+}
+/* end of user-menu */
+
+/* title */
+#title {
+    font-weight: bold;
+    font-size: 146.5%;
+    text-align: center;
+    color: #FFFFFF;
+}
+#title a{
+    color: #FFFFFF;
+}
+/* end of title */
+
+/* styles for forms */
+
+.form-field{
+}
+.form-field-label{
+    padding: 2px 3px 2px 3px;
+    text-align: right;
+    vertical-align: top;
+    font-weight:bold;
+}
+.form-field-value{
+    padding: 2px 3px 2px 3px;
+}
+.form-field-value input{
+    width:300px;
+}
+.errorlist {
+    color: #ff0000;
+}
+.form-submit{
+}
+.form-submit-label{
+}
+.form-submit-value{
+    padding: 7px 3px 2px 3px;
+}
+.form-submit-value input{
+    font-size:108%;
+    font-weight:bold;
+}
