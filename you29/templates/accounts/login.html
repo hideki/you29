@@ -1,23 +1,40 @@
-{% extends "base.html" %}
+{% extends "base_type1.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Login on You29" %}{% endblock %}
-{% block head %}{% trans "Login" %}{% endblock %}
+{% block title %}{% trans "Login on you29" %}{% endblock %}
 
 {% block content %}
-
-  {% if form.has_errors %}
-    <p>{% trans "Your username and password didn't match. Please try again." %}</p>
-  {% endif %}
-
-  <form method="post" action=".">
+  <div id="content-head"><h1>Login on you29</h1></div>
+  <!-- form -->
+  <form action="." method="POST">
+    {% if form.non_field_errors %}
+      <p class="errorlist">{% trans "Your username and password didn't match. Please try again." %}</p>
+    {% endif %}
     <table>
-      {{form.as_table}}
+    {% for field in form %}
+      <tr class="form-field">
+        <td class="form-field-label">{{ field.label_tag }}:</td>
+        <td class="form-field-value">
+          {{ field.errors }}
+          {{field}}
+        </td>
+      </tr>
+    {% endfor %}
+      <tr class="form-field">
+        <td class="form-field-label"></td>
+        <td class="form-field-value">
+          <a href="/accounts/password_reset/">{% trans "Forgot your password?"%}</a><br/>
+        </td>
+      </tr>
+      <tr class="form-submit">
+        <td class="form-submit-label"></td>
+        <td class="form-submit-value">
+          <input type="submit" value="{% trans "Login"%}" />
+        </td>
+      </tr>
     </table>
     <input type="hidden" name="next" value="{{next}}" />
-    <a href="/accounts/password_reset/">{% trans "Forgot your password?"%}</a><br/>
-    <input type="submit" value="{% trans "Login" %}"/>
-    <input type=button onclick="javascript:history.back()" value="{% trans "Cancel"%}"/>
   </form>
-
+    <!-- end of form -->
+  </div>
 {% endblock %}

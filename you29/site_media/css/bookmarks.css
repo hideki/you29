@@ -235,7 +235,6 @@ a.page {
 /* bookmark-title */
 .bookmark-title {
     font-size: 108%;
-    font-weight: bold;
 }
 /* end of bookmark-title */
 
@@ -308,7 +307,7 @@ a.user:hover {
 .note{
     margin: 10px 10px 5px 10px;
     border: 1px solid #f3f3f3;
-    padding: 10px 10px 10px 10px;
+    padding: 7px 7px 7px 7px;
     background-color:#FAFAFA;
 }
 

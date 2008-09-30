@@ -86,6 +86,7 @@ html, body {
     font-weight:bold;
 }
 .form-field-value{
+    text-align: left;
     padding: 2px 3px 2px 3px;
 }
 .form-field-value input{
@@ -100,8 +101,10 @@ html, body {
 }
 .form-submit-value{
     padding: 7px 3px 2px 3px;
+    text-align: left;
 }
 .form-submit-value input{
     font-size:108%;
     font-weight:bold;
+    text-align:center;
 }

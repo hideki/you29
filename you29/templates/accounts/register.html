@@ -1,12 +1,30 @@
-{% extends "base.html" %}
+{% extends "base_type1.html" %}
 {% load i18n %}
+
 {% block title %}{% trans "User Registration" %}{% endblock %}
-{% block head %}{% trans "User Registration" %}{% endblock %}
+
 {% block content %}
-  <form method="post" action=".">
+  <div id="content-head"><h1>User Registration</h1></div>
+  <!-- form -->
+  <form action="." method="POST">
     <table>
-      {{form.as_table}}
+    {% for field in form %}
+      <tr class="form-field">
+        <td class="form-field-label">{{ field.label_tag }}:</td>
+        <td class="form-field-value">
+          {{ field.errors }}
+          {{field}}
+        </td>
+      </tr>
+    {% endfor %}
+      <tr class="form-submit">
+        <td class="form-submit-label"></td>
+        <td class="form-submit-value">
+          <input type="submit" value="{% trans "Register"%}" />
+        </td>
+      </tr>
     </table>
-    <p><input type="submit" value="{% trans "Register" %}"></p>
   </form>
+    <!-- end of form -->
+  </div>
 {% endblock %}

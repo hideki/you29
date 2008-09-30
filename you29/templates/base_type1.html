@@ -1,0 +1,46 @@
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>{% trans "you29.Bookmarks:" %} {% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
+    <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts-grids/reset-fonts-grids.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/css/contact.css">
+  </head>
+  <body>
+    <!-- #doc = 750px; #doc2 = 950px; #doc3 = 100%; #doc4 = 974px -->
+    <!-- .yui-t1 = left  160px; .yui-t2 = left  180px; .yui-t3 = left  300px; -->
+    <!-- .yui-t4 = right 180px; .yui-t5 = right 240px; .yui-t6 = right 300px; -->
+    <!-- container #doc3 = 100%; .yui-t1 = left 160px;  -->
+    <div id="doc2" class="doc">
+      <!-- header div#hd -->
+      <div id="hd">
+        <!-- branding -->
+        <div id="branding">
+          <a href="/bookmarks/">
+            <img id="logo-img" src="/site_media/images/you29-bookmarks-white-logo.png"/>
+          </a>
+        </div>
+        {% include "contact/user_menu.html" %}
+      </div>
+      <!-- end of header div#hd -->
+
+      <!-- content div#bd -->
+      <div id="bd">
+        <center>
+          {% block content %}{% endblock %}
+        <center>
+      </div>
+      <!-- end of content div#bd --> 
+
+      <!-- footer div#ft footer -->
+      <div id="ft">
+        {%include "footer.html"%}
+      </div>
+      <!-- end of footer div#ft -->
+    </div>
+    <!-- end of container -->
+  </body>
+</html>
+
