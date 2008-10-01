@@ -1,77 +1,27 @@
+{% extends "base_type1.html" %}
 {% load i18n %}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-  <head>
-    <title>{% trans "you29.Bookmarks:" %} {% trans "Save Bookmark" %}</title>
-    <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
-    <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts-grids/reset-fonts-grids.css">
-    <link rel="stylesheet" type="text/css" href="/site_media/css/common.css">
-    <link rel="stylesheet" type="text/css" href="/site_media/css/bookmarks.css">
-    <script type="text/javascript">
-      function cancel_addbookmark(){
-        window.location = "/bookmarks/user/{{user.username}}/";
-        return false;
-      };
-    </script >
-  </head>
-  <body>
-    <!-- #doc = 750px; #doc2 = 950px; #doc3 = 100%; #doc4 = 974px -->
-    <!-- .yui-t1 = left  160px; .yui-t2 = left  180px; .yui-t3 = left  300px; -->
-    <!-- .yui-t4 = right 180px; .yui-t5 = right 240px; .yui-t6 = right 300px; -->
-    <!-- container #doc3 = 100%; .yui-t1 = left 160px;  -->
-    <div id="doc3" class="doc">
-      <!-- header div#hd -->
-      <div id="hd">
-        <!-- branding -->
-        <div id="branding">
-          <a href="/bookmarks/">
-            <img id="logo-img" src="/site_media/images/you29-bookmarks-white-logo.png"/>
-          </a>
-        </div>
-        {% include "bookmarks/user_menu.html" %}
-        <h1 id="title"><a href="/bookmarks/user/{{user.username}}">{{user.username}}{% trans "'s Bookmarks"%}</a></h1>
-      </div>
-      <!-- end of header div#hd -->
+{% block title %}{% trans "Save Bookmark" %}{% endblock %}
+{% block content %}
+  <div id="content-head"><h1>{% trans "Save a new bookmark" %}</h1></div>
+  <!--bookmark save form -->
+  <form id="save-form" method="post" action="/bookmarks/save/">
+    <table>
+      {% for field in form %}
+      <tr class="form-field">
+        <td class="form-field-label">{{ field.label_tag }}:</td>
+        <td class="form-field-value">
+          {{ field.errors }}
+          {{field}}
+        </td>
+      </tr>
+      {% endfor %}
+      <tr class="form-submit">
+        <td class="form-submit-label"></td>
+        <td class="form-submit-value">
+          <input id="save_button" type="submit" value='{% trans "Save"%}'/>
+        </td>
+      </tr>
+    </table>
+  </form>
+{% endblock %}
 
-      <!-- content div#bd -->
-      <div id="bd">
-        <!-- div.yui-main -->
-        <div id="yui-main">
-          <div class="yui-b main-content">
-            <!-- title -->
-            <div id="content-head">
-                <div id="position-navigator">
-                    <span>{% trans "Save a new bookmark" %}</span>
-                </div>
-            </div>
-            <!--bookmark save form -->
-            <form id="save-form" method="post" action="/bookmarks/save/">
-              <table>
-                {{form.as_table}}
-                <tr>
-                  <td></td>
-                  <td>
-                    <input id="next_button"   type="submit" value="Save"/>
-                    <input id="cancel_button" type="submit" value="Cancel" onClick="cancel_addbookmark(); return false;" />
-                  </td>
-                </tr>
-              </table>
-            </form>
-            <!--end of bookmark save form -->
-          </div>
-        </div>
-        <!-- end of div.yui-main -->
-      </div>
-      <!-- end of content div#bd --> 
-
-      <!-- footer div#ft footer -->
-      <div id="ft">
-        {%include "footer.html"%}
-      </div>
-      <!-- end of footer div#ft -->
-    </div>
-    <!-- end of container -->
-
-
-  </body>
-</html>

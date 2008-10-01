@@ -1,17 +1,18 @@
-{% extends "base.html" %}
+{% extends "base_type1.html" %}
 {% load i18n %}
+
 {% block title %}{% trans "Language configuration" %}{% endblock %}
-{% block head %}{% trans "Language configuration" %}{% endblock %}
-{% block external %}
-{% endblock %}
+
 {% block content %}
-<form action="/i18n/setlang/" method="post">
-  <input name="next" type="hidden" value="/" />
-  <select name="language">
-    {% for lang in LANGUAGES %}
-      <option value="{{ lang.0 }}">{{ lang.1 }}</option>
-    {% endfor %}
-  </select>
-  <input id="save_button" type="submit" value="{% trans "Save" %}" />
-</form>
+  <div id="content-head"><h1>{% trans "Language configuration" %}</h1></div>
+  <!-- form -->
+  <form action="/i18n/setlang/" method="post">
+    <input name="next" type="hidden" value="/" />
+    <select name="language">
+      {% for lang in LANGUAGES %}
+        <option value="{{ lang.0 }}">{{ lang.1 }}</option>
+      {% endfor %}
+    </select>
+    <input id="save_button" type="submit" value="{% trans "Save" %}" />
+  </form>
 {% endblock %}

@@ -92,6 +92,9 @@ html, body {
 .form-field-value input{
     width:300px;
 }
+.form-field-value textarea{
+    width:300px;
+}
 .errorlist {
     color: #ff0000;
 }

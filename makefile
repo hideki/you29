@@ -36,5 +36,9 @@ clean:
 	rm -rf */.*.swp
 	rm -rf */*/.*.swp
 	rm -rf */*/*/.*.swp
+	rm -rf *.bak
+	rm -rf */*.bak
+	rm -rf */*/*.bak
+	rm -rf */*/*/*.bak
 	rm -rf */*.eml
 	sudo rm -rf build

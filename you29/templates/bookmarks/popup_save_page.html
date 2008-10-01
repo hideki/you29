@@ -1,25 +1,32 @@
-{% extends "base.html" %}
+{% extends "base_type2.html" %}
 {% load i18n %}
+
 {% block title %}{% trans "Save Bookmark" %}{% endblock %}
-{% block head %}{% trans "Save Bookmark" %}{% endblock %}
-{% block external %}
-<style>
-#id_url{width:350px;}
-#id_title{width:350px;}
-#id_notes{width:350px;}
-#id_tags{width:350px;}
-#id_share{}
-</style>
-{% endblock %}
 
 {% block content %}
-<form id="save-form" method="post" action="/bookmarks/save/">
-  <table>
-    {{form.as_table}}
-  </table>
-  <input id="next_button" type="submit" value="Save"/>
-  <input type="hidden" name="_popup" value="true"/>
-  <input id="cancel_button" type=submit name=btnC value="Cancel" onclick="window.close();return false;">
-  <a href="/bookmarks" target="_blank">{% trans "See all bookmarks &raquo" %}</a>
-</form>
+  <div id="content-head"><h1>{% trans "Save a new bookmark" %}</h1></div>
+  <!-- form -->
+  <form id="save-form" method="post" action="/bookmarks/save/">
+    <table>
+    {% for field in form %}
+      <tr class="form-field">
+        <td class="form-field-label">{{ field.label_tag }}:</td>
+        <td class="form-field-value">
+          {{ field.errors }}
+          {{field}}
+        </td>
+      </tr>
+    {% endfor %}
+      <tr class="form-submit">
+        <td class="form-submit-label"></td>
+        <td class="form-submit-value">
+          <input id="next_button" type="submit" value='{% trans "Save" %}'/>
+          <input id="cancel_button" type=submit name=btnC value="Cancel" onclick="window.close();return false;">
+          <a href="/bookmarks" target="_blank">{% trans "See all bookmarks &raquo" %}</a>
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" name="_popup" value="true"/>
+  </form>
+  <!-- end of form -->
 {% endblock %}
