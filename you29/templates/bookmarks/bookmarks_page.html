@@ -11,7 +11,7 @@
         {% if is_owner %}{{username}}{% trans "'s Bookmarks"%}{% else %}{{username}}{% trans "'s Shared Bookmarks" %}{% endif %}
       {% endifequal %}
       {% ifequal page_type 'link' %}
-        {% trans "Everyone's bookmarks for" %} "{{link.title}}"
+        {{link.title}}
       {% endifequal %}
     </title>
     <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
@@ -25,33 +25,27 @@
     <!-- .yui-t4 = right 180px; .yui-t5 = right 240px; .yui-t6 = right 300px; -->
 
     <!-- container #doc3 = 100%; .yui-t1 = left 160px;  -->
-    <div id="doc3" class="yui-t4 doc">
+    <div id="doc4" class="yui-t4 doc">
       <!-- header div#hd -->
       <div id="hd">
         <!-- branding -->
         <div id="branding">
-          <a href="/bookmarks/">
           <img id="logo-img" src="/site_media/images/you29-bookmarks-white-logo.png"/>
-          </a>
         </div>
         {% include "bookmarks/user_menu.html" %}
         <h1 id="title">
           {% ifequal page_type 'public' %}
-            <a href="/bookmarks/public/">{% trans "Everyone's Shared Bookmarks" %}</a>
+            {% trans "Everyone's Shared Bookmarks" %}
           {% endifequal %}
           {% ifequal page_type 'user' %}
-            <a href="/bookmarks/user/{{username}}/">
               {% if is_owner %}
                 {{username}}{% trans "'s Bookmarks"%} ({{total}})
               {% else %}
                 {{username}}{% trans "'s Shared Bookmarks" %} ({{total}})
               {% endif %}
-            </a>
           {% endifequal %}
           {% ifequal page_type 'link' %}
-            <a href="/bookmarks/link/{{link.id}}/">
-            {% trans "Everyone's bookmarks for " %}"{{link.title}}"
-            </a>
+            {{link.title}}
           {% endifequal %}
         </h1>
       </div>

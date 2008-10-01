@@ -1,97 +1,12 @@
-/* common */
-/*
-* {
-    font-family: Geneva, Tahoma, Verdana Arial, Helvetica, sans-serif;
-}
-
-a {
-    color: #0A396F;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-html, body {
-    background-color: #e5ecf9;
-}
-*/
-/* end of common */
-
-/* layout */
-/*
-.doc {
-    background-color: #ffffff;
-}
-
-#hd {
-    position: relative;
-    background-color: #0A396F;
-    padding-bottom: 5px;
-}
-
-#bd {
-}
-
-#ft {
-}
-*/
-/* end of layout */
-
-/********************************
- * div#hd 
- *******************************/
-
-/* logo-img */
-/*
-#logo-img {
-    padding: 5px 0px 0px 10px;
-}
-*/
-/* end fo logo-img */
-
-/* user-menu */
-/*
-#user-menu {
-    position: absolute;
-    top:   0;
-    right: 0;
-    padding: 4px 5px;
-    text-align: right;
-    font-size: 100%;
-    color: #FFFFFF;
-}
-#user-menu a {
-    color: #FFFFFF;
-}
-*/
-/* end of user-menu */
-
-/* title */
-/*
-#title {
-    font-weight: bold;
-    font-size: 146.5%;
-    text-align: center;
-}
-#title a{
-    color: #FFFFFF;
-}
-*/
-/* end of title */
-
-
 /********************************
  * div#bd 
  *******************************/
 
 /* nav */
 #nav{
-    margin: 3px 3px 3px 3px;
+    margin: 0px 0px 0px 0px;
     padding: 2px 2px 2px 2px;
-    border: 1px solid #dcdcdc;
-    background-color: #FAFAFA;
+    background-color: #EBF4FA;
 }
 /* end of nav */
 
@@ -102,8 +17,7 @@ html, body {
 .tag-clouds h2 {
     font-size: 108%;
     font-weight: bold;
-    color: #191970;
-    background-color: #e5ecf9;
+    color:#000000;
     text-align:center;
 }
 .tag-clouds ul li {
@@ -118,18 +32,16 @@ html, body {
 
 /* main-content */
 .main-content{
-    padding: 2px 2px 2px 4px;
+    padding: 0px 0px 0px 0px;
 }
 /* end of main-content */
 
 /* link-info */
 #link-info{
-    margin: 5px 5px 1px 0px;
+    margin: 0px 0px 0px 0px;
     padding: 5px 5px 5px 5px;
-    //border-top: 1px solid #4169e1;
-    //border-bottom: 1px solid #4169e1;
     border-bottom: 1px solid #dcdcdc;
-    background-color: #FAFAFA;
+    background-color: #EBF4FA;
 }
 #link-info .link-label{
     display: block;
@@ -152,18 +64,18 @@ html, body {
 /* content-head */
 #content-head{
     position: relative;
-    height: 35px;
+    height: 28px;
     border-bottom: 1px solid #dcdcdc;
     color: #0A396F;
-    margin: 1px 5px 1px 0px;
-    background-color: #FAFAFA;
+    margin: 0px 0px 0px 0px;
+    background-color: #EBF4FA;
 }
 /* end of content-head */
 
 /* position-navigator */
 div#position-navigator{
     font-size: 116%;
-    margin: 10px 5px 0px 5px;
+    margin: 3px 5px 0px 3px;
     position: absolute;
     left: 0;
     top: 0;
@@ -185,7 +97,7 @@ div#position-navigator span {
     top: 0;
     text-align: right;
     font-size: 116%;
-    margin: 10px 5px 0px 5px;
+    margin: 5px 5px 0px 5px;
 }
 #sort-menu span {
    font-weight: bold;
@@ -235,7 +147,6 @@ a.page {
 /* bookmark-title */
 .bookmark-title {
     font-size: 108%;
-    //color:#6E9B33;
 }
 /* end of bookmark-title */
 
@@ -266,7 +177,7 @@ a.page {
 
 /* detail */
 .detail { 
-    color:#696969;
+    color:#948B6E;
 }
 /* end of detail */
 /* url */
@@ -307,41 +218,9 @@ a.user:hover {
 /* note */
 .note{
     margin: 10px 10px 5px 10px;
-    border: 1px solid #f3f3f3;
-    padding: 7px 7px 7px 7px;
-    background-color:#FAFAFA;
 }
 
 .note-more{
     text-decoration: underline;
 }
 /* end of note */
-
-/********************************
- * div#ft 
- *******************************/
-
-/* for save-page.html & popup-save-page.html */
-#save-form{
-    margin: 10px 10px 10px 10px;
-    padding: 2px 2px 2px 2px;
-}
-#save-form table td {
-    padding-bottom: 10px;
-}
-#save-form table th {
-    vertical-align: top;
-    text-align: right;
-}
-#id_title, #id_url, #id_notes, #id_tags{
-    width:450px;
-}
-#cancel_button {
-    width:100px;
-}
-#next_button {
-    width:100px;
-    font-weight:bold;
-}
-/* end fo save-form */
-
