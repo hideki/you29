@@ -329,6 +329,7 @@ def search_bookmarks(request):
     username = request.user.username;
     tags = Bookmark.objects.tag_clouds(username, True)[:10];
     bookmarks = [];
+    keywords = [];
     if request.GET.has_key('query'):
         query = request.GET['query'].strip();
         if query:
