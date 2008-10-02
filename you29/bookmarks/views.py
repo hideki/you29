@@ -350,8 +350,7 @@ def search_bookmarks(request):
         'tags':tags,
         'http_host':http_host,
         'show_edit':True,
-        'show_delete':True,
-        'keywords': keywords
+        'show_delete':True
     });
     return render_to_response('bookmarks/bookmarks_page.html', variables)
             
