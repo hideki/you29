@@ -27,7 +27,7 @@
         {% if link.get_tags %}
           -
           <span class="tags">
-            <img class="tag-image" src="/site_media/images/tag.jpg"/>
+            <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
             {% for tag in link.get_tags %}
               <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
             {% endfor %}

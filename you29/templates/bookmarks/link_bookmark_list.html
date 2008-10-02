@@ -15,7 +15,7 @@
       {% if bookmark.tags.all %}
         -
         <span class="tags">
-          <img class="tag-image" src="/site_media/images/tag.jpg"/>
+          <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
           {% for tag in bookmark.tags.all %}
             <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
           {% endfor %}

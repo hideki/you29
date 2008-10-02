@@ -13,6 +13,9 @@
       {% ifequal page_type 'link' %}
         {{link.title}}
       {% endifequal %}
+      {% ifequal page_type 'search' %}
+        {{username}}{% trans "'s Bookmarks"%}
+      {% endifequal %}
     </title>
     <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
     <link rel="stylesheet" type="text/css" href="/site_media/yui/reset-fonts-grids/reset-fonts-grids.css">
@@ -47,6 +50,9 @@
           {% ifequal page_type 'link' %}
             {{link.title}}
           {% endifequal %}
+          {% ifequal page_type 'search' %}
+            {{username}}{% trans "'s Bookmarks"%}
+          {% endifequal %}
         </h1>
       </div>
       <!-- end of header div#hd -->
@@ -66,8 +72,10 @@
             {% ifequal page_type 'link' %}
                 {% include "bookmarks/link_bookmark_list.html"%}
             {% endifequal %}
+            {% ifequal page_type 'search' %}
+                {% include "bookmarks/user_bookmark_list.html"%}
+            {% endifequal %}
             <!-- end of bookmark list -->
-
             <br/><br/>
 
             <!-- bookmarklet -->
@@ -80,6 +88,7 @@
 
         <!-- nav div.yui-b -->
         <div id="nav" class="yui-b">
+          {% include "bookmarks/search.html" %}
           {% include "bookmarks/tag_clouds.html" %}
         </div>
         <!-- end of div.yui-b -->

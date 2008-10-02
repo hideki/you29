@@ -5,7 +5,7 @@
     <ul>
       {% for tag in tags %}
         <li>
-          <img class="tag-image" src="/site_media/images/tag.jpg"/>
+          <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
           {% ifequal page_type 'public' %}
             <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}  ({{tag.count}})</a>
           {% endifequal %}
@@ -13,6 +13,13 @@
             <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}  ({{tag.count}})</a>
           {% endifequal %}
           {% ifequal page_type 'user' %}
+            {% if tag_browse %}
+              <a class="tag" href="{{tag.name}}/">+{{tag.name}}  ({{tag.count}})</a>
+            {% else %}
+              <a class="tag" href="/bookmarks/user/{{username}}/{{tag.name}}/">{{tag.name}}  ({{tag.count}})</a>
+            {% endif %}
+          {% endifequal %}
+          {% ifequal page_type 'search' %}
             {% if tag_browse %}
               <a class="tag" href="{{tag.name}}/">+{{tag.name}}  ({{tag.count}})</a>
             {% else %}

@@ -323,3 +323,34 @@ def _save_bookmark(request, form):
     # Save bookmark to database
     bookmark.save()
     return bookmark;
+
+def search_bookmarks(request):
+    http_host = request.META['HTTP_HOST']
+    username = request.user.username;
+    tags = Bookmark.objects.tag_clouds(username, True)[:10];
+    bookmarks = [];
+    if request.GET.has_key('query'):
+        query = request.GET['query'].strip();
+        if query:
+            keywords = query.split();
+            q = Q();
+            for keyword in keywords:
+                q = q | Q(title__icontains=keyword);
+                q = q | Q(notes__icontains=keyword);
+                q = q | Q(link__url__icontains=keyword);
+                q = q | Q(tags__name__icontains=keyword);
+            bookmarks = Bookmark.objects.filter(user__username__iexact=request.user.username).filter(q);
+    variables = RequestContext(request,{
+        'page_type':'search',
+        'user': request.user.username,
+        'username': request.user.username,
+        'bookmarks':bookmarks,
+        'total':len(bookmarks),
+        'tags':tags,
+        'http_host':http_host,
+        'show_edit':True,
+        'show_delete':True,
+        'keywords': keywords
+    });
+    return render_to_response('bookmarks/bookmarks_page.html', variables)
+            

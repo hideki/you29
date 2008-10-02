@@ -10,6 +10,9 @@ urlpatterns = patterns('',
     (r'^user/(\w+)/(.+)/$', user_tag_page),
     (r'^link/(\d+)/$', link_page),
 
+    # Search
+    (r'^search/$', search_bookmarks),
+
     # Bookmark management
     #(r'^new/$',          new_bookmark),
     (r'^add/$',          add_bookmark),
@@ -19,4 +22,5 @@ urlpatterns = patterns('',
 
     # internationalization
     (r'^i18n/$',         i18n_config),
+
 )

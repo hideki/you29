@@ -1,0 +1,8 @@
+{% load i18n %}
+<div class="query">
+  <h2 >{% trans "Search" %}</h2>
+  <form class="query-form" method="get" action="/bookmarks/search/">
+    <input type="text" name="query" class="query-text"/>
+    <input type="submit" value="Search" class="query_submit"/>
+  </form>
+</div>
