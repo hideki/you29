@@ -14,7 +14,11 @@
         {{link.title}}
       {% endifequal %}
       {% ifequal page_type 'search' %}
-        {{username}}{% trans "'s Bookmarks"%}
+        {% ifequal content_type 'user' %}
+          {{username}}{% trans "'s Bookmarks"%}
+        {% else %}
+          {% trans "Everyone's Shared Bookmarks" %}
+        {% endifequal %}
       {% endifequal %}
     </title>
     <link rel="shortcut icon" href="/site_media/images/favicon.ico"> 
@@ -51,7 +55,11 @@
             {{link.title}}
           {% endifequal %}
           {% ifequal page_type 'search' %}
-            {{username}}{% trans "'s Bookmarks"%}
+            {% ifequal content_type 'user' %}
+              {{username}}{% trans "'s Bookmarks"%}
+            {% else %}
+              {% trans "Everyone's Shared Bookmarks" %}
+            {% endifequal %}
           {% endifequal %}
         </h1>
       </div>
@@ -73,7 +81,11 @@
                 {% include "bookmarks/link_bookmark_list.html"%}
             {% endifequal %}
             {% ifequal page_type 'search' %}
-                {% include "bookmarks/user_bookmark_list.html"%}
+                {% ifequal content_type 'user' %}
+                    {% include "bookmarks/user_bookmark_list.html"%}
+                {% else %}
+                    {% include "bookmarks/public_link_list.html"%}
+                {% endifequal %}
             {% endifequal %}
             <!-- end of bookmark list -->
             <br/><br/>

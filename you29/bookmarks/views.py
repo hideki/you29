@@ -34,12 +34,9 @@ def link_page(request, link_id):
     link      = Link.objects.get(id__exact=link_id);
     bookmarks = Bookmark.objects.filter(link=link).filter(share=True).order_by('-date');
     tags      = Link.objects.tag_clouds(30);
-    #logging.debug(link);
-    #logging.debug("bookmarks=%d" % len(bookmarks))
-    #for b in bookmarks:
-    #    logging.debug("bookmarks=%s" % b)
     variables = RequestContext(request, {
         'page_type':'link',
+        'content_type':'public',
         'count': len(bookmarks),
         'link':link,
         'bookmarks':bookmarks,
@@ -55,6 +52,7 @@ def public_page(request):
     tags  = Link.objects.tag_clouds(30);
     variables = RequestContext(request, {
         'page_type':'public',
+        'content_type':'public',
         'links':links,
         'tags':tags,
         'http_host':http_host
@@ -76,6 +74,7 @@ def public_tag_page(request, tags):
             tag_nav.append(tag_dict);
     variables = RequestContext(request, {
         'page_type':'public',
+        'content_type':'public',
         'links':links,
         'tags':tags,
         'tag_nav':tag_nav,
@@ -92,13 +91,11 @@ def user_page(request, username):
         request.session['sortedby'] = request.GET['sortedby'];
     sortedby = request.session.get('sortedby', "-date");
     if(user.username == request.user.username):
-        #bookmarks = Bookmark.objects.filter(user=user).order_by('-date');
         bookmarks = Bookmark.objects.filter(user=user).order_by(sortedby);
         is_owner = True;    
         show_edit = True
         show_delete = True
     else:
-        #bookmarks = Bookmark.objects.filter(user=user).filter(share=True).order_by('-date');
         bookmarks = Bookmark.objects.filter(user=user).filter(share=True).order_by(sortedby);
         is_owner = False;    
         show_edit   = False
@@ -113,8 +110,9 @@ def user_page(request, username):
     except:
         raise Http404;
     variables = RequestContext(request, {
-        'sortedby':sortedby,
         'page_type':'user',
+        'content_type':'user',
+        'sortedby':sortedby,
         'is_owner': is_owner,
         'user': request.user,
         'username':username,
@@ -187,8 +185,9 @@ def user_tag_page(request, username, tags):
         tag_dict = {'name': tag, 'url': url};
         tag_nav.append(tag_dict);
     variables = RequestContext(request, {
-        'sortedby':sortedby,
         'page_type':'user',
+        'content_type':'user',
+        'sortedby':sortedby,
         'is_owner': is_owner,
         'user': request.user,
         'username':username,
@@ -324,12 +323,21 @@ def _save_bookmark(request, form):
     bookmark.save()
     return bookmark;
 
-def search_bookmarks(request):
+def search_bookmarks(request, username):
+    logging.debug("bookmarks.views.search_bookmarks() username=%s" % (username));
     http_host = request.META['HTTP_HOST']
-    username = request.user.username;
-    tags = Bookmark.objects.tag_clouds(username, True)[:10];
+    user = get_object_or_404(User, username=username)
+    if(user.username == request.user.username):
+        is_owner    = True;    
+        show_edit   = True;
+        show_delete = True;
+    else:
+        is_owner    = False;    
+        show_edit   = False;
+        show_delete = False;
+    tags = Bookmark.objects.tag_clouds(username, is_owner)[:10];
+    keywords  = [];
     bookmarks = [];
-    keywords = [];
     if request.GET.has_key('query'):
         query = request.GET['query'].strip();
         if query:
@@ -340,17 +348,48 @@ def search_bookmarks(request):
                 q = q | Q(notes__icontains=keyword);
                 q = q | Q(link__url__icontains=keyword);
                 q = q | Q(tags__name__icontains=keyword);
-            bookmarks = Bookmark.objects.filter(user__username__iexact=request.user.username).filter(q);
+            if is_owner:
+                bookmarks = Bookmark.objects.filter(user=user).filter(q).distinct().order_by('-date');
+            else:
+                bookmarks = Bookmark.objects.filter(user=user).filter(share=True).filter(q).distinct().order_by('-date');
     variables = RequestContext(request,{
         'page_type':'search',
-        'user': request.user.username,
-        'username': request.user.username,
+        'content_type':'user',
+        'user': request.user,
+        'username': username,
         'bookmarks':bookmarks,
         'total':len(bookmarks),
         'tags':tags,
         'http_host':http_host,
-        'show_edit':True,
-        'show_delete':True
+        'is_owner': is_owner,
+        'show_edit':show_edit,
+        'show_delete':show_delete
     });
     return render_to_response('bookmarks/bookmarks_page.html', variables)
-            
+
+def public_search_bookmarks(request):
+    logging.debug("bookmarks.views.public_search_bookmarks()");
+    http_host = request.META['HTTP_HOST']
+    tags  = Link.objects.tag_clouds(30);
+    keywords  = [];
+    links = [];
+    query = "";
+    if request.GET.has_key('query'):
+        query = request.GET['query'].strip();
+        if query:
+            keywords = query.split();
+            q = Q();
+            for keyword in keywords:
+                q = q | Q(title__icontains=keyword);
+                q = q | Q(url__icontains=keyword);
+            links = Link.objects.filter(q).distinct();
+    logging.debug("count = %d" % links.count());
+    variables = RequestContext(request, {
+        'page_type':'search',
+        'content_type':'public',
+        'query':query,
+        'links':links,
+        'tags':tags,
+        'http_host':http_host
+    })
+    return render_to_response('bookmarks/bookmarks_page.html', variables)

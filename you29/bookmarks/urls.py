@@ -11,7 +11,8 @@ urlpatterns = patterns('',
     (r'^link/(\d+)/$', link_page),
 
     # Search
-    (r'^search/$', search_bookmarks),
+    (r'^public_search/$', public_search_bookmarks),
+    (r'^search/(\w+)/$', search_bookmarks),
 
     # Bookmark management
     #(r'^new/$',          new_bookmark),
