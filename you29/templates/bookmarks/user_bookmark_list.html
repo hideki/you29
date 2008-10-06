@@ -1,83 +1,90 @@
 {% load i18n %}
 
 <div id="content-head">
-  <div id="position-navigator">
-    <a href="/bookmarks/user/{{username}}/">{{username}}{% trans "'s bookmarks" %}</a>
-    {% for tag_dict in tag_nav %}
-      >>
-      {% if not forloop.last %}
-        <a href="{{tag_dict.url}}">{{tag_dict.name}}</a>
-      {% else %}
-        <span>{{tag_dict.name}}</span>
+   <div id="position-navigator">
+      <a href="/bookmarks/user/{{username}}/">{{username}}{% trans "'s bookmarks" %}</a>
+      {% if tag_nav %}
+         {% for tag_dict in tag_nav %}
+            >>
+            {% if not forloop.last %}
+               <a href="{{tag_dict.url}}">{{tag_dict.name}}</a>
+            {% else %}
+               <span>{{tag_dict.name}}</span>
+            {% endif %}
+         {% endfor %}
       {% endif %}
-    {% endfor %}
-  </div>
-  <div id="sort-menu">
-    {% trans "Sort by" %}
-    {% ifequal sortedby '-date' %}
-      <span>{% trans "date" %}</span> | <a href="?sortedby=title">{% trans "title" %}</a>
-    {% endifequal %}
-    {% ifequal sortedby 'title' %}
-      <a href="?sortedby=-date">{% trans "date" %}</a> | <span>{% trans "title" %}</span>
-    {% endifequal %}
-  </div>
+      {% ifequal page_type 'search' %}
+      >> {% trans "Search results for " %}<span>{{query}}</span>
+      {% endifequal %}
+   </div>
+   {% ifnotequal page_type 'search' %}
+   <div id="sort-menu">
+      {% trans "Sort by" %}
+      {% ifequal sortedby '-date' %}
+         <span>{% trans "date" %}</span> | <a href="?sortedby=title">{% trans "title" %}</a>
+      {% endifequal %}
+      {% ifequal sortedby 'title' %}
+         <a href="?sortedby=-date">{% trans "date" %}</a> | <span>{% trans "title" %}</span>
+      {% endifequal %}
+   </div>
+   {% endifnotequal %}
 </div>
 
 {% if bookmarks %}
-  <ul class="bookmarks">
-    {% for bookmark in bookmarks %}
-      <li class="bookmark">
-        <div class="bookmark-head">
-          <a href="{{bookmark.link.url}}" class="bookmark-title" target="_blank">{{bookmark.title}}</a>
-          {% if bookmark.link.user_count %}
-            <a href="/bookmarks/link/{{bookmark.link.id}}/" class="{% if bookmark.is_popular %}bookmark-count-popular{%else%}bookmark-count{%endif%}">{{bookmark.link.user_count}}&nbsp;{% trans "users" %}</a>
-          {% endif %}
-        </div>
-        <div class="detail">
-          <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
-          - {{bookmark.date|date:"M d Y"}}
-          {% if bookmark.tags.all %}
-            -
-            <span class="tags">
-            <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
-            {% for tag in bookmark.tags.all %}
-              <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
-            {% endfor %}
-            </span>
-          {% endif %}
-          {% if show_edit %}
-            - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">{% trans "edit" %}</a>
-          {% endif %}
-          {% if show_delete %}
-            - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">{% trans "delete" %}</a>
-          {% endif %}
-        </div>
-        {% if bookmark.notes %}
-          <div class="note">
-            {{bookmark.notes|linebreaksbr}}
-          </div>
-        {% endif %}
-      </li>
-    {% endfor %} 
-  </ul>
-  {% if has_other_pages %}
-    <div class="paginator">
-      {% if has_previous %}
-        <a href="?page={{previous_page_number}}">&lt; {% trans "Previous" %}</a>
-      {% endif %}
-      {% for n in pages %}
-        {% ifequal n page %}
-          <span class=page>{{n}}</span>
-        {% else %}
-          <a class="page" href="?page={{n}}">{{n}}</a>
-        {% endifequal %}
-      {% endfor %}
-      {% if has_next %}
-        <a href="?page={{next_page_number}}">{% trans "Next" %} &gt;</a>
-      {% endif %}
-    </div>
-  {% endif %}
-  <div class="total-bookmarks">{{total}} {% trans "Bookmarks" %}</div>
+   <ul class="bookmarks">
+      {% for bookmark in bookmarks %}
+         <li class="bookmark">
+            <div class="bookmark-head">
+            <a href="{{bookmark.link.url}}" class="bookmark-title" target="_blank">{{bookmark.title}}</a>
+            {% if bookmark.link.user_count %}
+               <a href="/bookmarks/link/{{bookmark.link.id}}/" class="{% if bookmark.is_popular %}bookmark-count-popular{%else%}bookmark-count{%endif%}">{{bookmark.link.user_count}}&nbsp;{% trans "users" %}</a>
+            {% endif %}
+            </div>
+            <div class="detail">
+               <a href="{{bookmark.link.url}}" class="url">{{bookmark.link.url}}</a>
+               - {{bookmark.date|date:"M d Y"}}
+               {% if bookmark.tags.all %}
+                  -
+                  <span class="tags">
+                     <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
+                     {% for tag in bookmark.tags.all %}
+                        <a class="tag" href="/bookmarks/user/{{bookmark.user.username}}/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
+                     {% endfor %}
+                  </span>
+               {% endif %}
+               {% if show_edit %}
+                  - <a href="/bookmarks/edit/{{bookmark.id}}/" class="edit command">{% trans "edit" %}</a>
+               {% endif %}
+               {% if show_delete %}
+                  - <a href="/bookmarks/delete/{{bookmark.id}}/" class="delete command">{% trans "delete" %}</a>
+               {% endif %}
+            </div>
+            {% if bookmark.notes %}
+               <div class="note">
+                  {{bookmark.notes|linebreaksbr}}
+               </div>
+            {% endif %}
+         </li>
+      {% endfor %} 
+   </ul>
+   {% if has_other_pages %}
+      <div class="paginator">
+         {% if has_previous %}
+            <a href="?page={{previous_page_number}}">&lt; {% trans "Previous" %}</a>
+         {% endif %}
+         {% for n in pages %}
+            {% ifequal n page %}
+               <span class=page>{{n}}</span>
+            {% else %}
+               <a class="page" href="?page={{n}}">{{n}}</a>
+            {% endifequal %}
+         {% endfor %}
+         {% if has_next %}
+            <a href="?page={{next_page_number}}">{% trans "Next" %} &gt;</a>
+         {% endif %}
+      </div>
+   {% endif %}
+   <div class="total-bookmarks">{{total}} {% trans "Bookmarks" %}</div>
 {% else %}
-  <p>{% trans "No bookmarks found." %}</p>
+   <p>{% trans "No bookmarks found." %}</p>
 {% endif %}

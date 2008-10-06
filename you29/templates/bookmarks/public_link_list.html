@@ -2,53 +2,58 @@
 {% load common_filters %}
 <!-- title -->
 <div id="content-head">
-  <div id="position-navigator">
-    <a href="/bookmarks/public/">{% trans "Recent bookmarks" %}</a>
-    {% for tag_dict in tag_nav %}
-      >>
-      {% if not forloop.last %}
-        <a href="{{tag_dict.url}}">{{tag_dict.name}}</a>
-      {% else %}
-        <span>{{tag_dict.name}}</span>
+   <div id="position-navigator">
+      <a href="/bookmarks/public/">{% trans "Recent bookmarks" %}</a>
+      {% if tag_nav %}
+         {% for tag_dict in tag_nav %}
+            >>
+            {% if not forloop.last %}
+               <a href="{{tag_dict.url}}">{{tag_dict.name}}</a>
+            {% else %}
+               <span>{{tag_dict.name}}</span>
+            {% endif %}
+         {% endfor %}
       {% endif %}
-    {% endfor %}
-  </div>
+      {% ifequal page_type 'search' %}
+         >> {% trans "Search results for " %}<span>{{query}}</span>
+      {% endifequal %}
+   </div>
 </div>
 {% if links %}
-  <ul class="bookmarks">
-    {% for link in links %}
-      <li class="bookmark">
-        <div class="bookmark-head">
-          <a href="{{link.url}}" class="bookmark-title" target="_blank">{{link.title}}</a>
-          <a href="/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}bookmark-count-popular{%else%}bookmark-count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
-        </div>
-        <div class="detail">
-          <a href="{{link.url}}" class="url">{{link.url}}</a>
-        {% if link.get_tags %}
-          -
-          <span class="tags">
-            <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
-            {% for tag in link.get_tags %}
-              <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
-            {% endfor %}
-          </span>
-        {% endif %}
-        </div>
-        {% for b in link.bookmark_set.all %}
-          {% if b.notes %}
-            {% if b.share %}
-              <div class="note">
-                  <a href="/bookmarks/user/{{b.user.username}}" class="user">{{b.user.username}}</a>
-                  <span style="color:#3c3c3c">wrote a note:</span>
-                  <span class="note-text">{{b.notes|truncate_chars:100}}</span>
-                  <a class="note-more" href="/bookmarks/link/{{link.id}}/">More...</a>
+   <ul class="bookmarks">
+      {% for link in links %}
+         <li class="bookmark">
+            <div class="bookmark-head">
+               <a href="{{link.url}}" class="bookmark-title" target="_blank">{{link.title}}</a>
+               <a href="/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}bookmark-count-popular{%else%}bookmark-count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
+            </div>
+            <div class="detail">
+               <a href="{{link.url}}" class="url">{{link.url}}</a>
+               {% if link.get_tags %}
                   -
-                  <span>{{b.date|date:"M d Y"}}</span>
-              </div>
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-      </li>
-    {% endfor %} 
-  </li>
+                  <span class="tags">
+                     <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
+                     {% for tag in link.get_tags %}
+                        <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
+                     {% endfor %}
+                  </span>
+               {% endif %}
+            </div>
+            {% for b in link.bookmark_set.all %}
+               {% if b.notes %}
+                  {% if b.share %}
+                     <div class="note">
+                        <a href="/bookmarks/user/{{b.user.username}}" class="user">{{b.user.username}}</a>
+                        <span style="color:#3c3c3c">wrote a note:</span>
+                        <span class="note-text">{{b.notes|truncate_chars:100}}</span>
+                        <a class="note-more" href="/bookmarks/link/{{link.id}}/">More...</a>
+                        -
+                        <span>{{b.date|date:"M d Y"}}</span>
+                     </div>
+                  {% endif %}
+               {% endif %}
+            {% endfor %}
+         </li>
+      {% endfor %} 
+   </li>
 {% endif %}

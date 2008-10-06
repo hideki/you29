@@ -328,6 +328,7 @@ def search_bookmarks(request, username):
    tags = Bookmark.objects.tag_clouds(username, is_owner)[:10];
    keywords  = [];
    bookmarks = [];
+   query = "";
    if request.GET.has_key('query'):
       query = request.GET['query'].strip();
       if query:
@@ -344,6 +345,7 @@ def search_bookmarks(request, username):
    variables = RequestContext(request,{
       'page_type':'search',
       'content_type':'user',
+      'query':query,
       'user': request.user,
       'username': username,
       'bookmarks':bookmarks,
