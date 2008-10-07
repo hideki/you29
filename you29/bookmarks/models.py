@@ -19,7 +19,7 @@ class CustomTag():
 # Manager for Link Model
 ###########################################################
 class LinkManager(models.Manager):
-   def shared_links(self, limit, tags=None):
+   def shared_links(self, limit, tags=None, sortedby=None):
       join_tags = "";
       where_tags = "";
       tag_count = 0;
@@ -29,6 +29,9 @@ class LinkManager(models.Manager):
             join_tags = join_tags + " INNER JOIN bookmarks_bookmark_tags BT%d ON (B.id = BT%d.bookmark_id) " % (tag_count, tag_count);
             join_tags = join_tags + " INNER JOIN tags_tag T%d ON (BT%d.tag_id = T%d.id) " % (tag_count, tag_count, tag_count);
             tag_count += 1;
+      order_by = "ORDER BY B.date DESC, user_count DESC";
+      if sortedby == "-user_count":
+         order_by = "ORDER BY user_count DESC, B.date DESC";
       query = """
          SELECT L.id, L.url, L.title, SUM(B.share) AS user_count
          FROM bookmarks_link L, bookmarks_bookmark B
@@ -37,9 +40,9 @@ class LinkManager(models.Manager):
          %s
          GROUP BY L.id
          HAVING user_count > 0
-         ORDER BY B.date DESC
+         %s
          LIMIT %d
-         """ % (join_tags, where_tags, limit);
+         """ % (join_tags, where_tags, order_by, limit);
       cursor = connection.cursor()
       cursor.execute(query);
       shared_links = [];

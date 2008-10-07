@@ -18,6 +18,17 @@
          >> {% trans "Search results for " %}<span>{{query}}</span>
       {% endifequal %}
    </div>
+   {% ifnotequal page_type 'search' %}
+      <div id="sort-menu">
+         {% trans "Sort by" %}
+         {% ifequal linksortedby '-date' %}
+            <span>{% trans "Date" %}</span> | <a href="?linksortedby=-user_count">{% trans "Bookmarks" %}</a>
+         {% endifequal %}
+         {% ifequal linksortedby '-user_count' %}
+            <a href="?linksortedby=-date">{% trans "Date" %}</a> | <span>{% trans "Bookmarks" %}</span>
+         {% endifequal %}
+      </div>
+   {% endifnotequal %}
 </div>
 {% if links %}
    <ul class="bookmarks">

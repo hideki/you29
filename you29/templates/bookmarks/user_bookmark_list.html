@@ -18,15 +18,15 @@
       {% endifequal %}
    </div>
    {% ifnotequal page_type 'search' %}
-   <div id="sort-menu">
-      {% trans "Sort by" %}
-      {% ifequal sortedby '-date' %}
-         <span>{% trans "date" %}</span> | <a href="?sortedby=title">{% trans "title" %}</a>
-      {% endifequal %}
-      {% ifequal sortedby 'title' %}
-         <a href="?sortedby=-date">{% trans "date" %}</a> | <span>{% trans "title" %}</span>
-      {% endifequal %}
-   </div>
+      <div id="sort-menu">
+         {% trans "Sort by" %}
+         {% ifequal sortedby '-date' %}
+            <span>{% trans "Date" %}</span> | <a href="?sortedby=title">{% trans "Title" %}</a>
+         {% endifequal %}
+         {% ifequal sortedby 'title' %}
+            <a href="?sortedby=-date">{% trans "Date" %}</a> | <span>{% trans "Title" %}</span>
+         {% endifequal %}
+      </div>
    {% endifnotequal %}
 </div>
 

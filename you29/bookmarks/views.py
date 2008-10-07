@@ -46,11 +46,15 @@ def link_page(request, link_id):
 def public_page(request):
    logging.debug("bookmarks.views.public_page()");
    http_host = request.META['HTTP_HOST']
-   links = Link.objects.shared_links(30, []);
+   if request.GET.has_key('linksortedby'):
+      request.session['linksortedby'] = request.GET['linksortedby'];
+   linksortedby = request.session.get('linksortedby', "-date");
+   links = Link.objects.shared_links(30, [], linksortedby);
    tags  = Link.objects.tag_clouds(30);
    variables = RequestContext(request, {
       'page_type':'public',
       'content_type':'public',
+      'linksortedby':linksortedby,
       'links':links,
       'tags':tags,
       'http_host':http_host
@@ -61,7 +65,10 @@ def public_tag_page(request, tags):
    logging.debug("bookmarks.views.public_tag_page() tags=%s" % (tags));
    http_host = request.META['HTTP_HOST'];
    tag_array = tags.split('/');
-   links = Link.objects.shared_links(30, tag_array);
+   if request.GET.has_key('linksortedby'):
+      request.session['linksortedby'] = request.GET['linksortedby'];
+   linksortedby = request.session.get('linksortedby', "-date");
+   links = Link.objects.shared_links(30, tag_array, sortedby);
    tags  = Link.objects.tag_clouds(30);
    tag_nav = [];
    url = "/bookmarks/public/";
@@ -73,6 +80,7 @@ def public_tag_page(request, tags):
    variables = RequestContext(request, {
       'page_type':'public',
       'content_type':'public',
+      'linksortedby':linksortedby,
       'links':links,
       'tags':tags,
       'tag_nav':tag_nav,
