@@ -68,7 +68,7 @@ def public_tag_page(request, tags):
    if request.GET.has_key('linksortedby'):
       request.session['linksortedby'] = request.GET['linksortedby'];
    linksortedby = request.session.get('linksortedby', "-date");
-   links = Link.objects.shared_links(30, tag_array, sortedby);
+   links = Link.objects.shared_links(30, tag_array, linksortedby);
    tags  = Link.objects.tag_clouds(30);
    tag_nav = [];
    url = "/bookmarks/public/";
@@ -217,9 +217,16 @@ def add_bookmark(request):
       url = urllib.quote(url);
       return HttpResponseRedirect('/accounts/login/?next=%s' % url);
    if(request.GET.has_key('url') and request.GET.has_key('title')):
+      # url
       url   = request.GET['url'];
+      #title
       title = request.GET['title'];
-      form  = BookmarkSaveForm({'url':url,'title':title, 'share':True});
+      title = title.replace('\n', '');
+      title = title.strip();
+      notes = None;
+      if request.GET.has_key('notes'):
+         notes = request.GET['notes'];
+      form  = BookmarkSaveForm({'url':url,'title':title,'notes':notes, 'share':True});
    else:
       form = BookmarkSaveForm(initial={'share':True});
    popup = False;
