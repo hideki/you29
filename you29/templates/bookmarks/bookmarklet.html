@@ -1,2 +1,23 @@
 {% load i18n %}
-<div>{% trans 'Bookmark pages more easily. Drag this bookmarklet to the Links area of your browser:' %} <a style='background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(document.getSelection()), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a></div>
+<div><span id="bml_label_ie" style="visibility:hidden;">{%trans 'Bookmark pages more easily. Right click this bookmarklet, click Add to Favorites... menu in context menu, and Add to Links folder.'%}</span><span id="bml_label" style="visibility:hidden;">{% trans 'Bookmark pages more easily. Drag this bookmarklet to the Links area of your browser:' %}</span><a id="bml1" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(document.getSelection()), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a><a id="bml2" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(window.getSelection()), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a><a id="bml3" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(document.selection.createRange().text), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a><a id="bml4" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a>
+</div>
+
+<script type="text/javascript">
+   if(YAHOO.env.ua.ie > 0){
+        document.getElementById('bml_label_ie').style.visibility = "visible";
+   }else{
+        document.getElementById('bml_label').style.visibility = "visible";
+   }
+   if(document.getSelection){
+        document.getElementById('bml1').style.visibility = "visible";
+   }
+   else if(window.getSelection){
+        document.getElementById('bml2').style.visibility = "visible";
+   }
+   else if(document.selection.createRange){
+        document.getElementById('bml3').style.visibility = "visible";
+   }
+   else{
+        document.getElementById('bml4').style.visibility = "visible";
+   }
+</script>
