@@ -1,23 +1,44 @@
 {% load i18n %}
-<div><span id="bml_label_ie" style="visibility:hidden;">{%trans 'Bookmark pages more easily. Right click this bookmarklet, click Add to Favorites... menu in context menu, and Add to Links folder.'%}</span><span id="bml_label" style="visibility:hidden;">{% trans 'Bookmark pages more easily. Drag this bookmarklet to the Links area of your browser:' %}</span><a id="bml1" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(document.getSelection()), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a><a id="bml2" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(window.getSelection()), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a><a id="bml3" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(document.selection.createRange().text), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a><a id="bml4" style='visibility:hidden;background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a>
+<div id="bml">
+   <span id="bml_label_ie">{%trans 'Bookmark pages more easily. Right click this bookmarklet, click Add to Favorites, and Add to Links folder.'%}</span>
+   <span id="bml_label">{% trans 'Bookmark pages more easily. Drag this bookmarklet to the Links area of your browser:' %}</span>
+   <a id="bml1" style='background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(document.getSelection()), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a>
+   <a id="bml2" style='background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(window.getSelection()), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a>
+   <a id="bml3" style='background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location)+'&notes='+encodeURIComponent(document.selection.createRange().text), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a>
+   <a id="bml4" style='background-color:#dddddd;border:2px groove black;padding:5px;padding-top:0px;padding-bottom:2px;color:black;font-family:sans-serif; text-decoration:none; font-size:10pt;margin-top:5px' href="javascript:window.open('http://{{http_host}}/bookmarks/add/?_popup=true&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location), '_blank','width=800,height=600,resizable=1,scrollbars=1');undefined;" onclick="return false;">{% trans 'Add Bookmark' %}</a>
 </div>
 
 <script type="text/javascript">
+   var bml = YAHOO.util.Dom.get('bml');
+   var bml_lbl = YAHOO.util.Dom.get('bml_label');
+   var bml_lbl_ie = YAHOO.util.Dom.get('bml_label_ie');
+   var bml1 = YAHOO.util.Dom.get('bml1');
+   var bml2 = YAHOO.util.Dom.get('bml2');
+   var bml3 = YAHOO.util.Dom.get('bml3');
+   var bml4 = YAHOO.util.Dom.get('bml4');
    if(YAHOO.env.ua.ie > 0){
-        document.getElementById('bml_label_ie').style.visibility = "visible";
+        bml.removeChild(bml_lbl);
    }else{
-        document.getElementById('bml_label').style.visibility = "visible";
+        bml.removeChild(bml_lbl_ie);
    }
    if(document.getSelection){
-        document.getElementById('bml1').style.visibility = "visible";
+        bml.removeChild(bml2);
+        bml.removeChild(bml3);
+        bml.removeChild(bml4);
    }
    else if(window.getSelection){
-        document.getElementById('bml2').style.visibility = "visible";
+        bml.removeChild(bml1);
+        bml.removeChild(bml3);
+        bml.removeChild(bml4);
    }
    else if(document.selection.createRange){
-        document.getElementById('bml3').style.visibility = "visible";
+        bml.removeChild(bml1);
+        bml.removeChild(bml2);
+        bml.removeChild(bml4);
    }
    else{
-        document.getElementById('bml4').style.visibility = "visible";
+        bml.removeChild(bml1);
+        bml.removeChild(bml2);
+        bml.removeChild(bml3);
    }
 </script>
