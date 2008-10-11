@@ -40,6 +40,9 @@
             </div>
             <div class="detail">
                <a href="{{link.url}}" class="url">{{link.url}}</a>
+               {% if show_save %}
+                <a href="/bookmarks/copy/{{link.id}}/" class="save command">{% trans "SAVE" %}</a>
+               {% endif %}
                {% if link.get_tags %}
                   -
                   <span class="tags">

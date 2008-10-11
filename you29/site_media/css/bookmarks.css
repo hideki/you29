@@ -84,7 +84,7 @@
     padding-top:3px;
 }
 #link-info .link-url{
-    display: block;
+    display: inline;
     color:#006400;
     padding-left:10px;
 }
@@ -218,6 +218,10 @@ a.page {
 /* command */
 .command { 
     color:#6495ED;
+}
+.command:hover {
+    color: #ffffff;
+    background-color: #4169e1;
 }
 /* end of command */
 
