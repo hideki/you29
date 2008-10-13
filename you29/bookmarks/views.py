@@ -162,7 +162,7 @@ def user_tag_page(request, username, tags):
     is_owner    = True;    
     show_edit   = True;
     show_delete = True;
-    show_delete = False;
+    show_save   = False;
   else:
     bookmarks = Bookmark.objects.filter(user=user).filter(share=True);
     for tag in tag_array:
@@ -172,7 +172,7 @@ def user_tag_page(request, username, tags):
     is_owner    = False;    
     show_edit   = False;
     show_delete = False;
-    show_delete = True;
+    show_save   = True;
   ids = [];
   for bookmark in bookmarks:
     ids.append(bookmark.id);
