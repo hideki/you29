@@ -7,7 +7,8 @@ install:
 
 # uninstall
 uninstall:
-	sudo rm -rf /usr/lib/python2.5/site-packages/you29/
+	sudo rm -rf /usr/local/lib/python2.6/dist-packages/you29/
+
 
 # validate
 validate:

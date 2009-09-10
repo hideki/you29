@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
@@ -22,9 +23,11 @@ def main_page(request):
   logging.debug("bookmarks.views.main_page()");
   logging.debug("lang_code: %s" % request.LANGUAGE_CODE);
   if request.user.is_authenticated():
-    return HttpResponseRedirect('/bookmarks/user/%s/' % request.user.username)
+    #return HttpResponseRedirect('/bookmarks/user/%s/' % request.user.username)
+    return HttpResponseRedirect(reverse('you29.bookmarks.views.user_page',args=(request.user.username,)))
   else:
-    return HttpResponseRedirect('/bookmarks/public/')
+    #return HttpResponseRedirect('/bookmarks/public/')
+    return HttpResponseRedirect(reverse('you29.bookmarks.views.public_page'))
    
 def link_page(request, link_id):
   logging.debug("bookmarks.views.link_page() link_id=%s" % (link_id));
