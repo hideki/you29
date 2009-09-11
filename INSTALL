@@ -34,3 +34,4 @@ Move to /var/www
 #sudo ln -s /usr/lib/python2.5/site-packages/django/contrib/admin/media 
 
 sudo ln -s /usr/local/lib/python2.6/dist-packages/you29/site_media 
+sudo ln -s /usr/local/lib/python2.6/dist-packages/django/contrib/admin/media 

@@ -5,3 +5,4 @@ include LICENSE
 include MANIFEST.in
 recursive-include you29/site_media *
 recursive-include you29/templates *
+recursive-include you29/wsgi *
