@@ -16,15 +16,17 @@ def register_page(request):
             if user is not None:
                 if user.is_active:
                     login(request, user);
-                    return HttpResponseRedirect('/')
+                    return HttpResponseRedirect('%s/' % (request.META['SCRIPT_NAME']))
                 else:
                     # return a 'disabled account' error message.
-                    return HttpResponseRedirect('/accounts/login/')
+                    return HttpResponseRedirect('%s/accounts/login/' % (request.META['SCRIPT_NAME']))
             else:
                 # return an 'invalid login' error message.
-                return HttpResponseRedirect('/accounts/login/')
+                return HttpResponseRedirect('%s/accounts/login/' %(request.META['SCRIPT_NAME']))
     else:
         form = RegistrationForm()
-    variables = RequestContext(request, {'form':form})
+    variables = RequestContext(request, {
+			'script_name':request.META['SCRIPT_NAME'],	
+			'form':form})
     return render_to_response('accounts/register.html',variables)
 

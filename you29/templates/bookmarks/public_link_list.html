@@ -3,7 +3,7 @@
 <!-- title -->
 <div id="content-head">
    <div id="position-navigator">
-      <a href="/bookmarks/public/">{% trans "Recent bookmarks" %}</a>
+      <a href="{{script_name}}/bookmarks/public/">{% trans "Recent bookmarks" %}</a>
       {% if tag_nav %}
          {% for tag_dict in tag_nav %}
             >>
@@ -36,19 +36,19 @@
          <li class="bookmark">
             <div class="bookmark-head">
                <a href="{{link.url}}" class="bookmark-title" target="_blank">{{link.title}}</a>
-               <a href="/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}bookmark-count-popular{%else%}bookmark-count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
+               <a href="{{script_name}}/bookmarks/link/{{link.id}}/" class="{% if link.is_popular %}bookmark-count-popular{%else%}bookmark-count{%endif%}">{{link.user_count}}&nbsp;{% trans "users" %}</a>
             </div>
             <div class="detail">
                <a href="{{link.url}}" class="url">{{link.url}}</a>
                {% if show_save %}
-                <a href="/bookmarks/copy/{{link.id}}/" class="save command">{% trans "SAVE" %}</a>
+                <a href="{{script_name}}/bookmarks/copy/{{link.id}}/" class="save command">{% trans "SAVE" %}</a>
                {% endif %}
                {% if link.get_tags %}
                   -
                   <span class="tags">
                      <img class="tag-image" src="/site_media/images/tag_orange_16x16.png"/>
                      {% for tag in link.get_tags %}
-                        <a class="tag" href="/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
+                        <a class="tag" href="{{script_name}}/bookmarks/public/{{tag.name}}/">{{tag.name}}</a>{% if not forloop.last %},{% endif%}
                      {% endfor %}
                   </span>
                {% endif %}
@@ -57,7 +57,7 @@
                {% if b.notes %}
                   {% if b.share %}
                      <div class="note">
-                        <a href="/bookmarks/user/{{b.user.username}}" class="user">{{b.user.username}}</a>
+                        <a href="{{script_name}}/bookmarks/user/{{b.user.username}}" class="user">{{b.user.username}}</a>
                         <span style="color:#3c3c3c">wrote a note:</span>
                         <span class="note-text">{{b.notes|truncate_chars:100}}</span>
                         <a class="note-more" href="/bookmarks/link/{{link.id}}/">More...</a>

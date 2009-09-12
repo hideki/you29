@@ -1,5 +1,6 @@
 import logging
 import urllib
+import re
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -16,17 +17,17 @@ from models import Bookmark, Link, Tag
 ITEMS_PER_PAGE = 25;
 
 def i18n_config(request):
-  variables = RequestContext(request, { 'LANGUAGES':settings.LANGUAGES, });
+  variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
+		'LANGUAGES':settings.LANGUAGES, });
   return render_to_response('bookmarks/i18n_page.html', variables)
 
 def main_page(request):
   logging.debug("bookmarks.views.main_page()");
   logging.debug("lang_code: %s" % request.LANGUAGE_CODE);
   if request.user.is_authenticated():
-    #return HttpResponseRedirect('/bookmarks/user/%s/' % request.user.username)
     return HttpResponseRedirect(reverse('you29.bookmarks.views.user_page',args=(request.user.username,)))
   else:
-    #return HttpResponseRedirect('/bookmarks/public/')
     return HttpResponseRedirect(reverse('you29.bookmarks.views.public_page'))
    
 def link_page(request, link_id):
@@ -36,6 +37,7 @@ def link_page(request, link_id):
   bookmarks = Bookmark.objects.filter(link=link).filter(share=True).order_by('-date');
   tags      = Link.objects.tag_clouds(30);
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
     'page_type':'link',
     'content_type':'public',
     'count': len(bookmarks),
@@ -56,6 +58,7 @@ def public_page(request):
   links = Link.objects.shared_links(30, [], linksortedby);
   tags  = Link.objects.tag_clouds(30);
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
     'page_type':'public',
     'content_type':'public',
     'linksortedby':linksortedby,
@@ -83,6 +86,7 @@ def public_tag_page(request, tags):
       tag_dict = {'name': tag, 'url': url};
       tag_nav.append(tag_dict);
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
     'page_type':'public',
     'content_type':'public',
     'linksortedby':linksortedby,
@@ -95,6 +99,8 @@ def public_tag_page(request, tags):
   return render_to_response('bookmarks/bookmarks_page.html', variables)
 
 def user_page(request, username):
+  logging.debug("bookmarks.views.user_page() request.META['SCRIPT_NAME']=%s" % (request.META['SCRIPT_NAME']));
+  logging.debug("bookmarks.views.user_page() request.path=%s" % (request.path));
   logging.debug("bookmarks.views.user_page() username=%s" % (username));
   logging.debug("bookmarks.views.user_page() request.user.username=%s" % (request.user.username));
   http_host = request.META['HTTP_HOST']
@@ -124,6 +130,7 @@ def user_page(request, username):
   except:
     raise Http404;
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
     'page_type':'user',
     'content_type':'user',
     'sortedby':sortedby,
@@ -196,6 +203,7 @@ def user_tag_page(request, username, tags):
     tag_dict = {'name': tag, 'url': url};
     tag_nav.append(tag_dict);
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
     'page_type':'user',
     'content_type':'user',
     'sortedby':sortedby,
@@ -227,7 +235,7 @@ def add_bookmark(request):
   if not request.user.is_authenticated():
      url = request.path + '?' + request.META['QUERY_STRING'];
      url = urllib.quote(url);
-     return HttpResponseRedirect('/accounts/login/?next=%s' % url);
+     return HttpResponseRedirect('%s/accounts/login/?next=%s' % (request.META['SCRIPT_NAME'],url));
   if(request.GET.has_key('url') and request.GET.has_key('title')):
      # url
      url   = request.GET['url'];
@@ -245,6 +253,7 @@ def add_bookmark(request):
   if(request.GET.has_key('_popup')):
      popup = bool(request.GET['_popup']);
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
      'user': request.user,
      'username':request.user.username,
      'form':form
@@ -258,7 +267,7 @@ def add_bookmark(request):
 def copy_bookmark(request, link_id):
   logging.debug("bookmarks.views.copy_bookmark() link_id=%s" % (link_id));
   if not request.user.is_authenticated():
-    return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
+    return HttpResponseRedirect('%s/accounts/login/?next=%s' % (request.META['SCRIPT_NAME'],request.path))
   link     = get_object_or_404(Link, id=link_id)
   try:
     bookmark = Bookmark.objects.get(link=link, user=request.user);
@@ -270,6 +279,7 @@ def copy_bookmark(request, link_id):
   notes = None;
   form  = BookmarkSaveForm({'url':url,'title':title,'notes':notes, 'share':True});
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
      'user': request.user,
      'username':request.user.username,
      'form':form
@@ -280,7 +290,7 @@ def copy_bookmark(request, link_id):
 def edit_bookmark(request, bookmark_id):
   logging.debug("bookmarks.views.edit_bookmark() bookmark_id=%s" % (bookmark_id));
   if not request.user.is_authenticated():
-    return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
+    return HttpResponseRedirect('%s/accounts/login/?next=%s' % (request.META['SCRIPT_NAME'],request.path))
   bookmark = get_object_or_404(Bookmark, id=bookmark_id)
   url      = bookmark.link.url
   title    = bookmark.title
@@ -288,27 +298,29 @@ def edit_bookmark(request, bookmark_id):
   notes    = bookmark.notes
   share    = bookmark.share;
   form     = BookmarkSaveForm({'url':url,'title':title,'tags':tags, 'notes':notes, 'share':share})
-  variables = RequestContext(request, {'form':form})
+  variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
+		'form':form})
   return render_to_response('bookmarks/save_page.html', variables)
 
 # Delete Bookmark
 def delete_bookmark(request, bookmark_id):
   logging.debug("bookmarks.views.delete_bookmark() bookmark_id=%s" % (bookmark_id));
   if not request.user.is_authenticated():
-    return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
+    return HttpResponseRedirect('%s/accounts/login/?next=%s' % (request.META['SCRIPT_NAME'],request.path))
   bookmark = get_object_or_404(Bookmark, id=bookmark_id)
   if(bookmark.user.username == request.user.username):
     link = bookmark.link;
     bookmark.delete();
     if(link.bookmark_set.count() == 0):
       link.delete();
-  return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
+  return HttpResponseRedirect('%s/bookmarks/user/%s' % (request.META['SCRIPT_NAME'],request.user.username))
 
 # Save Bookmark
 def save_bookmark(request):
   logging.debug("bookmarks.views.save_bookmark()");
   if not request.user.is_authenticated():
-    return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
+    return HttpResponseRedirect('%s/accounts/login/?next=%s' % (request.META['SCRIPT_NAME'],request.path))
   popup = False;
   if request.method == 'POST':
     if(request.POST.has_key('_popup')):
@@ -319,12 +331,13 @@ def save_bookmark(request):
       if(popup):
         return render_to_response('bookmarks/close_page.html')
       else:
-        return HttpResponseRedirect('/bookmarks/user/%s' % request.user.username)
+        return HttpResponseRedirect('%s/bookmarks/user/%s' % (request.META['SCRIPT_NAME'],request.user.username))
   else:
     if(request.GET.has_key('_popup')):
       popup = bool(request.GET['_popup']);
   tags = Bookmark.objects.tag_clouds(request.user.username, True);
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
     'user': request.user,
     'username':request.user.username,
     'form':form,
@@ -392,6 +405,7 @@ def search_bookmarks(request, username):
       bookmarks = bookmarks.distinct();
       bookmarks = bookmarks.order_by('-date');
   variables = RequestContext(request,{
+		'script_name':request.META['SCRIPT_NAME'],
     'page_type':'search',
     'content_type':'user',
     'query':query,
@@ -425,6 +439,7 @@ def public_search_bookmarks(request):
         links = links.filter(q);
       links = links.distinct();
   variables = RequestContext(request, {
+		'script_name':request.META['SCRIPT_NAME'],
     'page_type':'search',
     'content_type':'public',
     'query':query,

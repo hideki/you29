@@ -9,10 +9,15 @@ def contact(request):
         form = ContactForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             form.save();
-            return render_to_response('contact/contact_sent.html', {});
+            return render_to_response('contact/contact_sent.html', {
+							'script_name':request.META['SCRIPT_NAME']});
     else:        
         form = ContactForm(); # An unbound form
         if request.user.is_authenticated():
             form = ContactForm(initial={'name':request.user.username,'email':request.user.email}); # An unbound form
-    return render_to_response('contact/contact.html', {'form':form},
+    return render_to_response('contact/contact.html',
+						{
+							'script_name':request.META['SCRIPT_NAME'],
+						'form':form
+						},
             context_instance=RequestContext(request));

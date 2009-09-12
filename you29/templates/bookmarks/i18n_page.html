@@ -6,8 +6,8 @@
 {% block content %}
   <div id="content-head"><h1>{% trans "Language configuration" %}</h1></div>
   <!-- form -->
-  <form action="/i18n/setlang/" method="post">
-    <input name="next" type="hidden" value="/" />
+  <form action="{{script_name}}/i18n/setlang/" method="post">
+    <input name="next" type="hidden" value="{{script_name}}/" />
     <select name="language">
       {% for lang in LANGUAGES %}
         <option value="{{ lang.0 }}">{{ lang.1 }}</option>

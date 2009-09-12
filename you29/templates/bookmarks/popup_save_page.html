@@ -6,7 +6,7 @@
 {% block content %}
   <div id="content-head"><h1>{% trans "Save a new bookmark" %}</h1></div>
   <!-- form -->
-  <form id="save-form" method="post" action="/bookmarks/save/">
+  <form id="save-form" method="post" action="{{script_name}}/bookmarks/save/">
     <table>
     {% for field in form %}
       <tr class="form-field">

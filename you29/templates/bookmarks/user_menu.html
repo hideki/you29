@@ -2,19 +2,19 @@
 <!-- user menu -->
 <div id="user-menu">
   {% ifnotequal page_type 'public' %}
-    <a id="bookmarks-home" href="/bookmarks/public/">{% trans "Everyone's" %}</a> |
+    <a id="bookmarks-home" href="{{script_name}}/bookmarks/public/">{% trans "Everyone's" %}</a> |
   {% endifnotequal %}
   {% if user.is_authenticated %}
-    Signed in as <a href="/bookmarks/user/{{user.username}}/"><b>{{user.username}}</b></a> |
-    <a id="save" href="/bookmarks/add/">{% trans "Save Bookmark" %}</a> |
-    <a id="i18n" href="/bookmarks/i18n/">{% trans "Language" %}</a> |
-    <a id="password-change" href="/accounts/password_change/">{% trans "Change password" %}</a> |
-    <a id="logout" href="/accounts/logout/">{% trans "Sign Out" %}</a> |
+    Signed in as <a href="{{script_name}}/bookmarks/user/{{user.username}}/"><b>{{user.username}}</b></a> |
+    <a id="save" href="{{script_name}}/bookmarks/add/">{% trans "Save Bookmark" %}</a> |
+    <a id="i18n" href="{{script_name}}/bookmarks/i18n/">{% trans "Language" %}</a> |
+    <a id="password-change" href="{{script_name}}/accounts/password_change/">{% trans "Change password" %}</a> |
+    <a id="logout" href="{{script_name}}/accounts/logout/?next={{script_name}}/">{% trans "Sign Out" %}</a> |
   {% else %}
-    <a id="i18n" href="/bookmarks/i18n/">{% trans "Language" %}</a> |
-    <a id="register" href="/accounts/register/">{% trans "Join Now!" %}</a> |
-    <a id="login" href="/accounts/login/?next=/">{% trans "Sign In" %}</a> |
+    <a id="i18n" href="{{script_name}}/bookmarks/i18n/">{% trans "Language" %}</a> |
+    <a id="register" href="{{script_name}}/accounts/register/">{% trans "Join Now!" %}</a> |
+    <a id="login" href="{{script_name}}/accounts/login/?next=/">{% trans "Sign In" %}</a> |
   {% endif %}
-  <a id="contact" href="/contact/">{% trans "Contact" %}</a>
+  <a id="contact" href="{{script_name}}/contact/">{% trans "Contact" %}</a>
 </div>
 <!-- end of user menu -->

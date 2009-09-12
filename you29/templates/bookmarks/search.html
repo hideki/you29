@@ -2,12 +2,12 @@
 <div class="query">
    <h2 >{% trans "Search" %}</h2>
    {% ifequal content_type 'user' %}
-      <form class="query-form" method="get" action="/bookmarks/search/{{username}}/">
+      <form class="query-form" method="get" action="{{script_name}}/bookmarks/search/{{username}}/">
          <input type="text" name="query" class="query-text" value="{{query}}"/>
          <input type="submit" value="Search" class="query_submit"/>
       </form>
    {% else %}
-      <form class="query-form" method="get" action="/bookmarks/public_search/">
+      <form class="query-form" method="get" action="{{script_name}}/bookmarks/public_search/">
          <input type="text" name="query" class="query-text" value="{{query}}"/>
          <input type="submit" value="Search" class="query_submit"/>
       </form>
