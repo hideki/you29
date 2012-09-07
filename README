@@ -12,25 +12,3 @@ Applications
 Support Applications
     accounts
     tags
-
-#
-# Getting Started with Git
-# http://you29.unfuddle.com/repositories/19961/browse/head
-#
-Local Repository Creation
-    $ mkdir /path/to/repository
-    $ cd /path/to/repository
-    $ git init
-
-Add files to remove remote repository
-    $ cd /path/to/repository
-    $ git remote add unfuddle git@you29.unfuddle.com:you29/you29.git
-    $ git-config remote.unfuddle.push refs/heads/master:refs/heads/master
-
-Push any locally made commits to remote repository
-    $ git push unfuddle master
-
-Pull from remote repository
-    $ git pull unfuddle master
-
-
